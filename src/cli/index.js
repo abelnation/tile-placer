@@ -6,4 +6,4 @@
 //
 
 require('babel/register')
-require('./app')
+require('./cli')

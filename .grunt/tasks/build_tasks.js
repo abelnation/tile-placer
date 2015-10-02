@@ -7,6 +7,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'lint',
+        'mustache_render',
         'webpack',
         'sass',
         'rsync:stage'

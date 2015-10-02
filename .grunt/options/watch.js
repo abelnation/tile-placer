@@ -7,6 +7,7 @@ module.exports = function(grunt) {
             ],
             tasks: [
                 'lint',
+                // TODO: (aallison) webpack options
                 'test',
             ]
         },
@@ -27,6 +28,7 @@ module.exports = function(grunt) {
             ],
             tasks: [
                 'lint',
+                'mustache_render', // generate ModelManager.es6 file
                 'test',
             ]
         },
