@@ -5,15 +5,17 @@
 // Created by aallison on 10/5/15.
 //
 
-const BaseCommand = require('../../commands/BaseCommand')
+const PlayerCommand = require('../../commands/PlayerCommand')
 
 const GUESS = 'guess'
 
-class AddGuessCommand extends BaseCommand {
-    constructor(guess) {
-        super()
+class AddGuessCommand extends PlayerCommand {
+    constructor(player, guess) {
+        super(player)
         this.set(GUESS, guess)
     }
+
+    getGuess() { return this.get(GUESS) }
 
     execute(simpleGameState, done) {
         if (!(simpleGameState instanceof SimpleState)) {
@@ -21,7 +23,7 @@ class AddGuessCommand extends BaseCommand {
         }
 
         try {
-            simpleGameState.addGuess(this.get(GUESS))
+            simpleGameState.addGuessForPlayer(this.getPlayer(), this.getGuess())
             done(null, { gameState: simpleGameState })
         } catch (e) {
             done({ gameState: simpleGameState, error: e })

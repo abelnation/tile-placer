@@ -11,6 +11,7 @@ const bluebird = require('bluebird')
 const MessageChannel = require('../../network/channel/MessageChannel')
 const TcpMessageChannel = require('../../network/channel/TcpMessageChannel')
 
+const BaseError = require('../../models/error/BaseError')
 const AckResponse = require('../../models/network/liveclient/AckResponse')
 const LiveClientRequest = require('../../models/network/liveclient/LiveClientRequest')
 const LiveClientResponse = require('../../models/network/liveclient/LiveClientResponse')
@@ -103,12 +104,18 @@ class LiveClient extends EventEmitter {
                 return done(err)
             }
 
+            delete this.listeners[req.getRequestId()]
+
             if (!(result instanceof LiveClientResponse)) {
                 delete this.listeners[req.getRequestId()]
                 return done(new Error(`expected LiveClientResponse, but got: ${ typeof result }`))
             }
 
-            delete this.listeners[req.getRequestId()]
+            const content = result.getContent()
+            if (content instanceof BaseError) {
+                return done(content)
+            }
+
             done(null, result.getContent())
         })
 

@@ -23,8 +23,6 @@ const models = {
     'GetStateCommand': require('./game/commands/GetStateCommand.es6'),
     'StateChangedEvent': require('./game/events/StateChangedEvent.es6'),
     'ServerEvent': require('./network/ServerEvent.es6'),
-    'UserCommandRequest': require('./network/UserCommandRequest.es6'),
-    'UserCommandResponse': require('./network/UserCommandResponse.es6'),
     'NetworkMessage': require('./network/channel/NetworkMessage.es6'),
     'AckResponse': require('./network/liveclient/AckResponse.es6'),
     'LiveClientRequest': require('./network/liveclient/LiveClientRequest.es6'),
