@@ -85,7 +85,8 @@ describe('LiveClient Functional Test', () => {
         let clientAck = false
         let serverAck = false
 
-        // simple ack server
+        // Setup our server
+        // It is a simple ack server, which just acks any command it receives
         tcpServer.on('connection', socket => {
             console.log('tcp server received connection')
             serverLiveClient = LiveClient.fromSocket(socket)
@@ -112,6 +113,7 @@ describe('LiveClient Functional Test', () => {
             }, 500)
         })
 
+        // Connect to our server with a client
         console.log('Connecting to TCP server')
         LiveClient.connect('localhost', Constants.TCP_SERVER_PORT, (err, liveClient) => {
             if (err) {
