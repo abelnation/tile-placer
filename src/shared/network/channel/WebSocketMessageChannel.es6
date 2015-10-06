@@ -7,8 +7,7 @@
 
 const MessageChannel = require('./MessageChannel')
 const ModelManager = require('../../../shared/models/ModelManager')
-const NetworkMessage = require('../../../shared/models/NetworkMessage')
-const CommandCenter = require('../CommandCenter')
+const NetworkMessage = require('../../network/channel/NetworkMessage')
 
 class WebSocketMessageChannel extends MessageChannel {
     constructor(webSocket) {
@@ -48,7 +47,7 @@ class WebSocketMessageChannel extends MessageChannel {
         })
 
         webSocket.on('message', (data, flags) => {
-            console.log('webSocket.onmessage')
+            console.log('webSocket.message')
             console.log(`received data: ${ JSON.stringify(data) }`)
 
             let networkMessage
@@ -58,13 +57,13 @@ class WebSocketMessageChannel extends MessageChannel {
                 console.log('error parsing model from json: ' + JSON.stringify(data))
                 console.log(e.stack)
                 const error = { error: 'invalid model json', data: data }
-                this.send(new NetworkMessage(error))
+                this.send(error)
                 return
             }
 
             if (networkMessage.error) {
                 this.emit(MessageChannel.EVENT_NETWORK_ERROR, networkMessage)
-                this.send(new NetworkMessage(networkMessage))
+                this.send(networkMessage)
             } else if(!(networkMessage instanceof NetworkMessage)) {
                 this.emit(MessageChannel.EVENT_NETWORK_ERROR, { error: 'data received not instance of NetworkMessage', data: data })
             } else {
@@ -73,11 +72,11 @@ class WebSocketMessageChannel extends MessageChannel {
         })
 
         webSocket.on('ping', (data, flags) => {
-            console.log('webSocket.onmessage')
+            console.log('webSocket.ping')
         })
 
         webSocket.on('pong', (data, flags) => {
-            console.log('webSocket.onmessage')
+            console.log('webSocket.pong')
         })
     }
 
@@ -90,6 +89,10 @@ class WebSocketMessageChannel extends MessageChannel {
         const code = undefined
         const data = undefined
         this.webSocket.close(code, data)
+    }
+
+    static connect(host, port) {
+        // TODO: (aallison) implement
     }
 
     static fromWebSocket(webSocket) {

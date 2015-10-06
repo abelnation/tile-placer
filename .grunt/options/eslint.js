@@ -11,6 +11,11 @@ module.exports = function(grunt) {
             '!<%= paths.src %>/client/js/**'
         ],
 
+        clisrc: [
+            '<%= paths.src %>/*.{es6,jsx}',
+            '<%= paths.src %>/**/*.{es6,jsx}',
+        ],
+
         serversrc: [
             '<%= paths.servers %>/*.{es6,jsx}',
             '<%= paths.servers %>/**/*.{es6,jsx}',

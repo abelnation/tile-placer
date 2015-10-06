@@ -5,7 +5,7 @@
 // Created by aallison on 9/30/15.
 //
 
-const BaseModel = require('./BaseModel')
+const BaseModel = require('../../BaseModel')
 
 class NetworkMessage extends BaseModel {
     constructor(message) {

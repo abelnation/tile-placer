@@ -5,12 +5,30 @@
 // Created by aallison on 9/30/15.
 //
 
+const BaseModel = require('./BaseModel')
+
 const models = {
-    'BaseModel': require('./BaseModel'),
+    'BaseModel': BaseModel,
     // BEGIN auto-generated models code
-    'NetworkMessage': require('./NetworkMessage.es6'),
+    'User': require('./User.es6'),
     'BaseCommand': require('./commands/BaseCommand.es6'),
-    'EchoCommand': require('./commands/EchoCommand.es6'),
+    'PingCommand': require('./commands/PingCommand.es6'),
+    'PlayerCommand': require('./commands/PlayerCommand.es6'),
+    'RequestAckCommand': require('./commands/RequestAckCommand.es6'),
+    'TestIllegalCommand': require('./commands/TestIllegalCommand.es6'),
+    'BaseError': require('./error/BaseError.es6'),
+    'SimpleState': require('./game/SimpleState.es6'),
+    'AddGuessCommand': require('./game/commands/AddGuessCommand.es6'),
+    'EchoCommand': require('./game/commands/EchoCommand.es6'),
+    'GetStateCommand': require('./game/commands/GetStateCommand.es6'),
+    'StateChangedEvent': require('./game/events/StateChangedEvent.es6'),
+    'ServerEvent': require('./network/ServerEvent.es6'),
+    'UserCommandRequest': require('./network/UserCommandRequest.es6'),
+    'UserCommandResponse': require('./network/UserCommandResponse.es6'),
+    'NetworkMessage': require('./network/channel/NetworkMessage.es6'),
+    'AckResponse': require('./network/liveclient/AckResponse.es6'),
+    'LiveClientRequest': require('./network/liveclient/LiveClientRequest.es6'),
+    'LiveClientResponse': require('./network/liveclient/LiveClientResponse.es6'),
     // END   auto-generated models code
 }
 
@@ -36,14 +54,18 @@ const ModelManager = {
             throw new Error('json is undefined')
         }
 
-        if (typeof json === 'string') {
+        if (typeof json == 'string') {
             json = JSON.parse(json)
         }
 
         if (!json.type) {
             throw new Error('model has no type attribute')
         }
-        
+
+        if (json instanceof BaseModel) {
+            return json
+        }
+
         const Ctor = ModelManager.getModel(json.type)
         const result = new Ctor().initFromJSON(json)
 

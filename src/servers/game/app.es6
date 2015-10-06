@@ -5,9 +5,8 @@
 // Created by aallison on 9/30/15.
 //
 
-const WebSocketGameMessageChannel = require('./channel/WebSocketMessageChannel')
-const TcpMessageChannel = require('./channel/TcpMessageChannel')
-const BaseCommand = require('../../shared/models/commands/BaseCommand')
+const WebSocketGameMessageChannel = require('.././WebSocketMessageChannel')
+const TcpMessageChannel = require('.././TcpMessageChannel')
 const CommandCenter = require('./CommandCenter')
 
 const websocketServer = require('./server/websocketServer')

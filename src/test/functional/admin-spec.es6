@@ -9,7 +9,7 @@
 const assert = require('chai').assert
 
 const PORT = 8998
-const AdminClient = require('../../shared/api/AdminClient')
+const AdminClient = require('../../shared/clients/api/AdminClient')
 const client = new AdminClient('localhost', PORT)
 
 const app = require('../../servers/frontend/app')

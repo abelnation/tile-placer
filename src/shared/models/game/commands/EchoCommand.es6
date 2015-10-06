@@ -5,7 +5,7 @@
 // Created by aallison on 9/30/15.
 //
 
-const BaseCommand = require('./BaseCommand')
+const BaseCommand = require('../../commands/BaseCommand')
 
 class EchoCommand extends BaseCommand {
     constructor(content) {

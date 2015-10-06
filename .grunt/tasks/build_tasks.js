@@ -5,12 +5,11 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean',
-        'lint',
+        // 'clean',
         'mustache_render',
-        'webpack',
-        'sass',
-        'rsync:stage'
+        // 'webpack',
+        // 'sass',
+        // 'rsync:stage'
     ]);
 
     grunt.registerTask('docs', [

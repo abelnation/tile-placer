@@ -6,7 +6,6 @@
 //
 
 const BaseCommand = require('../../shared/models/commands/BaseCommand')
-const NetworkMessage = require('../../shared/models/NetworkMessage')
 const MessageChannel = require('./channel/MessageChannel')
 
 class CommandCenter {
@@ -16,7 +15,9 @@ class CommandCenter {
             if (command instanceof BaseCommand) {
 
                 command.executeAsync({}).then(result => {
-                    gameMessageChannel.send(new NetworkMessage(result))
+                    gameMessageChannel.send(result)
+                }).catch(error => {
+                    gameMessageChannel.send({ error: error, command: command })
                 })
 
             } else {

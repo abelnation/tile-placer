@@ -5,8 +5,10 @@
 // Created by aallison on 9/30/15.
 //
 
+const BaseModel = require('./BaseModel')
+
 const models = {
-    'BaseModel': require('./BaseModel'),
+    'BaseModel': BaseModel,
     // BEGIN auto-generated models code
 {{{ generated_models }}}
     // END   auto-generated models code
@@ -34,11 +36,18 @@ const ModelManager = {
             throw new Error('json is undefined')
         }
 
+        if (typeof json == 'string') {
+            json = JSON.parse(json)
+        }
+
         if (!json.type) {
             throw new Error('model has no type attribute')
         }
 
-        console.log(`type: ${ json.type }`)
+        if (json instanceof BaseModel) {
+            return json
+        }
+
         const Ctor = ModelManager.getModel(json.type)
         const result = new Ctor().initFromJSON(json)
 

@@ -6,8 +6,9 @@
 //
 
 const net = require('net')
+const Constants = require('../../../shared/Constants')
 
-const TCP_PORT = 8003
+const TCP_PORT = Constants.TCP_SERVER_PORT
 
 const tcpServer = net.createServer()
 

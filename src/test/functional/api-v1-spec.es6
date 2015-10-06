@@ -9,7 +9,7 @@
 const assert = require('chai').assert
 
 const PORT = 8999
-const ApiClient = require('../../shared/api/ApiClient')
+const ApiClient = require('../../shared/clients/api/ApiClient')
 const client = new ApiClient('localhost', PORT)
 
 const app = require('../../servers/frontend/app')

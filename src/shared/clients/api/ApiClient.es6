@@ -5,12 +5,12 @@
 // Created by aallison on 9/30/15.
 //
 
-const detach = require('../util/detach')
+const detach = require('../../util/detach')
 const BaseClient = require('./BaseClient')
 
-const API_PREFIX = '/admin'
+const API_PREFIX = '/api/v1'
 
-class AdminClient extends BaseClient {
+class ApiClient extends BaseClient {
 
     constructor(host = 'localhost', port = '8000') {
         super(API_PREFIX, host, port)
@@ -33,4 +33,4 @@ class AdminClient extends BaseClient {
     }
 }
 
-module.exports = AdminClient
+module.exports = ApiClient
