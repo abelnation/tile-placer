@@ -21,6 +21,7 @@ describe('Player', () => {
         assert.equal(player.getMoney(), 15)
         assert.equal(player.getReputation(), 0)
         assert.equal(player.getPopulation(), 0)
+        assert.equal(player.getInvestmentMarkers(), 4)
         assert.lengthOf(player.getBoard(), 0)
         assert.lengthOf(player.getGoals(), 0)
 

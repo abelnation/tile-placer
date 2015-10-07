@@ -14,6 +14,7 @@ class Player extends BaseModel {
 
         this.set('income', 0)
         this.set('money', 15)
+        this.set('investmentMarkers', 4)
 
         this.set('reputation', 0)
         this.set('population', 0)
@@ -29,6 +30,7 @@ class Player extends BaseModel {
 
     getIncome() { return this.get('income') }
     getMoney() { return this.get('money') }
+    getInvestmentMarkers() { return this.get('investmentMarkers') }
 
     getReputation() { return this.get('reputation') }
     getPopulation() { return this.get('population') }
