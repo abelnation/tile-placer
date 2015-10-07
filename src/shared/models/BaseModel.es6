@@ -7,6 +7,7 @@
 
 const _ = require('underscore')
 const objUtils = require('../util/object')
+const Logger = require('../log/Logger')
 
 class BaseModel {
     constructor() {
@@ -44,13 +45,30 @@ class BaseModel {
     toJSON() {
         const result = { type: this.type }
         result.data = objUtils.map(this.data, v => {
-            if (_.isObject(v) && !_.isUndefined(v.toJSON)) {
+            if (v instanceof Error) {
+                Logger.debug('serializing error in model', v.stack)
+                return {
+                    message: v.message,
+                    stack: v.stack
+                }
+            } else if (_.isObject(v) && !_.isUndefined(v.toJSON)) {
                 return v.toJSON()
             } else {
                 return v
             }
         })
 
+        return result
+    }
+
+    toMinimalJSON() {
+        const result = objUtils.map(this.data, val => {
+            if (val instanceof BaseModel) {
+                return val.toMinimalJSON()
+            } else {
+                return val
+            }
+        })
         return result
     }
 }

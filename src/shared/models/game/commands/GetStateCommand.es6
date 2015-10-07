@@ -13,7 +13,7 @@ class GetStateCommand extends BaseCommand {
     }
 
     execute(gameState, done) {
-        done(null, { gameState: gameState })
+        done(null, gameState)
     }
 }
 module.exports = GetStateCommand

@@ -6,20 +6,11 @@
 //
 
 const BaseModel = require('../BaseModel')
+const BaseError = require('../error/BaseError')
+const Guess = require ('./Guess')
 
 const CURRENT_GUESS = 'currentGuess'
 const PAST_GUESSES = 'pastGuesses'
-
-class Guess extends BaseModel {
-    constructor(player, guess) {
-        super()
-        this.set('player', player)
-        this.set('guess', guess)
-    }
-
-    getPlayer() { return this.get('player') }
-    getGuess() { return this.get('guess') }
-}
 
 class SimpleState extends BaseModel {
     constructor() {
@@ -37,7 +28,7 @@ class SimpleState extends BaseModel {
     addGuessForPlayer(player, guess) {
         const pastGuesses = this.getPastGuesses()
         if (guess in pastGuesses) {
-            throw new Exception(`${ guess } has already been guessed`)
+            throw new BaseError(`${ guess } has already been guessed`)
         }
 
         const guessObj = new Guess(player, guess)

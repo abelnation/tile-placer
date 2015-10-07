@@ -5,6 +5,7 @@
 // Created by aallison on 9/30/15.
 //
 
+const BaseError = require('../../models/error/BaseError')
 const MessageChannel = require('./MessageChannel')
 const ModelManager = require('../../../shared/models/ModelManager')
 const NetworkMessage = require('../../network/channel/NetworkMessage')
@@ -13,7 +14,7 @@ class WebSocketMessageChannel extends MessageChannel {
     constructor(webSocket) {
         super()
         if (!webSocket) {
-            throw new Error('webSocket is null')
+            throw new BaseError('webSocket is null')
         }
 
         this.webSocket = webSocket

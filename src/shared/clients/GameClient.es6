@@ -5,6 +5,8 @@
 // Created by aallison on 10/4/15.
 //
 
+const promisifyAll = require('bluebird').promisifyAll
+
 const Constants = require('../Constants')
 const uuid = require('../util/uuid')
 const detach = require('../util/detach')
@@ -17,7 +19,7 @@ const EchoCommand = require('../models/game/commands/EchoCommand')
 const AddGuessCommand = require('../models/game/commands/AddGuessCommand')
 const GetStateCommand = require('../models/game/commands/GetStateCommand')
 
-class GameClient extends EventEmitter {
+class GameClient {
     constructor(host = 'localhost', port = Constants.TCP_SERVER_PORT) {
         this.host = host
         this.port = port
@@ -25,12 +27,7 @@ class GameClient extends EventEmitter {
         this.listeners = {}
 
         this.user = new User(uuid.getRandomUuid())
-
-        this.init()
-    }
-
-    init() {
-        this.connect()
+        promisifyAll(this)
     }
 
     connect(done) {
@@ -41,6 +38,10 @@ class GameClient extends EventEmitter {
             this.client = liveClient
             done(null, this)
         })
+    }
+
+    disconnect() {
+        this.client.close()
     }
 
     echo(content, done) {
@@ -57,12 +58,14 @@ class GameClient extends EventEmitter {
         }).catch(err => {
             detach(done, err)
         })
-
-        this.sendCommandRequest()
     }
 
     getState(done) {
-        this.sendCommandRequest(new GetStateCommand())
+        this.client.requestAsync(new GetStateCommand()).then(result => {
+            detach(done, null, result)
+        }).catch(err => {
+            detach(done, err)
+        })
     }
 
 }

@@ -6,6 +6,7 @@
 //
 
 const BaseModel = require('./BaseModel')
+const BaseError = require('./error/BaseError')
 
 const models = {
     'BaseModel': BaseModel,
@@ -17,7 +18,7 @@ const models = {
 const ModelManager = {
     getModel(name) {
         if (!(name in models)) {
-            throw new Error(`Invalid model name: ${ name }`)
+            throw new BaseError(`Invalid model name: ${ name }`)
         }
         return models[name]
     },
@@ -25,7 +26,7 @@ const ModelManager = {
     createModel(name, klass) {
         console.log(`createModel(${ name }, ${ klass }`)
         if (name in models) {
-            throw new Error(`Model ${ name } already exists`)
+            throw new BaseError(`Model ${ name } already exists`)
         }
         models[name] = klass
         return klass
@@ -33,7 +34,7 @@ const ModelManager = {
 
     fromJSON(json) {
         if (!json) {
-            throw new Error('json is undefined')
+            throw new BaseError('json is undefined')
         }
 
         if (typeof json == 'string') {
@@ -41,7 +42,7 @@ const ModelManager = {
         }
 
         if (!json.type) {
-            throw new Error('model has no type attribute')
+            throw new BaseError('model has no type attribute')
         }
 
         if (json instanceof BaseModel) {

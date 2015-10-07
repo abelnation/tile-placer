@@ -25,14 +25,35 @@ class Logger {
         const [caller, location] = Logger.getFileLocation()
         let locationSuffix = ''
         if (caller && location) {
-            locationSuffix = `(${ caller } -> ${ location })`
+            locationSuffix = ` (${ caller } -> ${ location })`
         } else if (location) {
-            locationSuffix = `(${ location })`
+            locationSuffix = ` (${ location })`
         }
         console.log(`${ prefix }: ${ str }${ locationSuffix }`)
         if (obj) {
-            console.log(JSON.stringify(obj, null, 2))
+            Logger.logObject(obj)
         }
+    }
+
+    static logObject(obj) {
+        try {
+            if (!obj) {
+                return
+            } else if (obj instanceof String) {
+                console.log(obj)
+            } else if (obj instanceof Error) {
+                console.log(obj.stack)
+            } else if (typeof obj.toMinimalJSON === 'function') {
+                console.log(JSON.stringify(obj.toMinimalJSON(), null, 2))
+            } else {
+                console.log(JSON.stringify(obj, null, 2))
+            }
+        } catch (e) {
+            console.log(e.stack)
+            console.log(BaseModel)
+            console.log(JSON.stringify(obj))
+        }
+
     }
 
     static error(str, obj) {

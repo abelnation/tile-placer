@@ -6,6 +6,7 @@
 //
 
 const BaseModel = require('./BaseModel')
+const BaseError = require('./error/BaseError')
 
 const models = {
     'BaseModel': BaseModel,
@@ -17,6 +18,7 @@ const models = {
     'RequestAckCommand': require('./commands/RequestAckCommand.es6'),
     'TestIllegalCommand': require('./commands/TestIllegalCommand.es6'),
     'BaseError': require('./error/BaseError.es6'),
+    'Guess': require('./game/Guess.es6'),
     'SimpleState': require('./game/SimpleState.es6'),
     'AddGuessCommand': require('./game/commands/AddGuessCommand.es6'),
     'EchoCommand': require('./game/commands/EchoCommand.es6'),
@@ -25,6 +27,7 @@ const models = {
     'ServerEvent': require('./network/ServerEvent.es6'),
     'NetworkMessage': require('./network/channel/NetworkMessage.es6'),
     'AckResponse': require('./network/liveclient/AckResponse.es6'),
+    'LiveClientErrorResponse': require('./network/liveclient/LiveClientErrorResponse.es6'),
     'LiveClientRequest': require('./network/liveclient/LiveClientRequest.es6'),
     'LiveClientResponse': require('./network/liveclient/LiveClientResponse.es6'),
     // END   auto-generated models code
@@ -33,7 +36,7 @@ const models = {
 const ModelManager = {
     getModel(name) {
         if (!(name in models)) {
-            throw new Error(`Invalid model name: ${ name }`)
+            throw new BaseError(`Invalid model name: ${ name }`)
         }
         return models[name]
     },
@@ -41,7 +44,7 @@ const ModelManager = {
     createModel(name, klass) {
         console.log(`createModel(${ name }, ${ klass }`)
         if (name in models) {
-            throw new Error(`Model ${ name } already exists`)
+            throw new BaseError(`Model ${ name } already exists`)
         }
         models[name] = klass
         return klass
@@ -49,7 +52,7 @@ const ModelManager = {
 
     fromJSON(json) {
         if (!json) {
-            throw new Error('json is undefined')
+            throw new BaseError('json is undefined')
         }
 
         if (typeof json == 'string') {
@@ -57,7 +60,7 @@ const ModelManager = {
         }
 
         if (!json.type) {
-            throw new Error('model has no type attribute')
+            throw new BaseError('model has no type attribute')
         }
 
         if (json instanceof BaseModel) {

@@ -54,7 +54,7 @@ describe('LiveClient Functional Test', () => {
                         res.error(err)
                     })
                 } else {
-                    throw new Error('cmd not instance of PingCommand')
+                    throw new BaseError('cmd not instance of PingCommand')
                 }
             })
         })
@@ -163,12 +163,15 @@ describe('LiveClient Functional Test', () => {
             Logger.info('connected to server.  making request...')
             liveClient.requestAsync(new PingCommand()).then(response => {
                 liveClient.close()
-                done(new Error('request should have thrown error'))
+                done(new BaseError('request should have thrown error'))
             }).catch(err => {
                 assert.instanceOf(err, BaseError)
                 assert.equal(ERROR_MSG, err.getMessage())
                 liveClient.close()
                 done()
+            }).catch(err => {
+                // Should not have throw additional error
+                done(err)
             })
         })
 

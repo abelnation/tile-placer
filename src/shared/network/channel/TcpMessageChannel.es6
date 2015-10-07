@@ -22,7 +22,7 @@ class TcpMessageChannel extends MessageChannel {
     constructor(tcpSocket) {
         super()
         if (!tcpSocket) {
-            throw new Error('socket is null')
+            throw new BaseError('socket is null')
         }
 
         this.socket = tcpSocket
@@ -80,24 +80,21 @@ class TcpMessageChannel extends MessageChannel {
             try {
                 return JSON.parse(data)
             } catch (e) {
-                Logger.debug('Invalid JSON:')
-                Logger.debug(data)
+                Logger.debug('Invalid JSON', data)
                 return new BaseError('invalid json', { data: data })
             }
         })).pipe(es.mapSync(json => {
             try {
                 return ModelManager.fromJSON(json)
             } catch (e) {
-                Logger.debug('Error in ModelManager.fromJSON')
-                Logger.debug(JSON.stringify(json, null, 2))
-                Logger.debug(e.stack)
+                Logger.debug('Error in ModelManager.fromJSON', json)
                 return new BaseError('message json is not a valid model', { json: json })
             }
         }))
 
         // Read as new-line separated json-chunks
         this.commandStream.on('data', model => {
-            Logger.debug('TcpMessageChannel.onData: ' + JSON.stringify(model))
+            Logger.debug('TcpMessageChannel.onData', model)
 
             if (model instanceof BaseError) {
                 this.emit(MessageChannel.EVENT_NETWORK_ERROR, model)

@@ -5,7 +5,9 @@
 // Created by aallison on 10/5/15.
 //
 
+const BaseError = require('../../error/BaseError')
 const PlayerCommand = require('../../commands/PlayerCommand')
+const SimpleState = require('../../game/SimpleState')
 
 const GUESS = 'guess'
 
@@ -19,7 +21,7 @@ class AddGuessCommand extends PlayerCommand {
 
     execute(simpleGameState, done) {
         if (!(simpleGameState instanceof SimpleState)) {
-            throw new Error(`command not allowed for ${ typeof simpleGameState }`)
+            throw new BaseError(`command not allowed for ${ typeof simpleGameState }`)
         }
 
         try {

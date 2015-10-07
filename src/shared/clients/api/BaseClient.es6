@@ -8,6 +8,8 @@
 const bluebird = require('bluebird')
 const client = require('superagent')
 
+const BaseError = require('../../models/error/BaseError')
+
 class BaseClient {
     constructor(apiPrefix = '', host = 'localhost', port = '8000') {
         this.apiPrefix = apiPrefix
@@ -43,7 +45,7 @@ class BaseClient {
         if (err) {
             return err
         } else if (!res) {
-            return new Error('null response returned')
+            return new BaseError('null response returned')
         } else if (res.statusCode && res.statusCode > 299) {
             return res
         }
