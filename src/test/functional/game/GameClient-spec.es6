@@ -109,7 +109,6 @@ describe('GameClient', () => {
 
             assert.equal(lastGuess, gameState.getCurrentGuess().getGuess())
             // assert.equal(guesses, gameState.getPastGuesses())
-            done()
         }).then(() => {
             // Add an already-guessed guess
             return client.addGuessAsync(guesses[0])
@@ -117,7 +116,7 @@ describe('GameClient', () => {
             done(new BaseError('should have thrown error'))
         }).catch(err => {
             Logger.info('error response', err)
-            assert.equal(`${ guesses[0] } has already been guessed`, err.error.message)
+            assert.equal(`${ guesses[0] } has already been guessed`, err.getMessage())
             done()
         }).catch(err => {
             Logger.error('Error thrown', err)

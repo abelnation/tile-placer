@@ -44,7 +44,8 @@ class Logger {
             } else if (obj instanceof Error) {
                 console.log(obj.stack)
             } else if (typeof obj.toMinimalJSON === 'function') {
-                console.log(JSON.stringify(obj.toMinimalJSON(), null, 2))
+                // console.log(JSON.stringify(obj.toMinimalJSON(), null, 2))
+                console.log(JSON.stringify(obj.toJSON(), null, 2))
             } else {
                 console.log(JSON.stringify(obj, null, 2))
             }

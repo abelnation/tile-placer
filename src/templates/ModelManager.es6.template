@@ -49,6 +49,7 @@ const ModelManager = {
             return json
         }
 
+        console.log(`ModelManager.fromJSON: ${ json.type }`)
         const Ctor = ModelManager.getModel(json.type)
         const result = new Ctor().initFromJSON(json)
 

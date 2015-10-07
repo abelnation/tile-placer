@@ -26,9 +26,9 @@ class AddGuessCommand extends PlayerCommand {
 
         try {
             simpleGameState.addGuessForPlayer(this.getPlayer(), this.getGuess())
-            done(null, { gameState: simpleGameState })
+            done(null, simpleGameState)
         } catch (e) {
-            done({ gameState: simpleGameState, error: e })
+            done(e)
         }
     }
 }
