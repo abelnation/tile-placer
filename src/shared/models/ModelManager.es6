@@ -22,6 +22,7 @@ const models = {
     'Guess': require('./game/Guess.es6'),
     'Player': require('./game/Player.es6'),
     'SimpleState': require('./game/SimpleState.es6'),
+    'Tile': require('./game/Tile.es6'),
     'AddGuessCommand': require('./game/commands/AddGuessCommand.es6'),
     'EchoCommand': require('./game/commands/EchoCommand.es6'),
     'GetStateCommand': require('./game/commands/GetStateCommand.es6'),

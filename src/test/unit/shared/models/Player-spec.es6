@@ -2,7 +2,7 @@
 
 //
 // Player-spec
-// Created by aallison on 10/7/15.
+// Created by dpekar on 10/7/15.
 //
 
 const assert = require('chai').assert
@@ -15,9 +15,8 @@ describe('Player', () => {
         let user = new User()
         let player = new Player(user)
 
-        console.log(user)
-        console.log(player)
-        // assert.typeOf(player.getUser, 'User')
+        assert.equal('User', player.getUser().type)
+
         assert.equal(player.getIncome(), 0)
         assert.equal(player.getMoney(), 15)
         assert.equal(player.getReputation(), 0)
