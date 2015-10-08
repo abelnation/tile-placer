@@ -9,6 +9,15 @@ module.exports = {
 
     'basic': [
         {
+          name: 'Suburbs',
+          cost: 3,
+          category: 'Residential',
+          icon: null,
+          stage: 'basic',
+          immediateEffect: (player) => { player.population = player.population + 2},
+          conditionalEffect: (player) => { }
+        },
+        {
           name: 'Community Park',
           cost: 4,
           category: 'Municipal',
@@ -24,15 +33,6 @@ module.exports = {
           icon: null,
           stage: 'basic',
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player) => { }
-        },
-        {
-          name: 'Suburbs',
-          cost: 3,
-          category: 'Residential',
-          icon: null,
-          stage: 'basic',
-          immediateEffect: (player) => { player.population = player.population + 2},
           conditionalEffect: (player) => { }
         }
     ],

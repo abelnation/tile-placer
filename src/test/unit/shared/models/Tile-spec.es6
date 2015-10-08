@@ -10,6 +10,8 @@ const assert = require('chai').assert
 const Tile = require('../../../../shared/models/game/Tile')
 
 describe('Tile', () => {
+    const BASIC_TILE_NAMES = ['Suburbs', 'Community Park', 'Heavy Factory']
+
     it('basic constructor', () => {
         let tileInfo = {
             name: 'Convenience Store',
@@ -26,7 +28,36 @@ describe('Tile', () => {
         assert.equal(tile.getCost(), 6)
     })
 
-    it('reads tiles list from json file', () => {        
-        const allTiles = Tile.allTiles()
+    describe('grabbing tiles for setup:', () => {
+        it('.allTiles returns an object containing tiles for all game stages', () => {        
+            const allTiles = Tile.allTiles()
+            const stagesFromTiles = Object.keys(allTiles)
+            const stageKeysFromConst = Object.keys(Tile.STAGES)
+            const stageValuesFromConst = stageKeysFromConst.map((key) => { return Tile.STAGES[key] })
+
+            // Check the set of stages are as expected without depending on order returned by .allTiles
+            assert.equal(stagesFromTiles.length, stageValuesFromConst.length)
+            for (let tileKey of stagesFromTiles) {
+                assert.include(stageValuesFromConst, tileKey)
+            }
+        })
+
+        it('.allTiles returns an object containing tiles for all game stages', () => {        
+            const allTiles = Tile.allTiles()
+            for (let stage in allTiles) {
+                for (let tile of allTiles[stage]) {
+                    assert.equal(tile.type, 'Tile')
+                }
+            }
+        })
+
+        it('.basicTiles return an array of the 3 basic tiles', () => {
+            const basicTiles = Tile.basicTiles()
+            assert.equal(basicTiles.length, 3)
+            for (let tile of basicTiles) {
+                assert.include(BASIC_TILE_NAMES, tile.getName())
+            }
+        })
+
     })
 })

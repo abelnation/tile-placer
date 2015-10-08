@@ -41,5 +41,18 @@ class Tile extends BaseModel {
         return result
     }
 
+    static basicTiles() {
+        const allTiles = Tile.allTiles()        
+        return allTiles[Tile.STAGES.BASIC]
+    }
+
 }
+
+Tile.STAGES = {
+    BASIC: 'basic', 
+    A: 'a', 
+    B: 'b', 
+    C: 'c'
+}
+
 module.exports = Tile

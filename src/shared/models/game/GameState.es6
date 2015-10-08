@@ -16,35 +16,51 @@ class GameState extends BaseModel {
     constructor(users) {
         super()
         this.init(users)
-
-        this.BASIC_TILES_PER_PILE = 4
-        this.TILES_PER_PILE = 12  
     }
 
     init(users) {
-
-        // Set up players for the game
-        const players = users.map( user => {
-            return new Player(user)
-        })
-        this.set('players', players)
-
-        // Set up initial tiles for players
-
-
-        // Choose game tiles for the game 
-        const tiles = this.chooseSetofTiles()
-        this.set('tilePiles', tiles)
-
-
-        // Lay out market
-
-
+        this.setupPlayers(users)
+        this.setupTilePiles()
+        this.setupStartingTilesForPlayers()        
+        this.setupMarket()        
         return this
     }
 
     getPlayers() {return this.get('players')}
     getTilePiles() {return this.get('tilePiles')}
+
+    // Set up players for the game
+    setupPlayers(users) {
+        const players = users.map( user => {
+            return new Player(user)
+        })
+        this.set('players', players)        
+    }
+
+    // Setup basic & a, b, c tile piles
+    setupTilePiles() {
+        const tiles = this.chooseSetofTiles() // Choose a, b, c tiles randomly
+        this.set('tilePiles', tiles)         
+    }
+
+    // Place 3 basic tiles on each players' board
+    setupStartingTilesForPlayers() {
+        // Set up starting tiles for players
+        let players = this.getPlayers()
+        const xCoord = 0
+        for (let player of players) {
+            let yCoord = 0    
+            for (let tile in Tile.basicTiles()) {
+                player.placeTile(tile, [xCoord, yCoord], 0)
+                yCoord++
+            }
+        }
+
+    }
+
+    setupMarket() {
+
+    }
 
 
     // Randomly selects tiles from Tile-list.json and puts them into piles for players to draw from
@@ -78,4 +94,8 @@ class GameState extends BaseModel {
     }
 
 }
+
+GameState.BASIC_TILES_PER_PILE = 4
+GameState.TILES_PER_PILE = 12  
+
 module.exports = GameState

@@ -6,6 +6,8 @@
 //
 
 const BaseModel = require('../BaseModel')
+const Placement = require('./Placement')
+// const Logger = require('../../log/Logger')
 
 class Player extends BaseModel {
     constructor(user) {
@@ -40,5 +42,12 @@ class Player extends BaseModel {
 
     isStartingPlayer() { return this.get('startingPlayer') }
     getTurnsComplete() { return this.get('turnsComplete') }
+
+    placeTile(tile, coords, turn) {
+        const placement = new Placement(tile, coords, turn)
+        let board = this.getBoard()
+        board.push(placement)
+        this.set('board', board)
+    }
 }
 module.exports = Player
