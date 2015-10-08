@@ -6,17 +6,21 @@
 //
 
 const BaseModel = require('../BaseModel')
+const TileList = require('../../data/Tile-list')
+var _ = require('underscore')
 
 class Tile extends BaseModel {
-    constructor(name, cost, category, icon, stage, immediateEffect, conditionalEffect) {
+    constructor(tileInfo) {
         super()
-        this.set('name', name)
-        this.set('cost', cost)
-        this.set('category', category)
-        this.set('icon', icon)
-        this.set('stage', stage)
-        this.set('immediateEffect', immediateEffect)
-        this.set('conditionalEffect', conditionalEffect)
+        this.set('name', tileInfo.name)
+        this.set('cost', tileInfo.cost)
+        this.set('category', tileInfo.category)
+        this.set('icon', tileInfo.icon)
+        this.set('stage', tileInfo.stage)
+        this.set('immediateEffect', tileInfo.immediateEffect)
+        this.set('conditionalEffect', tileInfo.conditionalEffect)
+
+        // TODO: build in validation for all these fields
     }
 
     getName() { return this.get('name') }
@@ -26,5 +30,16 @@ class Tile extends BaseModel {
     getStage() { return this.get('stage') }
     getImmediateEffect() { return this.get('immediateEffect') }
     getConditionalEffect() { return this.get('conditionalEffect') }
+
+    static allTiles() {
+        let result = {}
+        _.each(TileList, (tiles, stage) => {
+            result[stage] = tiles.map( (tile) => {
+                return new Tile(tile)
+            })        
+        })
+        return result
+    }
+
 }
 module.exports = Tile
