@@ -7,6 +7,7 @@
 
 const BaseModel = require('../BaseModel')
 // const BaseError = require('../error/BaseError')
+const Logger = require('../../log/Logger')
 const Player = require ('./Player')
 const Tile = require ('./Tile')
 const _ = require('underscore')
@@ -50,7 +51,7 @@ class GameState extends BaseModel {
         const xCoord = 0
         for (let player of players) {
             let yCoord = 0    
-            for (let tile in Tile.basicTiles()) {
+            for (let tile of Tile.basicTiles()) {
                 player.placeTile(tile, [xCoord, yCoord], 0)
                 yCoord++
             }
