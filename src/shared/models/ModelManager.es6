@@ -20,6 +20,7 @@ const models = {
     'BaseError': require('./error/BaseError.es6'),
     'GameState': require('./game/GameState.es6'),
     'Guess': require('./game/Guess.es6'),
+    'Placement': require('./game/Placement.es6'),
     'Player': require('./game/Player.es6'),
     'SimpleState': require('./game/SimpleState.es6'),
     'Tile': require('./game/Tile.es6'),
