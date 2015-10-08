@@ -31,7 +31,27 @@ class GameState extends BaseModel {
     getPlayers() {return this.get('players')}
     getTilePiles() {return this.get('tilePiles')}
     getMarket() {return this.get('market')}
+
+
+    placeTile(tile, player) {
+        // remove a tile from the market or basic market
+        // place it on a player’s board
+        // commence effects of new tile
+        // collect player’s money & population
+        // update market
+
+    }
+
+    makeInvestment(placement, player) {
+        // place an investment token on a tile on player’s board
+        // commence effects of new tile
+        // collect player’s money & population
+        // remove tile from market
+        // update market
+    }    
 }
+
+
 
 _.extend(GameState.prototype, GameSetup)
 
