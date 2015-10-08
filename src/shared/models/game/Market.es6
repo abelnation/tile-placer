@@ -37,7 +37,6 @@ class Market extends BaseModel {
             }
         }
     }
-
 }
 
 Market.SLOT_COSTS = [10, 8, 6, 4, 2, 0, 0]

@@ -9,6 +9,7 @@ const assert = require('chai').assert
 const _ = require('underscore')
 
 const GameState = require('../../../../shared/models/game/GameState')
+const GameSetup = require('../../../../shared/models/game/GameSetup')
 const User = require('../../../../shared/models/User')
 const Logger = require('../../../../shared/log/Logger')
 const Tile = require('../../../../shared/models/game/Tile')
@@ -51,7 +52,7 @@ describe('GameState', () => {
             const tilePiles = gameState.getTilePiles()
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') > -1) {
-                    assert.equal(pile.length, GameState.BASIC_TILES_PER_PILE)
+                    assert.equal(pile.length, GameSetup.BASIC_TILES_PER_PILE)
                 }
             })
         })
@@ -61,7 +62,7 @@ describe('GameState', () => {
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') === -1) {
                     if (stage === Tile.STAGES.B || stage === Tile.STAGES.C) {
-                        assert.equal(pile.length, GameState.TILES_PER_PILE)
+                        assert.equal(pile.length, GameSetup.TILES_PER_PILE)
                     }
                 }
             })
