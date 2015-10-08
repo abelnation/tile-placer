@@ -34,6 +34,7 @@ describe('Tile', () => {
             const stagesFromTiles = Object.keys(allTiles)
             const stageKeysFromConst = Object.keys(Tile.STAGES)
             const stageValuesFromConst = stageKeysFromConst.map((key) => { return Tile.STAGES[key] })
+            stageValuesFromConst.push(Tile.BASIC)
 
             // Check the set of stages are as expected without depending on order returned by .allTiles
             assert.equal(stagesFromTiles.length, stageValuesFromConst.length)
@@ -42,7 +43,7 @@ describe('Tile', () => {
             }
         })
 
-        it('.allTiles returns an object containing tiles for all game stages', () => {        
+        it('.allTiles returns only tile objects', () => {        
             const allTiles = Tile.allTiles()
             for (let stage in allTiles) {
                 for (let tile of allTiles[stage]) {

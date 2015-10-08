@@ -43,13 +43,13 @@ class Tile extends BaseModel {
 
     static basicTiles() {
         const allTiles = Tile.allTiles()        
-        return allTiles[Tile.STAGES.BASIC]
+        return allTiles[Tile.BASIC]
     }
 
 }
 
+Tile.BASIC = 'basic'
 Tile.STAGES = {
-    BASIC: 'basic', 
     A: 'a', 
     B: 'b', 
     C: 'c'

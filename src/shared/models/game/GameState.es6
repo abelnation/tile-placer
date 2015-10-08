@@ -7,8 +7,8 @@
 
 const BaseModel = require('../BaseModel')
 // const BaseError = require('../error/BaseError')
-const Logger = require('../../log/Logger')
 const Player = require ('./Player')
+const Market = require ('./Market')
 const Tile = require ('./Tile')
 const _ = require('underscore')
 
@@ -29,6 +29,7 @@ class GameState extends BaseModel {
 
     getPlayers() {return this.get('players')}
     getTilePiles() {return this.get('tilePiles')}
+    getMarket() {return this.get('market')}
 
     // Set up players for the game
     setupPlayers(users) {
@@ -40,8 +41,8 @@ class GameState extends BaseModel {
 
     // Setup basic & a, b, c tile piles
     setupTilePiles() {
-        const tiles = this.chooseSetofTiles() // Choose a, b, c tiles randomly
-        this.set('tilePiles', tiles)         
+        const tilePiles = this.chooseSetofTiles() // Choose a, b, c tiles randomly
+        this.set('tilePiles', tilePiles)     
     }
 
     // Place 3 basic tiles on each players' board
@@ -56,11 +57,13 @@ class GameState extends BaseModel {
                 yCoord++
             }
         }
-
     }
 
+    // Draw tiles from a pile to fill up market
     setupMarket() {
-
+        let tilePiles = this.getTilePiles()
+        let market = new Market(tilePiles)
+        this.set('market', market)
     }
 
 
@@ -76,7 +79,8 @@ class GameState extends BaseModel {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
                     for (let i = 0; i < GameState.BASIC_TILES_PER_PILE; i++) {
-                        result['basic'+tile.getCategory()].push(Object.assign({}, tile))  // Add a copy of the tile
+                        let tileCopy = Object.assign({}, tile)
+                        result['basic'+tile.getCategory()].push(tileCopy)  // Add a copy of the tile
                     }                    
                 }
             } 
@@ -85,12 +89,13 @@ class GameState extends BaseModel {
             else {
                 let tilePile = []
                 for (let i = 0; i < GameState.TILES_PER_PILE; i++) {
-                    tilePile.push(tiles[Math.floor(Math.random()*tiles.length)])
+                    let tile = tiles[Math.floor(Math.random()*tiles.length)]
+                    let tileCopy = Object.assign({}, tile) 
+                    tilePile.push(tileCopy)
                 }
                 result[stage] = tilePile
             }
-        })
-        
+        })        
         return result
     }
 

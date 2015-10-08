@@ -10,9 +10,9 @@ const _ = require('underscore')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const User = require('../../../../shared/models/User')
-// const Logger = require('../../../../shared/log/Logger')
+const Logger = require('../../../../shared/log/Logger')
+const Tile = require('../../../../shared/models/game/Tile')
 // const Player = require('../../../../shared/models/Player')
-// const Tile = require('../../../../shared/models/Tile')
 
 describe('GameState', () => {
     const PLAYER_ID_1 = 1
@@ -39,15 +39,15 @@ describe('GameState', () => {
         assert.equal(players[0].type, 'Player')
     })
 
-    describe('setting up tile piles', () => {
+    describe('setting up tile piles:', () => {
 
-        it('has tiles representing each category', () => {
+        it('piles have tiles representing each category', () => {
             const tilePiles = gameState.getTilePiles()
             const piles = Object.keys(tilePiles)
             assert.deepEqual(piles, ['basicResidential', 'basicMunicipal',  'basicIndustrial', 'a',  'b',  'c'])
         })
 
-        it('has 4 of each tile for basic piles', () => {
+        it('piles have 4 of each tile for basic piles', () => {
             const tilePiles = gameState.getTilePiles()
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') > -1) {
@@ -56,18 +56,20 @@ describe('GameState', () => {
             })
         })
 
-        it('has appropriate number of each tile for stage piles', () => {
+        it('piles have appropriate number of each tile for stage piles', () => {
             const tilePiles = gameState.getTilePiles()
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') === -1) {
-                    assert.equal(pile.length, GameState.TILES_PER_PILE)
+                    if (stage === Tile.STAGES.B || stage === Tile.STAGES.C) {
+                        assert.equal(pile.length, GameState.TILES_PER_PILE)
+                    }
                 }
             })
         })
 
     })
 
-    describe('setting up starting tiles for players', () => {
+    describe('setting up starting tiles for players:', () => {
 
         it('each player has 3 tiles', () => {
             for (let player of gameState.getPlayers()) {
@@ -84,6 +86,23 @@ describe('GameState', () => {
                 assert.deepEqual(placement.getCoords(), [0, startingYCoordiate])
                 startingYCoordiate++
             }
+        })
+    })
+
+    describe('setting up market:', () => {
+        const TILES_IN_MARKET = 7
+
+        it('it has correct number of tiles', () => {
+            const market = gameState.getMarket()
+            assert.equal(market.getTiles().length, TILES_IN_MARKET)
+
+        })
+    })
+
+
+    describe('print Gamestate', function () {
+        it('should look as expected', () => {
+            Logger.info('Printing GameState for manual inspection', gameState)
         })
     })
 
