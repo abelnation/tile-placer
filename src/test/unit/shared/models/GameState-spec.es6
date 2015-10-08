@@ -7,11 +7,11 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
+// const Logger = require('../../../../shared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetup = require('../../../../shared/models/game/GameSetup')
 const User = require('../../../../shared/models/User')
-const Logger = require('../../../../shared/log/Logger')
 const Tile = require('../../../../shared/models/game/Tile')
 // const Player = require('../../../../shared/models/Player')
 
@@ -36,7 +36,7 @@ describe('GameState', () => {
 
     it('has players associated with it', () => {
         let players = gameState.getPlayers()
-        assert.lengthOf(players, userIds.length, 'there are ${userIds.length}')
+        assert.lengthOf(players, userIds.length)
         assert.equal(players[0].type, 'Player')
     })
 
@@ -96,14 +96,13 @@ describe('GameState', () => {
         it('it has correct number of tiles', () => {
             const market = gameState.getMarket()
             assert.equal(market.getTiles().length, TILES_IN_MARKET)
-
         })
     })
 
 
     describe('print Gamestate', function () {
         it('should look as expected', () => {
-            Logger.info('Printing GameState for manual inspection', gameState)
+            // Logger.info('Printing GameState for manual inspection', gameState)
         })
     })
 

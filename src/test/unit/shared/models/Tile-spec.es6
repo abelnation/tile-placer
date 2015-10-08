@@ -25,7 +25,11 @@ describe('Tile', () => {
 
         let tile = new Tile(tileInfo)
         assert.equal('Tile', tile.type)
+        assert.equal(tile.getName(), 'Convenience Store')
         assert.equal(tile.getCost(), 6)
+        assert.equal(tile.getCategory(), 'Commericial')
+        assert.equal(tile.getIcon(), null)
+        assert.equal(tile.getStage(), 'a')
     })
 
     describe('grabbing tiles for setup:', () => {

@@ -48,6 +48,7 @@ class Player extends BaseModel {
         let board = this.getBoard()
         board.push(placement)
         this.set('board', board)
+        return placement
     }
 }
 module.exports = Player

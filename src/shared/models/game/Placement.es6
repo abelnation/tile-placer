@@ -17,8 +17,9 @@ class Placement extends BaseModel {
         this.set('turn', turn)
     }
 
-    getXCoord() { return this.get('xCoord')}
-    getYCoord() { return this.get('yCoord')}
+    getTile() { return this.get('tile') }
+    getXCoord() { return this.get('xCoord') }
+    getYCoord() { return this.get('yCoord') }
 
     getCoords() {
       return [this.get('xCoord'), this.get('yCoord')]
