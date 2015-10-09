@@ -15,7 +15,7 @@ module.exports = {
           icon: null,
           stage: 'basic',
           immediateEffect: (player) => { player.population = player.population + 2},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Community Park',
@@ -24,7 +24,7 @@ module.exports = {
           icon: null,
           stage: 'basic',
           immediateEffect: (player) => { player.income-- },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Heavy Factory',
@@ -33,7 +33,7 @@ module.exports = {
           icon: null,
           stage: 'basic',
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         }
     ],
 
@@ -45,7 +45,7 @@ module.exports = {
           icon: null,
           stage: 'a',
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -54,7 +54,7 @@ module.exports = {
           icon: null,
           stage: 'a',
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -63,7 +63,7 @@ module.exports = {
           icon: null,
           stage: 'a',
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -72,7 +72,7 @@ module.exports = {
           icon: null,
           stage: 'a',
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -81,7 +81,7 @@ module.exports = {
           icon: null,
           stage: 'a',
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         } 
     ],
 
@@ -93,7 +93,7 @@ module.exports = {
           icon: null,
           stage: 'b',
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -102,7 +102,7 @@ module.exports = {
           icon: null,
           stage: 'b',
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -111,7 +111,7 @@ module.exports = {
           icon: null,
           stage: 'b',
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -120,7 +120,7 @@ module.exports = {
           icon: null,
           stage: 'b',
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -129,7 +129,7 @@ module.exports = {
           icon: null,
           stage: 'b',
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         }
     ],
 
@@ -141,7 +141,7 @@ module.exports = {
           icon: null,
           stage: 'c',
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -150,7 +150,7 @@ module.exports = {
           icon: null,
           stage: 'c',
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -159,7 +159,7 @@ module.exports = {
           icon: null,
           stage: 'c',
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -168,7 +168,7 @@ module.exports = {
           icon: null,
           stage: 'c',
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -177,7 +177,7 @@ module.exports = {
           icon: null,
           stage: 'c',
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player) => { }
+          conditionalEffect: (player, players) => { }
         }
     ]
 }
