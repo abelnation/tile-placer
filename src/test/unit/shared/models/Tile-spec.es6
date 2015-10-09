@@ -8,6 +8,7 @@
 const assert = require('chai').assert
 
 const Tile = require('../../../../shared/models/game/Tile')
+const TileConfig = require('../../../../shared/data/Tile-config')
 
 describe('Tile', () => {
     const BASIC_TILE_NAMES = ['Suburbs', 'Community Park', 'Heavy Factory']
@@ -36,9 +37,9 @@ describe('Tile', () => {
         it('.allTiles returns an object containing tiles for all game stages', () => {        
             const allTiles = Tile.allTiles()
             const stagesFromTiles = Object.keys(allTiles)
-            const stageKeysFromConst = Object.keys(Tile.STAGES)
-            const stageValuesFromConst = stageKeysFromConst.map((key) => { return Tile.STAGES[key] })
-            stageValuesFromConst.push(Tile.BASIC)
+            const stageKeysFromConst = Object.keys(TileConfig.STAGES)
+            const stageValuesFromConst = stageKeysFromConst.map((key) => { return TileConfig.STAGES[key] })
+            stageValuesFromConst.push(TileConfig.BASIC)
 
             // Check the set of stages are as expected without depending on order returned by .allTiles
             assert.equal(stagesFromTiles.length, stageValuesFromConst.length)

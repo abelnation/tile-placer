@@ -51,8 +51,6 @@ class GameState extends BaseModel {
     }    
 }
 
-
-
 _.extend(GameState.prototype, GameSetup)
 
 module.exports = GameState

@@ -7,7 +7,8 @@
 
 const BaseModel = require('../BaseModel')
 const Placement = require('./Placement')
-// const Logger = require('../../log/Logger')
+const GameSetupConfig = require('../../data/GameSetup-config')
+const Logger = require('../../log/Logger')
 
 class Player extends BaseModel {
     constructor(user) {
@@ -15,8 +16,8 @@ class Player extends BaseModel {
         this.set('user', user)
 
         this.set('income', 0)
-        this.set('money', 15)
-        this.set('investmentMarkers', 4)
+        this.set('money', GameSetupConfig.STARTING_MONEY_PER_PLAYER)
+        this.set('investmentMarkers', GameSetupConfig.INVESTMENTS_PER_PLAYER)
 
         this.set('reputation', 0)
         this.set('population', 0)

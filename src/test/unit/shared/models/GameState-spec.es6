@@ -1,7 +1,7 @@
 'use strict'
 
 //
-// Player-spec
+// GameState-spec
 // Created by dpekar on 10/7/15.
 //
 
@@ -10,9 +10,10 @@ const _ = require('underscore')
 // const Logger = require('../../../../shared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
-const GameSetup = require('../../../../shared/models/game/GameSetup')
+const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 const User = require('../../../../shared/models/User')
 const Tile = require('../../../../shared/models/game/Tile')
+const TileConfig = require('../../../../shared/data/Tile-config')
 // const Player = require('../../../../shared/models/Player')
 
 describe('GameState', () => {
@@ -52,7 +53,7 @@ describe('GameState', () => {
             const tilePiles = gameState.getTilePiles()
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') > -1) {
-                    assert.equal(pile.length, GameSetup.BASIC_TILES_PER_PILE)
+                    assert.equal(pile.length, GameSetupConfig.BASIC_TILES_PER_PILE)
                 }
             })
         })
@@ -61,8 +62,8 @@ describe('GameState', () => {
             const tilePiles = gameState.getTilePiles()
             _.each(tilePiles, (pile, stage) => {
                 if (stage.indexOf('basic') === -1) {
-                    if (stage === Tile.STAGES.B || stage === Tile.STAGES.C) {
-                        assert.equal(pile.length, GameSetup.TILES_PER_PILE)
+                    if (stage === TileConfig.STAGES.B || stage === TileConfig.STAGES.C) {
+                        assert.equal(pile.length, GameSetupConfig.TILES_PER_PILE)
                     }
                 }
             })

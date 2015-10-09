@@ -10,6 +10,9 @@ const assert = require('chai').assert
 const Player = require('../../../../shared/models/game/Player')
 const User = require('../../../../shared/models/User')
 const Tile = require('../../../../shared/models/game/Tile')
+const TileConfig = require('../../../../shared/data/Tile-config')
+const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
+const Logger = require('../../../../shared/log/Logger')
 
 describe('Player', () => {
     let user = new User()
@@ -19,10 +22,10 @@ describe('Player', () => {
         assert.equal('User', player.getUser().type)
 
         assert.equal(player.getIncome(), 0)
-        assert.equal(player.getMoney(), 15)
+        assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER)
         assert.equal(player.getReputation(), 0)
         assert.equal(player.getPopulation(), 0)
-        assert.equal(player.getInvestmentMarkers(), 4)
+        assert.equal(player.getInvestmentMarkers(), GameSetupConfig.INVESTMENTS_PER_PLAYER)
         assert.lengthOf(player.getBoard(), 0)
         assert.lengthOf(player.getGoals(), 0)
 

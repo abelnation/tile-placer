@@ -9,7 +9,8 @@ const assert = require('chai').assert
 
 const Market = require('../../../../shared/models/game/Market')
 const Tile = require('../../../../shared/models/game/Tile')
-// const Logger = require('../../../../shared/log/Logger')
+const TileConfig = require('../../../../shared/data/Tile-config')
+const Logger = require('../../../../shared/log/Logger')
 
 describe('Market', () => {
     const allTiles = Tile.allTiles()
@@ -17,12 +18,12 @@ describe('Market', () => {
 
     it('basic constructor', () => {
         assert.equal('Market', market.type)
-        assert.equal(market.getTiles().length, Market.SLOTS)
+        assert.equal(market.getTiles().length, Market.NUM_SLOTS)
     })
 
     it('choose the first tile from a list', () => {
         let allTilesSet2 = Tile.allTiles()
-        let topTile = allTilesSet2[Tile.STAGES.A][0] 
+        let topTile = allTilesSet2[TileConfig.STAGES.A][0] 
         let selectedTile = market.selectTile(allTilesSet2)
         assert.equal(topTile, selectedTile)        
     })

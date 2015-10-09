@@ -1,10 +1,18 @@
+'use strict'
+
+//
+// GameSetup
+// Created by dpekar on 10/7/15.
+//
+
+const Logger = require('../../log/Logger')
+
 // const BaseError = require('../error/BaseError')
+const _ = require('underscore')
 const Player = require('./Player')
 const Market = require('./Market')
-const Tile = require ('./Tile')
-// const GameState = require ('./GameState')
-const _ = require('underscore')
-
+const Tile = require('./Tile')
+const GameSetupConfig = require('../../data/GameSetup-config')
 
 const GameSetup = {
     // Set up players for the game
@@ -13,6 +21,9 @@ const GameSetup = {
             return new Player(user)
         })
         this.set('players', players)        
+
+        // TOOD: Set starting player
+
     },
 
     // Setup basic & a, b, c tile piles
@@ -54,7 +65,7 @@ const GameSetup = {
             if(stage === 'basic') {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
-                    for (let i = 0; i < GameSetup.BASIC_TILES_PER_PILE; i++) {
+                    for (let i = 0; i < GameSetupConfig.BASIC_TILES_PER_PILE; i++) {
                         let tileCopy = Object.assign({}, tile)
                         result['basic'+tile.getCategory()].push(tileCopy)  // Add a copy of the tile
                     }                    
@@ -64,7 +75,7 @@ const GameSetup = {
             // Piles for stage a, b & c should be chosen randomly
             else {
                 let tilePile = []
-                for (let i = 0; i < GameSetup.TILES_PER_PILE; i++) {
+                for (let i = 0; i < GameSetupConfig.TILES_PER_PILE; i++) {
                     let tile = tiles[Math.floor(Math.random()*tiles.length)]
                     let tileCopy = Object.assign({}, tile) 
                     tilePile.push(tileCopy)
@@ -76,8 +87,5 @@ const GameSetup = {
     }
 
 }
-
-GameSetup.BASIC_TILES_PER_PILE = 4
-GameSetup.TILES_PER_PILE = 12    
 
 module.exports = GameSetup

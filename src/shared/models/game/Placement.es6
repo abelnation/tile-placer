@@ -8,13 +8,13 @@
 const BaseModel = require('../BaseModel')
 
 class Placement extends BaseModel {
-    constructor(tile, coordinates, turn) {
+    constructor(tile, coordinates, turnNum) {
         super()
         this.set('tile', tile)
 
         this.set('xCoord', coordinates[0])
         this.set('yCoord', coordinates[1])
-        this.set('turn', turn)
+        this.set('turnNum', turnNum)
     }
 
     getTile() { return this.get('tile') }

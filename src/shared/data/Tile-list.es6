@@ -1,181 +1,182 @@
 'use strict'
 
 //
-// Tile-lis
+// Tile-list
 // Created by dpekar on 10/7/15.
 //
+const TileConfig = require('./Tile-config')
 
 module.exports = {
 
-    'basic': [
+    basic: [
         {
           name: 'Suburbs',
           cost: 3,
-          category: 'Residential',
+          category: TileConfig.CATEGORIES.RESIDENTIAL,
           icon: null,
-          stage: 'basic',
+          stage: TileConfig.BASIC,
           immediateEffect: (player) => { player.population = player.population + 2},
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Community Park',
           cost: 4,
-          category: 'Municipal',
+          category: TileConfig.CATEGORIES.MUNICIPAL,
           icon: null,
-          stage: 'basic',
+          stage: TileConfig.BASIC,
           immediateEffect: (player) => { player.income-- },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Heavy Factory',
           cost: 3,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'basic',
+          stage: TileConfig.BASIC,
           immediateEffect: (player) => { player.income++ },
           conditionalEffect: (player, players) => { }
         }
     ],
 
-    'a': [
+    a: [
         {
           name: 'Convenience Store',
           cost: 6,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'a',
+          stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income++ },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'a',
+          stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.population = player.population + 6 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
           cost: 9,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'a',
+          stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.reputation--},
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
           cost: 4,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'a',
+          stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income = player.income + 2 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
           cost: 15,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'a',
+          stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income = player.income + 3},
           conditionalEffect: (player, players) => { }
         } 
     ],
 
-    'b': [
+    b: [
         {
           name: 'Convenience Store',
           cost: 6,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'b',
+          stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income++ },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'b',
+          stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.population = player.population + 6 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
           cost: 9,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'b',
+          stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.reputation--},
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
           cost: 4,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'b',
+          stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income = player.income + 2 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
           cost: 15,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'b',
+          stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income = player.income + 3},
           conditionalEffect: (player, players) => { }
         }
     ],
 
-    'c': [
+    c: [
         {
           name: 'Convenience Store',
           cost: 6,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'c',
+          stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income++ },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: 'Commericial',
+          category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
-          stage: 'c',
+          stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.population = player.population + 6 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Farm',
           cost: 9,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'c',
+          stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.reputation--},
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Landfill',
           cost: 4,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'c',
+          stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income = player.income + 2 },
           conditionalEffect: (player, players) => { }
         },
         {
           name: 'Mint',
           cost: 15,
-          category: 'Industrial',
+          category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
-          stage: 'c',
+          stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income = player.income + 3},
           conditionalEffect: (player, players) => { }
         }

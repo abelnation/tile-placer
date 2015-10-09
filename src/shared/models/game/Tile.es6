@@ -7,6 +7,7 @@
 
 const BaseModel = require('../BaseModel')
 const TileList = require('../../data/Tile-list')
+const TileConfig = require('../../data/Tile-config')
 var _ = require('underscore')
 
 class Tile extends BaseModel {
@@ -43,16 +44,10 @@ class Tile extends BaseModel {
 
     static basicTiles() {
         const allTiles = Tile.allTiles()        
-        return allTiles[Tile.BASIC]
+        return allTiles[TileConfig.BASIC]
     }
 
 }
 
-Tile.BASIC = 'basic'
-Tile.STAGES = {
-    A: 'a', 
-    B: 'b', 
-    C: 'c'
-}
 
 module.exports = Tile
