@@ -6,7 +6,6 @@
 //
 
 const BaseModel = require('../BaseModel')
-const Tile = require('./Tile')
 const TileConfig = require('../../data/Tile-config')
 
 class Market extends BaseModel {

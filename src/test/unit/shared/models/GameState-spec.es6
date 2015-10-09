@@ -12,7 +12,6 @@ const _ = require('underscore')
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 const User = require('../../../../shared/models/User')
-const Tile = require('../../../../shared/models/game/Tile')
 const TileConfig = require('../../../../shared/data/Tile-config')
 // const Player = require('../../../../shared/models/Player')
 

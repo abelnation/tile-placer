@@ -13,14 +13,7 @@ var _ = require('underscore')
 class Tile extends BaseModel {
     constructor(tileInfo) {
         super()
-        this.set('name', tileInfo.name)
-        this.set('cost', tileInfo.cost)
-        this.set('category', tileInfo.category)
-        this.set('icon', tileInfo.icon)
-        this.set('stage', tileInfo.stage)
-        this.set('immediateEffect', tileInfo.immediateEffect)
-        this.set('conditionalEffect', tileInfo.conditionalEffect)
-
+        this.setFromObject(tileInfo)        
         // TODO: build in validation for all these fields
     }
 

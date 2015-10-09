@@ -6,11 +6,11 @@
 //
 
 const assert = require('chai').assert
+// const Logger = require('../../../../shared/log/Logger')
 
 const Market = require('../../../../shared/models/game/Market')
 const Tile = require('../../../../shared/models/game/Tile')
 const TileConfig = require('../../../../shared/data/Tile-config')
-const Logger = require('../../../../shared/log/Logger')
 
 describe('Market', () => {
     const allTiles = Tile.allTiles()

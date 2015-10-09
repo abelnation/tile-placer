@@ -8,7 +8,7 @@
 const BaseModel = require('../BaseModel')
 const Placement = require('./Placement')
 const GameSetupConfig = require('../../data/GameSetup-config')
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 class Player extends BaseModel {
     constructor(user) {

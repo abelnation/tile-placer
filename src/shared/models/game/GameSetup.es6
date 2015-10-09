@@ -5,7 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 // const BaseError = require('../error/BaseError')
 const _ = require('underscore')

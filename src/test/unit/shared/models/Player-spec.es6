@@ -10,9 +10,8 @@ const assert = require('chai').assert
 const Player = require('../../../../shared/models/game/Player')
 const User = require('../../../../shared/models/User')
 const Tile = require('../../../../shared/models/game/Tile')
-const TileConfig = require('../../../../shared/data/Tile-config')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
-const Logger = require('../../../../shared/log/Logger')
+// const Logger = require('../../../../shared/log/Logger')
 
 describe('Player', () => {
     let user = new User()
