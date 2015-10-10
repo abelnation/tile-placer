@@ -5,6 +5,7 @@
 // Created by aallison on 10/2/15.
 //
 
+const Logger = require('../../shared/log/Logger')
 const BaseCommand = require('../../shared/models/commands/BaseCommand')
 const LiveClient = require('../../shared/network/liveclient/LiveClient')
 const SimpleState = require('../../shared/models/game/SimpleState.es6')

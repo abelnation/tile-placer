@@ -28,9 +28,11 @@ module.exports = React.createClass({
 
         return (
             <div>
-                Echo Controller
-                <input type="text" ref="textInput" />
-                <button onClick={this.onEcho}>Echo</button>
+                <h3>Echo Controller</h3>
+                <div>
+                    <input type="text" ref="textInput" />
+                    <button onClick={this.onEcho}>Echo</button>
+                </div>
                 {lastResult}
             </div>
         )
