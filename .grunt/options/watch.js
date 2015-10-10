@@ -31,6 +31,7 @@ module.exports = function(grunt) {
             tasks: [
                 'lint',
                 'mustache_render', // generate ModelManager.es6 file
+                'webpack',
                 'test',
             ]
         },

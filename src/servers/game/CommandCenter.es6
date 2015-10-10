@@ -6,7 +6,7 @@
 //
 
 const BaseCommand = require('../../shared/models/commands/BaseCommand')
-const MessageChannel = require('./channel/MessageChannel')
+const MessageChannel = require('../../shared/network/channel/MessageChannel')
 
 class CommandCenter {
     listen(gameMessageChannel) {

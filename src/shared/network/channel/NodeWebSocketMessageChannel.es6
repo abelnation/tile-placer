@@ -8,7 +8,7 @@
 const BaseError = require('../../models/error/BaseError')
 const MessageChannel = require('./MessageChannel')
 const ModelManager = require('../../../shared/models/ModelManager')
-const NetworkMessage = require('../../network/channel/NetworkMessage')
+const NetworkMessage = require('../../models/network/channel/NetworkMessage')
 
 class NodeWebSocketMessageChannel extends MessageChannel {
     constructor(webSocket) {
@@ -30,7 +30,6 @@ class NodeWebSocketMessageChannel extends MessageChannel {
         const webSocket = this.webSocket
 
         console.log(`client connected: ${ this.remoteId } => ${ this.localId }`)
-        webSocket.send('connected\n')
 
         webSocket.on('open', () => {
             console.log('webSocket.open')
