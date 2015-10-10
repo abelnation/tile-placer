@@ -36,6 +36,7 @@ module.exports = function(grunt) {
                 'bluebird': 'Promise',
                 'underscore': '_',
                 'react': 'React',
+                'react-dom': 'ReactDOM',
                 //'classNames': 'classNames',
                 'superagent': 'superagent',
                 'events': 'events',

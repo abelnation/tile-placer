@@ -6,30 +6,26 @@
 //
 
 const BaseCommand = require('../../shared/models/commands/BaseCommand')
-const MessageChannel = require('../../shared/network/channel/MessageChannel')
+const LiveClient = require('../../shared/network/liveclient/LiveClient')
+const SimpleState = require('../../shared/models/game/SimpleState.es6')
+
+const gameState = new SimpleState()
 
 class CommandCenter {
     listen(gameMessageChannel) {
-        gameMessageChannel.on(MessageChannel.EVENT_NETWORK_MESSAGE, command => {
-
-            if (command instanceof BaseCommand) {
-
-                command.executeAsync({}).then(result => {
-                    gameMessageChannel.send(result)
-                }).catch(error => {
-                    gameMessageChannel.send({ error: error, command: command })
+        const liveClient = new LiveClient(gameMessageChannel)
+        liveClient.handle((req, res) => {
+            const cmd = req.getContent()
+            if (cmd instanceof BaseCommand) {
+                cmd.executeAsync(gameState).then(result => {
+                    res.ok(result)
+                }).catch(err => {
+                    Logger.error('error executing command', err.stack)
+                    res.error(err)
                 })
-
             } else {
-                console.log('Invalid command: Not subclass of BaseCommand')
-                console.log(JSON.stringify(command))
+                res.error(new BaseError('cmd not instance of PingCommand'))
             }
-
-        })
-
-        gameMessageChannel.on(MessageChannel.EVENT_NETWORK_ERROR, networkMessage => {
-            console.log('user command error')
-            console.log(JSON.stringify(networkMessage))
         })
     }
 }
