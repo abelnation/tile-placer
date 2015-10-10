@@ -8,10 +8,18 @@
 console.log('hello, client!')
 
 const Logger = require('../../../shared/log/BrowserLogger')
-const BrowserWebSocketMessageChannel = require('../../../shared/network/channel/BrowserWebSocketMessageChannel')
+const GameClient = require('../../../shared/clients/GameClient')
 
-BrowserWebSocketMessageChannel.connect('ws://localhost:8002', (err, channel) => {
-    Logger.info('connected!')
+let client
+
+GameClient.connectBrowserWebSocket('ws://localhost:8002', (err, gameClient) => {
+    client = gameClient
+
+    client.echoAsync('hello world').then(result => {
+        Logger.info('result', result)
+    }).catch(err => {
+        Logger.error('error echoing', err)
+    })
 })
 
 module.exports = {}

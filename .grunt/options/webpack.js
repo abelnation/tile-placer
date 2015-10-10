@@ -39,6 +39,10 @@ module.exports = function(grunt) {
                 //'classNames': 'classNames',
                 'superagent': 'superagent',
                 'events': 'events',
+                // 'net' is shimmed to an empty object in the browser
+                // this is done so that we can still require in our network code
+                // that references some node-specific modules
+                'net': 'net'
             },
 
             stats: {

@@ -60,11 +60,12 @@ describe('GameClient', () => {
             })
 
             // 3. Create new connected client
-            client = new GameClient()
-            client.connect((err, client) => {
+            GameClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, gameClient) => {
                 if (err) {
                     return done(err)
                 }
+
+                client = gameClient
                 done()
             })
         })

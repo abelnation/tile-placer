@@ -39,7 +39,6 @@ describe('LiveClient Functional Test', () => {
         })
     })
 
-
     it('simple request/response', (done) => {
 
         tcpServer.on('connection', socket => {
@@ -60,7 +59,7 @@ describe('LiveClient Functional Test', () => {
         })
 
         console.log('Connecting to TCP server')
-        LiveClient.connect('localhost', Constants.TCP_SERVER_PORT, (err, client) => {
+        LiveClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, client) => {
             if (err) {
                 return done(err)
             }
@@ -116,7 +115,7 @@ describe('LiveClient Functional Test', () => {
 
         // Connect to our server with a client
         console.log('Connecting to TCP server')
-        LiveClient.connect('localhost', Constants.TCP_SERVER_PORT, (err, liveClient) => {
+        LiveClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, liveClient) => {
             if (err) {
                 return done(err)
             }
@@ -155,7 +154,7 @@ describe('LiveClient Functional Test', () => {
 
         // Connect to our server with a client
         Logger.info('Connecting to TCP server')
-        LiveClient.connect('localhost', Constants.TCP_SERVER_PORT, (err, liveClient) => {
+        LiveClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, liveClient) => {
             if (err) {
                 return done(err)
             }
