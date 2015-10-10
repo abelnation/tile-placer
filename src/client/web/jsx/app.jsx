@@ -6,3 +6,5 @@
 //
 
 console.log('hello, client!')
+
+module.exports = {}
