@@ -37,7 +37,8 @@ module.exports = function(grunt) {
                 'underscore': '_',
                 'react': 'React',
                 //'classNames': 'classNames',
-                'superagent': 'superagent'
+                'superagent': 'superagent',
+                'events': 'events',
             },
 
             stats: {
