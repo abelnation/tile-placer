@@ -5,13 +5,13 @@
 // Created by aallison on 9/30/15.
 //
 
-const WebSocketGameMessageChannel = require('.././WebSocketMessageChannel')
-const TcpMessageChannel = require('.././TcpMessageChannel')
+const WebSocketGameMessageChannel = require('../../shared/network/channel/NodeWebSocketMessageChannel')
+const TcpMessageChannel = require('../../shared/network/channel/TcpMessageChannel')
 const CommandCenter = require('./CommandCenter')
 
 const websocketServer = require('./server/websocketServer')
 websocketServer.on('connection', (webSocket) => {
-    let channel = WebSocketGameMessageChannel.fromWebSocket(webSocket)
+    let channel = WebSocketGameMessageChannel.fromNodeWebSocket(webSocket)
     CommandCenter.listen(channel)
 })
 
