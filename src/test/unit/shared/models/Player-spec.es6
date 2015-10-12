@@ -25,7 +25,7 @@ describe('Player', () => {
         assert.equal(player.getReputation(), 0)
         assert.equal(player.getPopulation(), 0)
         assert.equal(player.getInvestmentMarkers(), GameSetupConfig.INVESTMENTS_PER_PLAYER)
-        // assert.lengthOf(player.getBoard(), )
+        assert.equal(player.getBoard().type, 'Board')
         assert.lengthOf(player.getGoals(), 0)
 
         assert.equal(player.isStartingPlayer(), false)
@@ -41,15 +41,11 @@ describe('Player', () => {
             const board = player.getBoard()
             assert.equal(board.getPlacements()[0], placement)
         })
-        
-        it('.coordsOccupied returns false if there is no placement on the coords', () => {
-            player.coords
 
-        })
-
-        it('.coordsOccupied returns true if there is already a placement on the coords', () => {
-            player
-
+        it('.chargeForTile reduces players money when buying a tile', () => {
+            let tileCost = 10
+            player.chargeForTile(tileCost)
+            assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER-tileCost) 
         })
     })
 })
