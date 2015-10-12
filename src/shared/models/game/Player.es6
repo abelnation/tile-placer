@@ -60,5 +60,9 @@ class Player extends BaseModel {
         this.set('board', board)
         return placement
     }
+
+    canAfford(totalCost) {
+        return this.getMoney() >= totalCost
+    }
 }
 module.exports = Player

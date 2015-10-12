@@ -15,9 +15,9 @@ const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 
 describe('Player', () => {
     let user = new User()
-    let player = new Player(user)
 
     it('basic constructor', () => {
+        let player = new Player(user)
         assert.equal('User', player.getUser().type)
 
         assert.equal(player.getIncome(), 0)
@@ -33,6 +33,7 @@ describe('Player', () => {
     })
 
     describe('placing tiles', () => {
+        let player = new Player(user)
 
         it('.placeTile updates board with placement', () => {
             const tile = Tile.basicTiles()[0]
@@ -46,6 +47,18 @@ describe('Player', () => {
             let tileCost = 10
             player.chargeForTile(tileCost)
             assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER-tileCost) 
+        })
+    })
+
+    describe('.canAfford', () => {
+        let player = new Player(user)
+
+        it('should be false if the cost of the tile is greater than players money',  () => {
+            assert.isFalse(player.canAfford(100))  // Starting money is 15
+        })
+
+        it('should be true if the cost of the tile is less than or equals players money',  () => {
+            assert.isTrue(player.canAfford(1))    // Starting money is 15        
         })
     })
 })
