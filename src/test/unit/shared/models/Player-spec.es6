@@ -25,7 +25,7 @@ describe('Player', () => {
         assert.equal(player.getReputation(), 0)
         assert.equal(player.getPopulation(), 0)
         assert.equal(player.getInvestmentMarkers(), GameSetupConfig.INVESTMENTS_PER_PLAYER)
-        assert.lengthOf(player.getBoard(), 0)
+        // assert.lengthOf(player.getBoard(), )
         assert.lengthOf(player.getGoals(), 0)
 
         assert.equal(player.isStartingPlayer(), false)
@@ -34,12 +34,22 @@ describe('Player', () => {
 
     describe('placing tiles', () => {
 
-        it('updates board with placement', () => {
+        it('.placeTile updates board with placement', () => {
             const tile = Tile.basicTiles()[0]
+
             const placement = player.placeTile(tile, [0, 0], 1)
             const board = player.getBoard()
-            assert.equal(board[0], placement)
+            assert.equal(board.getPlacements()[0], placement)
         })
         
+        it('.coordsOccupied returns false if there is no placement on the coords', () => {
+            player.coords
+
+        })
+
+        it('.coordsOccupied returns true if there is already a placement on the coords', () => {
+            player
+
+        })
     })
 })

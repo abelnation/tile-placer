@@ -24,6 +24,6 @@ class Placement extends BaseModel {
     getCoords() {
       return [this.get('xCoord'), this.get('yCoord')]
     }
-
 }
+
 module.exports = Placement

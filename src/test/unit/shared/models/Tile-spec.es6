@@ -40,6 +40,7 @@ describe('Tile', () => {
             const stageKeysFromConst = Object.keys(TileConfig.STAGES)
             const stageValuesFromConst = stageKeysFromConst.map((key) => { return TileConfig.STAGES[key] })
             stageValuesFromConst.push(TileConfig.BASIC)
+            stageValuesFromConst.push(TileConfig.LAKE)
 
             // Check the set of stages are as expected without depending on order returned by .allTiles
             assert.equal(stagesFromTiles.length, stageValuesFromConst.length)

@@ -74,7 +74,7 @@ describe('GameState', () => {
 
         it('each player has 3 tiles', () => {
             for (let player of gameState.getPlayers()) {
-                assert.equal(player.getBoard().length, 3) // each player has 3 tile at beginning of game
+                assert.equal(player.getBoard().getPlacements().length, 3) // each player has 3 tile at beginning of game
             }
         })
 
@@ -83,7 +83,7 @@ describe('GameState', () => {
             const board = players[0].getBoard()
 
             let startingYCoordiate = 0
-            for (let placement of board) {
+            for (let placement of board.getPlacements()) {
                 assert.deepEqual(placement.getCoords(), [0, startingYCoordiate])
                 startingYCoordiate++
             }

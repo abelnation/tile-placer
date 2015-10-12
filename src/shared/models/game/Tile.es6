@@ -40,7 +40,10 @@ class Tile extends BaseModel {
         return allTiles[TileConfig.BASIC]
     }
 
+    static lake() {
+        const allTiles = Tile.allTiles()        
+        return allTiles[TileConfig.LAKE][0] // Only one tile in the lake stage
+    }
 }
-
 
 module.exports = Tile

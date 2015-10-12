@@ -5,10 +5,13 @@
 // Created by dpekar on 10/7/15.
 //
 
+// const _ = require('underscore')
+// const Logger = require('../../log/Logger')
+
 const BaseModel = require('../BaseModel')
 const Placement = require('./Placement')
+const Board = require('./Board')
 const GameSetupConfig = require('../../data/GameSetup-config')
-// const Logger = require('../../log/Logger')
 
 class Player extends BaseModel {
     constructor(user) {
@@ -22,7 +25,7 @@ class Player extends BaseModel {
         this.set('reputation', 0)
         this.set('population', 0)
 
-        this.set('board', [])
+        this.set('board', new Board())
         this.set('goals', [])
 
         this.set('startingPlayer', false)
@@ -44,10 +47,16 @@ class Player extends BaseModel {
     isStartingPlayer() { return this.get('startingPlayer') }
     getTurnsComplete() { return this.get('turnsComplete') }
 
+    chargeForTile(totalCost) {
+        let money = this.getMoney() 
+        this.set('money', money - totalCost)
+    }
+
     placeTile(tile, coords, turn) {
         const placement = new Placement(tile, coords, turn)
+
         let board = this.getBoard()
-        board.push(placement)
+        board.addPlacement(placement)
         this.set('board', board)
         return placement
     }

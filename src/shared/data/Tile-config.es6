@@ -8,6 +8,7 @@
 const TileConfig = {}
 
 TileConfig.BASIC = 'basic'
+TileConfig.LAKE = 'lake'
 
 TileConfig.STAGES = {
     A: 'a', 

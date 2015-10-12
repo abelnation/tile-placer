@@ -8,6 +8,16 @@ const TileConfig = require('./Tile-config')
 
 module.exports = {
 
+    lake: [{
+            name: 'Lake',
+            cost: 0,
+            category: TileConfig.CATEGORIES.LAKE,
+            icon: null,
+            stage: TileConfig.LAKE,
+            immediateEffect: (player) => { },
+            conditionalEffect: (player, players) => { }      
+    }],
+
     basic: [
         {
           name: 'Suburbs',

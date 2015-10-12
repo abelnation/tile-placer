@@ -13,6 +13,7 @@ const Player = require('./Player')
 const Market = require('./Market')
 const Tile = require('./Tile')
 const GameSetupConfig = require('../../data/GameSetup-config')
+const TileConfig = require('../../data/Tile-config')
 
 const GameSetup = {
     // Set up players for the game
@@ -62,7 +63,7 @@ const GameSetup = {
         let result = {}
         _.each(allTiles, (tiles, stage) => {
             // Each of the basic tiles gets its own pile 
-            if(stage === 'basic') {
+            if(stage === TileConfig.BASIC) {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
                     for (let i = 0; i < GameSetupConfig.BASIC_TILES_PER_PILE; i++) {
@@ -73,7 +74,7 @@ const GameSetup = {
             } 
 
             // Piles for stage a, b & c should be chosen randomly
-            else {
+            else if (stage !== TileConfig.LAKE ){
                 let tilePile = []
                 for (let i = 0; i < GameSetupConfig.TILES_PER_PILE; i++) {
                     let tile = tiles[Math.floor(Math.random()*tiles.length)]

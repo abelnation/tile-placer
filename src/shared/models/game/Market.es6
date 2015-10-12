@@ -7,6 +7,7 @@
 
 const BaseModel = require('../BaseModel')
 const TileConfig = require('../../data/Tile-config')
+const MarketConfig = require('../../data/Market-config')
 
 class Market extends BaseModel {
     constructor(tilePiles) {
@@ -21,7 +22,7 @@ class Market extends BaseModel {
     fillUpSlots(tilePiles) {
         let tiles = this.getTiles()
         if (tiles.length === 0) { // no tiles on board yet
-            for (let i = 0; i < Market.NUM_SLOTS; i++) {
+            for (let i = 0; i < MarketConfig.NUM_SLOTS; i++) {
                 let tile = this.selectTile(tilePiles)
                 tiles.push(tile)
             }
@@ -37,9 +38,13 @@ class Market extends BaseModel {
             }
         }
     }
-}
 
-Market.SLOT_COSTS = [10, 8, 6, 4, 2, 0, 0]
-Market.NUM_SLOTS = Market.SLOT_COSTS.length
+    markupForPosition(position) {
+    if (position > MarketConfig.NUM_SLOTS -1 || position < 0 ) {
+            throw new BaseError(`Position ${ position } isn't a valid slot in the market.`)
+        }
+    return MarketConfig.SLOT_COSTS[position]
+    }
+}
 
 module.exports = Market
