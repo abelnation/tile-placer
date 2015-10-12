@@ -47,10 +47,6 @@ class GameState extends BaseModel {
         this.incrementTurnNum()
     }
 
-    playerCanAfford(player, marketPosition) {
-        return player.money >= this.totalCostOfTile(marketPosition)
-    }
-
     totalCostOfTile(marketPosition) {
         let market = this.getMarket()
         let tile = market.getTiles()[marketPosition]
@@ -60,13 +56,15 @@ class GameState extends BaseModel {
 
     buyTileFromMarket(player, coords, marketPosition) {
         let market = this.getMarket()
-        let tile = market[marketPosition]
+        const tile = market[marketPosition]
+        const totalCost = this.totalCostOfTile(marketPosition)
+
         if (typeOf(tile) === 'undefined') {
             throw new BaseError(`Couldn't find a tile in the market at index ${ marketPosition }.`)
         }
 
         // throw error if player doesn't have enough
-        if (this.playerCanAfford(player, marketPosition) === false) {
+        if (player.canAfford(totalCost) === false) {
             throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.name } at index ${ marketPosition.name }.`)
         }
 
@@ -75,11 +73,12 @@ class GameState extends BaseModel {
             throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.name }.`)
         }
 
-        player.chargeForTile(this.totalCostOfTiletotalCost())
+        player.chargeForTile(totalCost)
         player.placeTile(tile, coords, this.getTurnNum())
 
+        player.executeImmediateEffect(tile)
+        player.executeConditionalEffects(tile)
 
-        // commence effects of new tile
         // collect player’s money & population
         // update market
 

@@ -1,7 +1,7 @@
 'use strict'
 
 //
-// Tile-Config
+// GameSetup-Config
 // Created by dpekar on 10/9/15.
 //
 

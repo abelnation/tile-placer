@@ -5,6 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 const TileConfig = require('./Tile-config')
+const StatsConfig = require('./Stats-config')
 
 module.exports = {
 
@@ -25,8 +26,8 @@ module.exports = {
           category: TileConfig.CATEGORIES.RESIDENTIAL,
           icon: null,
           stage: TileConfig.BASIC,
-          immediateEffect: (player) => { player.population = player.population + 2},
-          conditionalEffect: (player, players) => { }
+          immediateEffect: {stat: StatsConfig.STATS.POPULATION, value: 3},
+          conditionalEffect: []
         },
         {
           name: 'Community Park',
@@ -34,7 +35,7 @@ module.exports = {
           category: TileConfig.CATEGORIES.MUNICIPAL,
           icon: null,
           stage: TileConfig.BASIC,
-          immediateEffect: (player) => { player.income-- },
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: -1},
           conditionalEffect: (player, players) => { }
         },
         {
@@ -43,7 +44,7 @@ module.exports = {
           category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
           stage: TileConfig.BASIC,
-          immediateEffect: (player) => { player.income++ },
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: +1},
           conditionalEffect: (player, players) => { }
         }
     ],

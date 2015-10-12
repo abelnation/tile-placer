@@ -61,4 +61,21 @@ describe('Player', () => {
             assert.isTrue(player.canAfford(1))    // Starting money is 15        
         })
     })
+
+    describe('.executeImmediateEffect', () => {
+        it('should cause desired effect on player\'s stats', () => {
+            let player = new Player(user)
+            const suburbs = Tile.basicTiles()[0]
+            assert.equal(player.getPopulation(), 0)
+            player.executeImmediateEffect(suburbs)
+            assert.equal(player.getPopulation(), 3)  // population bonus for suburbs is 3
+        })
+
+        it('should have no effect if there is no immediate effect', () => {
+            let player = new Player(user)
+            let suburbs = Tile.basicTiles()[0]
+            suburbs.set('immediateEffect', {})
+            assert.equal(player.getPopulation(), 0)            
+        })
+    })
 })

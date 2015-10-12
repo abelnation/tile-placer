@@ -99,6 +99,12 @@ describe('GameState', () => {
         })
     })
 
+    it('.incrementTurnNum should add one to the turn number for the game', () => {
+        assert.equal(gameState.getTurnNum(), 1)
+        gameState.incrementTurnNum()
+        assert.equal(gameState.getTurnNum(), 2)
+    })
+
 
     describe('print Gamestate', function () {
         it('should look as expected', () => {

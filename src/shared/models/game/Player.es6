@@ -5,8 +5,8 @@
 // Created by dpekar on 10/7/15.
 //
 
-// const _ = require('underscore')
-// const Logger = require('../../log/Logger')
+const _ = require('underscore')
+const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const Placement = require('./Placement')
@@ -63,6 +63,15 @@ class Player extends BaseModel {
 
     canAfford(totalCost) {
         return this.getMoney() >= totalCost
+    }
+
+    executeImmediateEffect(tile) {
+        let effect = tile.getImmediateEffect(this)
+        if (_.isEmpty(effect)) {
+            Logger.info(`No immediate effect for tile ${ tile.name }`)
+        } else {
+            this.set(effect.stat, this.get(effect.stat) + effect.value)            
+        }
     }
 }
 module.exports = Player
