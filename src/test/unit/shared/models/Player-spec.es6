@@ -75,6 +75,66 @@ describe('Player', () => {
         })
     })
 
+    describe('.takeIncome', () => {
+        it('should increase the amount of money a player has by their income', () => {
+            let player = new Player(user)
+            assert.equal(player.getIncome(), 0)
+            assert.equal(player.getMoney(), 15)
+
+            player.takeIncome()
+            assert.equal(player.getIncome(), 0)
+            assert.equal(player.getMoney(), 15)
+
+            player.incrementStat(StatsConfig.STATS.INCOME, 5)
+            player.takeIncome()
+            assert.equal(player.getIncome(), 5)
+            assert.equal(player.getMoney(), 20)
+        })
+
+        it('should decrease the amount of money a player has if their income is negative', () => {
+            let player = new Player(user)
+            player.incrementStat(StatsConfig.STATS.INCOME, -3)
+            player.takeIncome()
+            assert.equal(player.getMoney(), 12)
+        })
+
+        it('should decrease the player\s population if they run out of money', () => {
+            let player = new Player(user)
+            player.set('money', 0)
+            player.set('population', 5)
+            player.incrementStat(StatsConfig.STATS.INCOME, -3)
+            player.takeIncome()
+
+            assert.equal(player.getMoney(), 0)
+            assert.equal(player.getPopulation(), 2)
+        })
+
+    })
+
+    describe('.updatePopulation', () => {
+        it('should increase a player\'s population by their reputation', () => {
+            let player = new Player(user)
+            assert.equal(player.getReputation(), 0)
+            assert.equal(player.getPopulation(), 0)
+
+            player.incrementStat(StatsConfig.STATS.REPUTATION, 5)
+            player.updatePopulation()
+            assert.equal(player.getReputation(), 5)
+            assert.equal(player.getPopulation(), 5)
+
+        })
+
+        it('shouldn\'t ever move population to below 0', () => {
+            let player = new Player(user)
+
+            player.incrementStat(StatsConfig.STATS.REPUTATION, -5)
+            player.updatePopulation()
+            assert.equal(player.getReputation(), -5)
+            assert.equal(player.getPopulation(), 0)
+
+        })
+    })    
+
     describe('.executeImmediateEffect', () => {
         it('should cause desired effect on player\'s stats', () => {
             let player = new Player(user)

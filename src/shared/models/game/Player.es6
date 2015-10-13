@@ -66,6 +66,7 @@ class Player extends BaseModel {
         this.set(stat, this.get(stat) + value)            
     }
 
+    // Create a placement for the tile and execute all of the effects of placing the tile
     placeTile(tile, coords, gameState) {
         const placement = new Placement(tile, coords, gameState.getTurnNum())
 
@@ -80,6 +81,34 @@ class Player extends BaseModel {
         this.executeOtherPlayerTileEffects(placement, gameState)
 
         return placement
+    }
+
+    // Update a player's money based on their income    
+    // If a player's income is < 0 reduce their income until 0 and remove population if they still owe money
+    takeIncome() {
+        let newMoney = this.getIncome() + this.getMoney()
+        if (newMoney < 0) {
+            let newPopulation = this.getPopulation() + newMoney
+            this.setPopulation(newPopulation)
+            this.set('money', 0)
+        } else {
+            this.set('money', this.getIncome() + this.getMoney())
+        }
+    }
+
+    // Update a player's population based on their reputation
+    updatePopulation() {
+        let newPopulation = this.getReputation() + this.getPopulation()
+        this.setPopulation(newPopulation)
+    }
+
+    // A player's population can never go below 0
+    setPopulation(newPopulation) {
+        if (newPopulation < 0) {
+            this.set('population', 0)
+        } else {
+            this.set('population', newPopulation)
+        }              
     }
 
     canAfford(totalCost) {
