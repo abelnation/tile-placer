@@ -6,7 +6,7 @@
 //
 
 const BaseModel = require('../BaseModel')
-const GameSetup = require('./GameSetup')
+const GameSetup = require('../../mixins/GameSetup')
 const BaseError = require('../error/BaseError')
 // const Player = require('./Player')
 // const Market = require('./Market')
@@ -92,6 +92,13 @@ class GameState extends BaseModel {
         // remove tile from market
         // update market
         this.incrementTurnNum()
+    }
+
+    opponentsOf(player) {
+        let allPlayers = this.getPlayers()
+        return  _.filter(allPlayers, (playerX) => {
+            return playerX !== player                        
+        })
     }
 
     incrementTurnNum() {

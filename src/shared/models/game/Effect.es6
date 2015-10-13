@@ -69,11 +69,9 @@ class Effect extends BaseModel {
                     }
                     break
                 case (TileConfig.CONDITION.OTHER):
-                    let otherPlayers = _.filter(allPlayers, (playerX) => {
-                        playerX !== player                        
-                    })
-                    let otherPlacements = _.map(otherPlayers, (playerX) => {
-                        return playerX.getPlacements()
+                    let opponents = gameState.opponentsOf(player)
+                    let otherPlacements = _.map(opponents, (opponent) => {
+                        return opponent.getPlacements()
                     })
 
                     for (let placementSet of otherPlacements) {

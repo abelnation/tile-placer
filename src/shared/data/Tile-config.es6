@@ -16,6 +16,8 @@ TileConfig.STAGES = {
 		C: 'c'
 }
 
+
+
 TileConfig.CATEGORIES = {
 	RESIDENTIAL: 'Residential',
 	MUNICIPAL: 'Municipal',
@@ -23,6 +25,8 @@ TileConfig.CATEGORIES = {
 	INDUSTRIAL: 'Industrial',
 	LAKE: 'lake'
 }
+
+TileConfig.CATEGORIES.ANY = [TileConfig.CATEGORIES.RESIDENTIAL, TileConfig.CATEGORIES.MUNICIPAL, TileConfig.CATEGORIES.COMMERCIAL, TileConfig.CATEGORIES.INDUSTRIAL]
 
 TileConfig.ICONS = {
 	SCHOOL: 'school',

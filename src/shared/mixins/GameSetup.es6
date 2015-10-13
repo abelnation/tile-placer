@@ -9,11 +9,11 @@
 
 // const BaseError = require('../error/BaseError')
 const _ = require('underscore')
-const Player = require('./Player')
-const Market = require('./Market')
-const Tile = require('./Tile')
-const GameSetupConfig = require('../../data/GameSetup-config')
-const TileConfig = require('../../data/Tile-config')
+const Player = require('../models/game/Player')
+const Market = require('../models/game/Market')
+const Tile = require('../models/game/Tile')
+const GameSetupConfig = require('../data/GameSetup-config')
+const TileConfig = require('../data/Tile-config')
 
 const GameSetup = {
     // Set up players for the game

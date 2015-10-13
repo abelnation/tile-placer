@@ -16,14 +16,11 @@ const TileConfig = require('../../../../shared/data/Tile-config')
 // const Player = require('../../../../shared/models/Player')
 
 describe('GameState', () => {
-    const PLAYER_ID_1 = 1
-
-    const userIds = [PLAYER_ID_1]
-    let users
+    const userIds = [1,2,3]
     let gameState
 
     before( () => {
-        users = userIds.map( id => new User(id) )
+        let users = userIds.map( id => new User(id) )
         gameState = new GameState(users)
         gameState.setupInitialGameState()
     })
@@ -32,11 +29,27 @@ describe('GameState', () => {
         assert.equal('GameState', gameState.type)        
     })
 
-    it('has players associated with it', () => {
-        let players = gameState.getPlayers()
-        assert.lengthOf(players, userIds.length)
-        assert.equal(players[0].type, 'Player')
+    describe('players', () => {
+        it('has players associated with it', () => {
+            let players = gameState.getPlayers()
+            assert.lengthOf(players, userIds.length)
+            assert.equal(players[0].type, 'Player')
+        })
+
+        it('.opponents returns all players besides the one passed in', () => {
+            let player1 = gameState.getPlayers()[0]
+            let player2 = gameState.getPlayers()[1]
+            let player3 = gameState.getPlayers()[2]
+            let opponents = gameState.opponentsOf(player1)
+            assert.lengthOf(opponents, 2)
+            assert.notInclude(opponents, player1)
+            assert.include(opponents, player2)
+            assert.include(opponents, player3)
+
+        })
+
     })
+
 
     describe('setting up tile piles:', () => {
 
