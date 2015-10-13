@@ -17,17 +17,15 @@ const TileConfig = require('../../../../shared/data/Tile-config')
 
 describe('GameState', () => {
     const PLAYER_ID_1 = 1
-    const PLAYER_ID_2 = 2
 
-    const userIds = [PLAYER_ID_1, PLAYER_ID_2]
+    const userIds = [PLAYER_ID_1]
     let users
     let gameState
 
     before( () => {
-        users = userIds.map( id => {
-            return new User(id)
-        })
+        users = userIds.map( id => new User(id) )
         gameState = new GameState(users)
+        gameState.setupInitialGameState()
     })
 
     it('basic constructor', () => {
@@ -88,6 +86,16 @@ describe('GameState', () => {
                 startingYCoordiate++
             }
         })
+
+        it('starting players have proper stats', () => {
+            const players = gameState.getPlayers()
+            for (let player of players) {
+                assert.equal(player.getReputation(), 1)
+                assert.equal(player.getIncome(), 0)
+                assert.equal(player.getPopulation(), 2)
+            }            
+        })
+
     })
 
     describe('setting up market:', () => {

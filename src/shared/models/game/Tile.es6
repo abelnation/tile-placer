@@ -50,6 +50,19 @@ class Tile extends BaseModel {
         return this.getIcon() === icon
     }
 
+    static findByName(name) {
+        let tileStacks = this.allTiles()
+        let allTiles = []
+        for (let tileStack in tileStacks) {
+            for (let tile of tileStacks[tileStack]) {
+                allTiles.push(tile)
+            }
+        }
+        return _.find(allTiles, (tile) => {
+            return tile.getName() === name
+        })
+    }
+
     static allTiles() {
         let result = {}
         _.each(TileList, (tiles, stage) => {

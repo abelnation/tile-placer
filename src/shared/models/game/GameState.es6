@@ -17,18 +17,19 @@ class GameState extends BaseModel {
 
     constructor(users) {
         super()
-        this.init(users)
+        this.set('users', users)
     }
 
-    init(users) {
+    setupInitialGameState() { 
         this.set('turnNum', 1)
-        this.setupPlayers(users)
+        this.setupPlayers()
         this.setupTilePiles()
         this.setupStartingTilesForPlayers()        
         this.setupMarket()        
         return this
     }
 
+    getUsers() {return this.get('users')}
     getTurnNum() {return this.get('turnNum')}
     getPlayers() {return this.get('players')}
     getTilePiles() {return this.get('tilePiles')}
@@ -74,10 +75,7 @@ class GameState extends BaseModel {
         }
 
         player.chargeForTile(totalCost)
-        let placement = player.placeTile(tile, coords, this.getTurnNum())
-
-        player.executeImmediateEffect(placement)
-        player.executeConditionalEffects(placement, gameState)
+        player.placeTile(tile, coords, this) // this executes all effects
 
         // collect player’s money & population
         // update market

@@ -6,18 +6,18 @@
 //
 
 const assert = require('chai').assert
+// const _ = require('underscore')
 // const Logger = require('../../../../shared/log/Logger')
 
 const User = require('../../../../shared/models/User')
 const GameState = require('../../../../shared/models/game/GameState')
-const Player = require('../../../../shared/models/game/Player')
+// const Player = require('../../../../shared/models/game/Player')
 const Tile = require('../../../../shared/models/game/Tile')
 const Effect = require('../../../../shared/models/game/Effect')
 const StatsConfig = require('../../../../shared/data/Stats-config')
 const TileConfig = require('../../../../shared/data/Tile-config')
 
 describe('Effect', () => {
-    let player = new Player()
 
     it('basic constructor', () => {
         let effectInfo = {
@@ -35,29 +35,34 @@ describe('Effect', () => {
 
     describe('.executeOn', () => {
 
-        it('increments player stats properly for adjacent effects ',  () => {
-            let users = [1,2,3].map( id =>  new User(id))
+        it('increments player stats properly for ADJACENT effects ',  () => {
+            let users = [1].map( id =>  new User(id))
             let gameState = new GameState(users)
-            const basicTiles = Tile.basicTiles()
-            let suburbs = basicTiles[0] // Suburbs 
-            let suburbsPlacement = player.placeTile(suburbs, [0,0], 1)
-            assert.equal(player.getReputation(), 0)
-
-            player.executeImmediateEffect(suburbsPlacement)
-            player.executeConditionalEffects(suburbsPlacement)
-
-            let communityPark = basicTiles[1] // Community Park
-            let communityPlacement = player.placeTile(communityPark, [0,1], 1)
-
-            player.executeImmediateEffect(communityPlacement)
-            player.executeConditionalEffects(communityPlacement, gameState)
-
-            assert.equal(player.getIncome(), -1)
-            assert.equal(player.getPopulation(), 3)
+            gameState.setupInitialGameState()
+            
+            let player = gameState.getPlayers()[0]
             assert.equal(player.getReputation(), 1)
+            assert.equal(player.getIncome(), 0)
+            assert.equal(player.getPopulation(), 2)
+  
+        })
+
+        it('increments player stats properly for EVERY effects ',  () => {
+            let users = [1].map( id =>  new User(id))
+            let gameState = new GameState(users)
+            gameState.setupInitialGameState()
+
+            let player = gameState.getPlayers()[0]
+
+            let mint = Tile.findByName('Mint')
+
+            player.placeTile(mint, [0,1], gameState)
+
+            assert.equal(player.getReputation(), 0)
+            assert.equal(player.getIncome(), 3)
+            assert.equal(player.getPopulation(), 2)
+            assert.equal(player.getMoney(), 17)
         })
       
     })
-
-
 })

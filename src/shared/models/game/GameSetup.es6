@@ -17,7 +17,8 @@ const TileConfig = require('../../data/Tile-config')
 
 const GameSetup = {
     // Set up players for the game
-    setupPlayers(users) {
+    setupPlayers() {
+        const users = this.getUsers()
         const players = users.map( user => new Player(user) )
         this.set('players', players)        
 
@@ -36,10 +37,11 @@ const GameSetup = {
         // Set up starting tiles for players
         let players = this.getPlayers()
         const xCoord = 0
+        
         for (let player of players) {
             let yCoord = 0    
             for (let tile of Tile.basicTiles()) {
-                player.placeTile(tile, [xCoord, yCoord], 0)
+                player.placeTile(tile, [xCoord, yCoord], this)
                 yCoord++
             }
         }

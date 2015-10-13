@@ -70,7 +70,7 @@ class Board extends BaseModel {
         })
     }
 
-    getAdjacent(newPlacement) {
+    getAdjacentPlacements(newPlacement) {
         const newPlacementAdjacentCoords = Board.adjacentCoords(newPlacement.getCoords())        
         let allPlacements = this.getPlacements()
 

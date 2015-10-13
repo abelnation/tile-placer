@@ -16,8 +16,8 @@ module.exports = {
             category: TileConfig.CATEGORIES.LAKE,
             icon: null,
             stage: TileConfig.LAKE,
-            immediateEffect: (player) => { },
-            conditionalEffects: (player, players) => { }      
+            immediateEffect: {},
+            conditionalEffects: [{stat: StatsConfig.STATS.MONEY, value: 2, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL, TileConfig.CATEGORIES.MUNICIPAL] } } ] 
     }],
 
     basic: [
@@ -27,7 +27,7 @@ module.exports = {
           category: TileConfig.CATEGORIES.RESIDENTIAL,
           icon: null,
           stage: TileConfig.BASIC,
-          immediateEffect: {stat: StatsConfig.STATS.POPULATION, value: 3},
+          immediateEffect: {stat: StatsConfig.STATS.POPULATION, value: 2},
           conditionalEffects: []
         },
         {
@@ -45,20 +45,68 @@ module.exports = {
           category: TileConfig.CATEGORIES.INDUSTRIAL,
           icon: null,
           stage: TileConfig.BASIC,
-          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: +1},
-          conditionalEffects: (player, players) => { }
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
+          conditionalEffects: [ {stat: StatsConfig.STATS.REPUTATION, value: -1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.MUNICIPAL, TileConfig.CATEGORIES.RESIDENTIAL] } } ]
         }
     ],
 
     a: [
+        {
+          name: 'Business Supply Store',
+          cost: 8,
+          category: TileConfig.CATEGORIES.COMMERICIAL,
+          icon: null,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
+          conditionalEffects: [ {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.EVERY, icon: TileConfig.ICONS.OFFICE } } ]
+        },
+        {
+          name: 'Fast Food Restaurant',
+          cost: 7,
+          category: TileConfig.CATEGORIES.COMMERICIAL,
+          icon: TileConfig.ICONS.RESTAURANT,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
+          conditionalEffects: [ {stat: StatsConfig.STATS.POPULATION, value: 3, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } } ]
+        },
+        {
+          name: 'Mint',
+          cost: 15,
+          category: TileConfig.CATEGORIES.MUNICIPAL,
+          icon: null,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 3},
+          conditionalEffects: [ {stat: StatsConfig.STATS.MONEY, value: 2, condition: { type: TileConfig.CONDITION.YOUR, categories: [TileConfig.CATEGORIES.MUNICIPAL] } } ]
+        },
+        {
+          name: 'Parking Lot',
+          cost: 12,
+          category: TileConfig.CATEGORIES.COMMERICIAL,
+          icon: null,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
+          conditionalEffects: [ {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.YOUR, categories: [TileConfig.CATEGORIES.MUNICIPAL, TileConfig.CATEGORIES.COMMERICIAL] } } ]
+        },
         {
           name: 'Convenience Store',
           cost: 6,
           category: TileConfig.CATEGORIES.COMMERICIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
-          immediateEffect: (player) => { player.income++ },
-          conditionalEffects: (player, players) => { }
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
+          conditionalEffects: []
+        },
+        {
+          name: 'Freeway',
+          cost: 5,
+          category: TileConfig.CATEGORIES.COMMERICIAL,
+          icon: null,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: null,
+          conditionalEffects: [ 
+            {stat: StatsConfig.STATS.REPUTATION, value: -1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } },
+            {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.COMMERICIAL] } } 
+          ]
         },
         {
           name: 'Mobile Home Community',

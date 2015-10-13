@@ -11,6 +11,7 @@ const Player = require('../../../../shared/models/game/Player')
 const Placement = require('../../../../shared/models/game/Placement')
 const User = require('../../../../shared/models/User')
 const Tile = require('../../../../shared/models/game/Tile')
+const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 const StatsConfig = require('../../../../shared/data/Stats-config')
 // const Logger = require('../../../../shared/log/Logger')
@@ -39,8 +40,10 @@ describe('Player', () => {
 
         it('.placeTile updates board with placement', () => {
             const tile = Tile.basicTiles()[0]
+            let users = [1,2,3].map( id =>  new User(id))
+            let gameState = new GameState(users)
 
-            const placement = player.placeTile(tile, [0, 0], 1)
+            const placement = player.placeTile(tile, [0, 0], gameState)
             const board = player.getBoard()
             assert.equal(board.getPlacements()[0], placement)
         })
@@ -79,7 +82,7 @@ describe('Player', () => {
             let placement = new Placement(suburbs, [0,0], 1)
             assert.equal(player.getPopulation(), 0)
             player.executeImmediateEffect(placement)
-            assert.equal(player.getPopulation(), 3)  // population bonus for suburbs is 3
+            assert.equal(player.getPopulation(), 2)  // population bonus for suburbs is 2
         })
 
         it('should have no effect if there is no immediate effect', () => {

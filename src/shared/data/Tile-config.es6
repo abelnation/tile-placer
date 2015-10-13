@@ -26,14 +26,19 @@ TileConfig.CATEGORIES = {
 
 TileConfig.ICONS = {
 	SCHOOL: 'school',
-	RESTAURANT: 'restaurant'	
+	RESTAURANT: 'restaurant',
+	OFFICE: 'office'	
 }
+
 
 TileConfig.CONDITION = {
 	ADJACENT: 'adjacent',
 	EVERY: 'every',
 	AFTER: 'after',
-	YOUR: 'your'	
+	YOUR: 'your',
+	OTHER: 'other'
 }
+
+TileConfig.CONDITION.NONADJACENT = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.AFTER, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.OTHER]
 
 module.exports = TileConfig

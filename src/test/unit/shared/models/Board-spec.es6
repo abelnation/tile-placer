@@ -68,25 +68,25 @@ describe('Board', () => {
         })      
     })
 
-    describe('.getAdjacent', () => {
+    describe('.getAdjacentPlacements', () => {
 
         it('returns any placements adjacent to the one passed in', () => {
             let board = new Board()
             let placement = new Placement(tile, [0,0], 1)
             board.addPlacement(placement)
-            assert.lengthOf(board.getAdjacent(placement), 0)
+            assert.lengthOf(board.getAdjacentPlacements(placement), 0)
             
             let secondPlacement = new Placement(tile, [1,0], 2)
             board.addPlacement(secondPlacement)
-            assert.lengthOf(board.getAdjacent(placement), 1)
-            assert.equal(board.getAdjacent(placement)[0], secondPlacement)
+            assert.lengthOf(board.getAdjacentPlacements(placement), 1)
+            assert.equal(board.getAdjacentPlacements(placement)[0], secondPlacement)
             
             let thirdPlacement = new Placement(tile, [0,1], 3)
             board.addPlacement(thirdPlacement)
-            assert.lengthOf(board.getAdjacent(placement), 2)  // original palcement is neighbors with both new placements
+            assert.lengthOf(board.getAdjacentPlacements(placement), 2)  // original palcement is neighbors with both new placements
 
-            assert.lengthOf(board.getAdjacent(secondPlacement), 1) // these two aren't neighbors with each other 
-            assert.lengthOf(board.getAdjacent(thirdPlacement), 1) // these two aren't neighbors with each other
+            assert.lengthOf(board.getAdjacentPlacements(secondPlacement), 1) // these two aren't neighbors with each other 
+            assert.lengthOf(board.getAdjacentPlacements(thirdPlacement), 1) // these two aren't neighbors with each other
         })
           
     })
