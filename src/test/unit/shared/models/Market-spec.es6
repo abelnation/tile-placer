@@ -6,7 +6,8 @@
 //
 
 const assert = require('chai').assert
-// const Logger = require('../../../../shared/log/Logger')
+const _ = require('underscore')
+const Logger = require('../../../../shared/log/Logger')
 
 const Market = require('../../../../shared/models/game/Market')
 const Tile = require('../../../../shared/models/game/Tile')
@@ -14,28 +15,53 @@ const TileConfig = require('../../../../shared/data/Tile-config')
 const MarketConfig = require('../../../../shared/data/Market-config')
 
 describe('Market', () => {
-    const allTiles = Tile.allTiles()
-    let market = new Market(allTiles)
 
     it('basic constructor', () => {
+        let market = new Market(Tile.allTiles())
         assert.equal('Market', market.type)
         assert.equal(market.getTiles().length, MarketConfig.NUM_SLOTS)
     })
 
-    it('choose the first tile from a list', () => {
-        let allTilesSet2 = Tile.allTiles()
-        let topTile = allTilesSet2[TileConfig.STAGES.A][0] 
-        let selectedTile = market.selectTile(allTilesSet2)
-        assert.equal(topTile, selectedTile)        
+    describe('filling up market with tiles', () => {
+
+        it('.selectTopTile chooses the first tile from a list', () => {
+            let market = new Market(Tile.allTiles())
+            let allTilesSets = Tile.allTiles()
+            let topTile = allTilesSets[TileConfig.STAGES.A][0] 
+            let selectedTile = market.selectTopTile(allTilesSets)
+            assert.equal(topTile, selectedTile)        
+        })
+
+        it('.fillUpSlots takes top tile and preserves order of existing tiles', () => {
+            let allTiles = Tile.allTiles()
+            let market = new Market(allTiles)
+            let previousTiles = Object.assign({}, market.getTiles()) // need to make a copy for check later
+
+            market.takeTile(3)
+            market.fillUpSlots(allTiles)
+            assert.isFalse(_.contains(previousTiles, market.getTiles()[0]))
+        })
     })
 
-    describe('getting markup for market by position', () =>  {
+
+    describe('.takeTile', () =>  {
+        it('removes the correct tile from the market', () => {
+            let market = new Market(Tile.allTiles())
+            market.takeTile(3)
+            assert.lengthOf(market.getTiles(), MarketConfig.NUM_SLOTS-1)
+        })
+    })
+
+
+    describe('.markupForPosition', () =>  {
 
         it('raises an error if you specify an invalid position in market', () => {
             
         })
 
         it('charges correct markup according to position on market', () => {
+            let market = new Market(Tile.allTiles())
+
             let marketPosition = 3
             assert.equal(market.markupForPosition(marketPosition), 4)                
 

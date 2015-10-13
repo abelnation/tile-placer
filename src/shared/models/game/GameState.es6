@@ -77,8 +77,10 @@ class GameState extends BaseModel {
         player.chargeForTile(totalCost)
         player.placeTile(tile, coords, this) // this executes all effects
 
-        // collect player’s money & population
-        // update market
+        player.takeIncome()
+        player.updatePopulation() 
+
+        market.fillUpSlots(this.getTilePiles())
 
         this.incrementTurnNum()
     }
