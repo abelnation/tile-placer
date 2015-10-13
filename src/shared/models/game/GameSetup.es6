@@ -18,9 +18,7 @@ const TileConfig = require('../../data/Tile-config')
 const GameSetup = {
     // Set up players for the game
     setupPlayers(users) {
-        const players = users.map( user => {
-            return new Player(user)
-        })
+        const players = users.map( user => new Player(user) )
         this.set('players', players)        
 
         // TOOD: Set starting player

@@ -6,6 +6,7 @@
 //
 const TileConfig = require('./Tile-config')
 const StatsConfig = require('./Stats-config')
+// const Effect = require('../models/game/Effect')
 
 module.exports = {
 
@@ -16,7 +17,7 @@ module.exports = {
             icon: null,
             stage: TileConfig.LAKE,
             immediateEffect: (player) => { },
-            conditionalEffect: (player, players) => { }      
+            conditionalEffects: (player, players) => { }      
     }],
 
     basic: [
@@ -27,7 +28,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.BASIC,
           immediateEffect: {stat: StatsConfig.STATS.POPULATION, value: 3},
-          conditionalEffect: []
+          conditionalEffects: []
         },
         {
           name: 'Community Park',
@@ -36,8 +37,8 @@ module.exports = {
           icon: null,
           stage: TileConfig.BASIC,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: -1},
-          conditionalEffect: (player, players) => { }
-        },
+          conditionalEffects: [ {stat: StatsConfig.STATS.REPUTATION, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL] } } ]
+         },
         {
           name: 'Heavy Factory',
           cost: 3,
@@ -45,7 +46,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.BASIC,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: +1},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         }
     ],
 
@@ -57,7 +58,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -66,7 +67,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -75,7 +76,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -84,7 +85,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -93,7 +94,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         } 
     ],
 
@@ -105,7 +106,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -114,7 +115,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -123,7 +124,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -132,7 +133,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -141,7 +142,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         }
     ],
 
@@ -153,7 +154,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income++ },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mobile Home Community',
@@ -162,7 +163,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.population = player.population + 6 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Farm',
@@ -171,7 +172,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.reputation--},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Landfill',
@@ -180,7 +181,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income = player.income + 2 },
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         },
         {
           name: 'Mint',
@@ -189,7 +190,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income = player.income + 3},
-          conditionalEffect: (player, players) => { }
+          conditionalEffects: (player, players) => { }
         }
     ]
 }

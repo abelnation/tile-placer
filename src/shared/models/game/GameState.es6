@@ -74,10 +74,10 @@ class GameState extends BaseModel {
         }
 
         player.chargeForTile(totalCost)
-        player.placeTile(tile, coords, this.getTurnNum())
+        let placement = player.placeTile(tile, coords, this.getTurnNum())
 
-        player.executeImmediateEffect(tile)
-        player.executeConditionalEffects(tile)
+        player.executeImmediateEffect(placement)
+        player.executeConditionalEffects(placement, gameState)
 
         // collect player’s money & population
         // update market

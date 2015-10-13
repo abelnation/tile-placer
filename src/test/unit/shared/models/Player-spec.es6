@@ -8,9 +8,11 @@
 const assert = require('chai').assert
 
 const Player = require('../../../../shared/models/game/Player')
+const Placement = require('../../../../shared/models/game/Placement')
 const User = require('../../../../shared/models/User')
 const Tile = require('../../../../shared/models/game/Tile')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
+const StatsConfig = require('../../../../shared/data/Stats-config')
 // const Logger = require('../../../../shared/log/Logger')
 
 describe('Player', () => {
@@ -50,6 +52,14 @@ describe('Player', () => {
         })
     })
 
+    describe('.incrementStat updates whatever stat is passed in', () => {
+        let player = new Player(user)
+        player.incrementStat(StatsConfig.STATS.INCOME, 1) 
+        assert.equal(player.getIncome(), 1)        
+        player.incrementStat(StatsConfig.STATS.INCOME, -3) 
+        assert.equal(player.getIncome(), -2)        
+    })
+
     describe('.canAfford', () => {
         let player = new Player(user)
 
@@ -66,8 +76,9 @@ describe('Player', () => {
         it('should cause desired effect on player\'s stats', () => {
             let player = new Player(user)
             const suburbs = Tile.basicTiles()[0]
+            let placement = new Placement(suburbs, [0,0], 1)
             assert.equal(player.getPopulation(), 0)
-            player.executeImmediateEffect(suburbs)
+            player.executeImmediateEffect(placement)
             assert.equal(player.getPopulation(), 3)  // population bonus for suburbs is 3
         })
 

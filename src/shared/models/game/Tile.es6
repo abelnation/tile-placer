@@ -5,15 +5,21 @@
 // Created by dpekar on 10/7/15.
 //
 
+var _ = require('underscore')
+
 const BaseModel = require('../BaseModel')
+const Effect = require('./Effect')
 const TileList = require('../../data/Tile-list')
 const TileConfig = require('../../data/Tile-config')
-var _ = require('underscore')
 
 class Tile extends BaseModel {
     constructor(tileInfo) {
         super()
-        this.setFromObject(tileInfo)        
+        this.setFromObject(tileInfo)
+        this.set('immediateEffect', new Effect(tileInfo.immediateEffect))  
+        this.set('conditionalEffects', _.map(tileInfo.conditionalEffects, (conditionalEffect) =>  {
+            return new Effect(conditionalEffect)
+        }))
         // TODO: build in validation for all these fields
     }
 
@@ -23,7 +29,26 @@ class Tile extends BaseModel {
     getIcon() { return this.get('icon') }
     getStage() { return this.get('stage') }
     getImmediateEffect() { return this.get('immediateEffect') }
-    getConditionalEffect() { return this.get('conditionalEffect') }
+    getConditionalEffects() { return this.get('conditionalEffects') }
+
+
+    meetsCondition(condition) {
+        if (_.isUndefined(condition.categories) === false) {
+            return this.inAnyOfCategories(condition.categories)
+        } else if (_.isUndefined(condition.icon) === false) {
+            return this.hasIcon(condition.categories)
+        }
+    }
+
+    inAnyOfCategories(categories) {
+        return _.some(categories, (category) => {
+            return this.getCategory() === category
+        })
+    }
+
+    hasIcon(icon) {
+        return this.getIcon() === icon
+    }
 
     static allTiles() {
         let result = {}

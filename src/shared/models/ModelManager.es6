@@ -19,6 +19,7 @@ const models = {
     'TestIllegalCommand': require('./commands/TestIllegalCommand.es6'),
     'BaseError': require('./error/BaseError.es6'),
     'Board': require('./game/Board.es6'),
+    'Effect': require('./game/Effect.es6'),
     'GameSetup': require('./game/GameSetup.es6'),
     'GameState': require('./game/GameState.es6'),
     'Guess': require('./game/Guess.es6'),

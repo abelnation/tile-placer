@@ -68,6 +68,29 @@ describe('Board', () => {
         })      
     })
 
+    describe('.getAdjacent', () => {
+
+        it('returns any placements adjacent to the one passed in', () => {
+            let board = new Board()
+            let placement = new Placement(tile, [0,0], 1)
+            board.addPlacement(placement)
+            assert.lengthOf(board.getAdjacent(placement), 0)
+            
+            let secondPlacement = new Placement(tile, [1,0], 2)
+            board.addPlacement(secondPlacement)
+            assert.lengthOf(board.getAdjacent(placement), 1)
+            assert.equal(board.getAdjacent(placement)[0], secondPlacement)
+            
+            let thirdPlacement = new Placement(tile, [0,1], 3)
+            board.addPlacement(thirdPlacement)
+            assert.lengthOf(board.getAdjacent(placement), 2)  // original palcement is neighbors with both new placements
+
+            assert.lengthOf(board.getAdjacent(secondPlacement), 1) // these two aren't neighbors with each other 
+            assert.lengthOf(board.getAdjacent(thirdPlacement), 1) // these two aren't neighbors with each other
+        })
+          
+    })
+
     describe('.atLeastOneAdjacent', () => {
         let board = new Board() 
         let startingPlacement = new Placement(tile, [0,0], 1)
@@ -91,22 +114,22 @@ describe('Board', () => {
         })
     })
 
-    describe('.possibleNeighbors returns an array of possible neighboring coordinates', () => {
+    describe('.adjacentCoords returns an array of possible neighboring coordinates', () => {
 
         it('handles the case where column is odd properly', () => {
             let coords = [1, 1]
             let expectedNeighbors = [[0,0], [0,1], [1,0], [1,2], [2,0], [2,1]]
 
-            const possibleNeighbors = Board.possibleNeighbors(coords)
-            assert.deepEqual(possibleNeighbors, expectedNeighbors)            
+            const adjacentCoords = Board.adjacentCoords(coords)
+            assert.deepEqual(adjacentCoords, expectedNeighbors)            
         })
 
         it('handles the case where column is even', () => {
             let coords = [2, 1]
             let expectedNeighbors = [[1,1], [1,2], [2,0], [2,2], [3,1], [3,2]]
 
-            const possibleNeighbors = Board.possibleNeighbors(coords)
-            assert.deepEqual(possibleNeighbors, expectedNeighbors)            
+            const adjacentCoords = Board.adjacentCoords(coords)
+            assert.deepEqual(adjacentCoords, expectedNeighbors)            
         })
 
     })

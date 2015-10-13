@@ -15,7 +15,7 @@ const GameSetupConfig = require('../../data/GameSetup-config')
 
 class Player extends BaseModel {
     constructor(user) {
-        super()
+        super() 
         this.set('user', user)
 
         this.set('income', 0)
@@ -51,6 +51,10 @@ class Player extends BaseModel {
         let money = this.getMoney() 
         this.set('money', money - totalCost)
     }
+    
+    incrementStat(stat, value) {
+        this.set(stat, this.get(stat) + value)            
+    }
 
     placeTile(tile, coords, turn) {
         const placement = new Placement(tile, coords, turn)
@@ -65,12 +69,27 @@ class Player extends BaseModel {
         return this.getMoney() >= totalCost
     }
 
-    executeImmediateEffect(tile) {
+    executeImmediateEffect(placement) {
+        let tile = placement.getTile()
         let effect = tile.getImmediateEffect(this)
-        if (_.isEmpty(effect)) {
+
+        if (_.isNull(effect)) {
             Logger.info(`No immediate effect for tile ${ tile.name }`)
         } else {
-            this.set(effect.stat, this.get(effect.stat) + effect.value)            
+            effect.executeOn(this, placement)
+        }
+    }
+
+    executeConditionalEffects(placement, gameState=null) {
+        let tile = placement.getTile()
+        let effects = tile.getConditionalEffects(this)
+
+        if (_.isEmpty(effects)) {
+            Logger.info(`No conditional effect for tile ${ tile.getName() }`)
+        } else {
+            for (let effect of effects) {
+                effect.executeOn(this, placement, gameState)
+            }
         }
     }
 }

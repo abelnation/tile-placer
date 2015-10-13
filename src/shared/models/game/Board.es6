@@ -49,10 +49,10 @@ class Board extends BaseModel {
 
     atLeastOneAdjacent(coords) {
         const placements = this.getPlacements()
-        const possibleNeighbors = Board.possibleNeighbors(coords)
+        const adjacentCoords = Board.adjacentCoords(coords)
 
         return _.some(placements, (placement) => {
-            return _.some(possibleNeighbors, (possibleNeighbor) => {
+            return _.some(adjacentCoords, (possibleNeighbor) => {
                 return _.isEqual(placement.getCoords(), possibleNeighbor)
             })
         })        
@@ -70,7 +70,19 @@ class Board extends BaseModel {
         })
     }
 
-    static possibleNeighbors(coords) {
+    getAdjacent(newPlacement) {
+        const newPlacementAdjacentCoords = Board.adjacentCoords(newPlacement.getCoords())        
+        let allPlacements = this.getPlacements()
+
+        return _.filter(allPlacements, (placement) => {
+            let placementCoords = placement.getCoords()
+            return _.some(newPlacementAdjacentCoords, (adjacentCoords) => { 
+                return _.isEqual(adjacentCoords, placementCoords)
+            })
+        })
+    }
+
+    static adjacentCoords(coords) {
         let xCoord = coords[0]
         let yCoord = coords[1]
 
