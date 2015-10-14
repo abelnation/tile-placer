@@ -7,7 +7,7 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
-const Logger = require('../../../../shared/log/Logger')
+// const Logger = require('../../../../shared/log/Logger')
 
 const Market = require('../../../../shared/models/game/Market')
 const Tile = require('../../../../shared/models/game/Tile')

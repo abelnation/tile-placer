@@ -5,7 +5,7 @@
 // Created by dpekar on 10/8/15.
 //
 
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const TileConfig = require('../../data/Tile-config')

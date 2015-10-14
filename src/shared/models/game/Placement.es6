@@ -14,15 +14,22 @@ class Placement extends BaseModel {
 
         this.set('xCoord', coordinates[0])
         this.set('yCoord', coordinates[1])
+
+        this.set('investedIn', false)
         this.set('turnNum', turnNum)
     }
 
     getTile() { return this.get('tile') }
     getXCoord() { return this.get('xCoord') }
     getYCoord() { return this.get('yCoord') }
+    getInvestedIn() { return this.get('investedIn') }
 
     getCoords() {
       return [this.get('xCoord'), this.get('yCoord')]
+    }
+
+    makeInvestment() {
+        this.set('investedIn', true)
     }
 }
 

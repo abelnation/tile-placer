@@ -21,7 +21,7 @@ class Player extends BaseModel {
 
         this.set('income', 0)
         this.set('money', GameSetupConfig.STARTING_MONEY_PER_PLAYER)
-        this.set('investmentMarkers', GameSetupConfig.INVESTMENTS_PER_PLAYER)
+        this.set('numInvestmentsRemaining', GameSetupConfig.INVESTMENTS_PER_PLAYER)
 
         this.set('reputation', 0)
         this.set('population', 0)
@@ -37,7 +37,7 @@ class Player extends BaseModel {
 
     getIncome() { return this.get('income') }
     getMoney() { return this.get('money') }
-    getInvestmentMarkers() { return this.get('investmentMarkers') }
+    getNumInvestmentsRemaining() { return this.get('numInvestmentsRemaining') }
 
     getReputation() { return this.get('reputation') }
     getPopulation() { return this.get('population') }
@@ -74,12 +74,13 @@ class Player extends BaseModel {
         board.addPlacement(placement)
         this.set('board', board)
 
-        this.executeImmediateEffect(placement)
-        this.executeConditionalEffects(placement, gameState)
-        this.executeAdjacentTileEffects(placement, gameState)
-        this.executeNonAdjacentTileEffects(placement)
-        this.executeOtherPlayerTileEffects(placement, gameState)
+        this.executeAllEffects(placement, gameState)
+        return placement
+    }
 
+    makeInvestment(placement, gameState) {
+        placement.makeInvestment()
+        this.executeAllEffects(placement, gameState)
         return placement
     }
 

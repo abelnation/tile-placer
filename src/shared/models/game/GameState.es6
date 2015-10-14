@@ -5,14 +5,14 @@
 // Created by dpekar on 10/7/15.
 //
 
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const GameSetup = require('../../mixins/GameSetup')
 const BaseError = require('../error/BaseError')
 // const Player = require('./Player')
 // const Market = require('./Market')
-// const Tile = require ('./Tile')
+const Tile = require ('./Tile')
 const _ = require('underscore')
 
 class GameState extends BaseModel {
@@ -38,10 +38,23 @@ class GameState extends BaseModel {
     getMarket() {return this.get('market')}
 
     placeLake(player, coords, marketPosition) {
-        // throw error if player doesn't have money to pay real estate cost
-        // remove tile from market
+        let market = this.getMarket()
 
-        this.incrementTurnNum()
+        // check if coords are valid
+        if (player.getBoard().canPlaceOn(coords) === false) {
+            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
+        }
+
+        let realEstateCost = market.markupForPosition(marketPosition)
+        if (player.getMoney() < realEstateCost) {
+            throw new BaseError(`Player doesn't have enough money to trash that tile due to the the real estate cost.`)
+        }
+
+        let tile = Tile.lake()
+        player.placeTile(tile, coords, this) // this executes all effects
+        market.takeTile(marketPosition)
+
+        this.completeTurn(player)
     }
 
     buyBasicTile(player, coords, pileName) {
@@ -53,8 +66,7 @@ class GameState extends BaseModel {
             throw new BaseError(`There aren't any ${ pile } tiles left.`)
         }
 
-        let tile = pile[0]
-        tile.getStage()
+        let tile = pile.pop()
         let cost = tile.getCost()
 
         // throw error if player doesn't have enough
@@ -100,15 +112,30 @@ class GameState extends BaseModel {
         this.completeTurn(player)
     }
 
-    makeInvestment(placement, player) {
-        // throw error if player doesn't have enough
+    makeInvestment(player, placement, marketPosition) {
+        let tile = placement.getTile()
 
-        // place an investment token on a tile on player’s board
-        // commence effects of new tile
-        // collect player’s money & population
-        // remove tile from market
-        // update market
-        this.incrementTurnNum()
+        // throw error if player doesn't have any investments left 
+        if (player.getNumInvestmentsRemaining() === 0) {
+            throw new BaseError(`Player doesn't any investments left.`)
+        }
+
+        // throw error if player doesn't have enough
+        if (placement.getInvestedIn() === true) {
+            throw new BaseError(`Player already invested in ${ tile.getName() }.`)
+        }
+
+        let cost = tile.getCost()
+
+        // throw error if player doesn't have enough
+        if (player.canAfford(cost) === false) {
+            throw new BaseError(`Player doesn't have enough money to invest in ${ tile.getName() }.`)
+        }
+
+        player.chargeForTile(cost)
+        player.makeInvestment(placement, this)
+
+        this.getMarket().takeTile(marketPosition)
         this.completeTurn(player)
     }
 

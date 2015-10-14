@@ -17,7 +17,7 @@ module.exports = {
             icon: null,
             stage: TileConfig.LAKE,
             immediateEffect: {},
-            conditionalEffects: [{stat: StatsConfig.STATS.MONEY, value: 2, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL, TileConfig.CATEGORIES.MUNICIPAL] } } ] 
+            conditionalEffects: [{stat: StatsConfig.STATS.MONEY, value: 2, condition: { type: TileConfig.CONDITION.ADJACENT, categories: TileConfig.CATEGORIES.ANY } } ] 
     }],
 
     basic: [

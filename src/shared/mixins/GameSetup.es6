@@ -5,7 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 
-const Logger = require('../log/Logger')
+// const Logger = require('../log/Logger')
 
 // const BaseError = require('../error/BaseError')
 const _ = require('underscore')
@@ -29,10 +29,7 @@ const GameSetup = {
     // Setup basic & a, b, c tile piles
     setupTilePiles() {
         const tilePiles = this.chooseSetofTiles() // Choose a, b, c tiles randomly
-        Logger.info("Tile in setup", typeof tilePiles['basicResidential'])
         this.set('tilePiles', tilePiles)
-        let piles = this.getTilePiles()
-        let pile = piles[0]
     },
 
     // Place 3 basic tiles on each players' board

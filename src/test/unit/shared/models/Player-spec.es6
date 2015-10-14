@@ -27,7 +27,7 @@ describe('Player', () => {
         assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER)
         assert.equal(player.getReputation(), 0)
         assert.equal(player.getPopulation(), 0)
-        assert.equal(player.getInvestmentMarkers(), GameSetupConfig.INVESTMENTS_PER_PLAYER)
+        assert.equal(player.getNumInvestmentsRemaining(), GameSetupConfig.INVESTMENTS_PER_PLAYER)
         assert.equal(player.getBoard().type, 'Board')
         assert.lengthOf(player.getGoals(), 0)
 

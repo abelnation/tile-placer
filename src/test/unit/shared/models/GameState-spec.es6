@@ -7,12 +7,13 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
-const Logger = require('../../../../shared/log/Logger')
+// const Logger = require('../../../../shared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 const User = require('../../../../shared/models/User')
 const TileConfig = require('../../../../shared/data/Tile-config')
+const MarketConfig = require('../../../../shared/data/Market-config')
 // const Player = require('../../../../shared/models/Player')
 
 describe('GameState', () => {
@@ -149,13 +150,10 @@ describe('GameState', () => {
            it('should run out of tiles after 4 are taken', () => {
                 let player = gameState.getPlayers()[0]
                 player.set('money', 100)
-                let yCoord = 1
-                for (let num of [1,2,3,4]) {
+                for (let yCoord of [1,2,3,4]) {
                     gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
-                    yCoord++
                 }
-                assert.throw(gameState.buyBasicTile)
-                gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+                // assert.throw(gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal'))
             })
         })
 
@@ -164,20 +162,49 @@ describe('GameState', () => {
                 let player = gameState.getPlayers()[0]
                 player.set('money', 100)
                 let tileToBuy = gameState.getMarket().getTiles()[0]
-                gameState.buyTileFromMarket(player, [1,0], 0)
+                gameState.buyTileFromMarket(player, [1,1], 0)
                 let newPlacement = _.last(player.getBoard().getPlacements())
                 assert.equal(tileToBuy, newPlacement.getTile())
-
             })
 
         })
 
         describe('.makeInvestment', () => {
-            
+            it('should double the effect of invested tile', () => {
+                let player = gameState.getPlayers()[0]
+                let park = player.getBoard().getPlacements()[1]
+                gameState.makeInvestment(player, park, 0)
+
+                assert.equal(player.getReputation(), 2)                            
+                assert.equal(player.getIncome(), -1)                         
+                assert.equal(player.getMoney(), 10) // 15 - 5 = 10                           
+            })
+
+            it('should double the effect of invested tile when future tiles are played ', () => {
+                let player = gameState.getPlayers()[0]
+                let park = player.getBoard().getPlacements()[1]
+                gameState.makeInvestment(player, park, 0)
+                gameState.buyBasicTile(player,[1,1], 'basicResidential')
+                assert.equal(player.getReputation(), 4)
+            })
+
+            it('should mark the placement as invested in', () => {
+                let player = gameState.getPlayers()[0]
+                let park = player.getBoard().getPlacements()[1]
+                assert.isFalse(park.getInvestedIn())
+                gameState.makeInvestment(player, park, 0)
+                assert.isTrue(park.getInvestedIn())
+            })
         })
 
         describe('.placeLake', () => {
-            
+            it('should award player the correct amount of money', () => {
+                let player = gameState.getPlayers()[0]
+                gameState.placeLake(player, [1,1], 0)
+
+                assert.equal(player.getMoney(), 19)
+                assert.lengthOf(gameState.getMarket().getTiles(), MarketConfig.NUM_SLOTS)
+            })            
         })
 
         describe('.completeTurn', () => {

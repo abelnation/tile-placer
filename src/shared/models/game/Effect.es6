@@ -27,7 +27,10 @@ class Effect extends BaseModel {
         let tile = newPlacement.getTile()
         if (tile.meetsCondition(condition)) {
             Logger.info(`${tile.getName()} because of ${existingPlacement.getTile().getName()} produces ${this.getValue()} ${this.getStat()}`)
-            player.incrementStat(this.getStat(), this.getValue())                 
+            if(existingPlacement.getInvestedIn() === true) {
+                player.incrementStat(this.getStat(), this.getValue())
+            }  // Execute the effect twice if the person invested in the tile already
+            player.incrementStat(this.getStat(), this.getValue())
         }
     }
 

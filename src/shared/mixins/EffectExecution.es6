@@ -12,6 +12,14 @@ const TileConfig = require('../data/Tile-config')
 
 const EffectExecution = {
 
+    executeAllEffects(placement, gameState) {
+        this.executeImmediateEffect(placement)
+        this.executeConditionalEffects(placement, gameState)
+        this.executeAdjacentTileEffects(placement, gameState)
+        this.executeNonAdjacentTileEffects(placement)
+        this.executeOtherPlayerTileEffects(placement, gameState)                
+    },
+
     executeImmediateEffect(placement) {
         let tile = placement.getTile()
         let effect = tile.getImmediateEffect() 
