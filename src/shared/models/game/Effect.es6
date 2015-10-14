@@ -56,7 +56,7 @@ class Effect extends BaseModel {
                     break
                 case (TileConfig.CONDITION.EVERY):
                     let allPlacements = _.map(allPlayers, (player) => {
-                        return player.getPlacements()
+                        return player.getBoard().getPlacements()
                     })
 
                     for (let placementSet of allPlacements) {

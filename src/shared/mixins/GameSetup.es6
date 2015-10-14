@@ -5,7 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 
-// const Logger = require('../../log/Logger')
+const Logger = require('../log/Logger')
 
 // const BaseError = require('../error/BaseError')
 const _ = require('underscore')
@@ -29,7 +29,10 @@ const GameSetup = {
     // Setup basic & a, b, c tile piles
     setupTilePiles() {
         const tilePiles = this.chooseSetofTiles() // Choose a, b, c tiles randomly
-        this.set('tilePiles', tilePiles)     
+        Logger.info("Tile in setup", typeof tilePiles['basicResidential'])
+        this.set('tilePiles', tilePiles)
+        let piles = this.getTilePiles()
+        let pile = piles[0]
     },
 
     // Place 3 basic tiles on each players' board
@@ -67,7 +70,7 @@ const GameSetup = {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
                     for (let i = 0; i < GameSetupConfig.BASIC_TILES_PER_PILE; i++) {
-                        let tileCopy = Object.assign({}, tile)
+                        let tileCopy = clone(tile)
                         result['basic'+tile.getCategory()].push(tileCopy)  // Add a copy of the tile
                     }                    
                 }
@@ -78,7 +81,7 @@ const GameSetup = {
                 let tilePile = []
                 for (let i = 0; i < GameSetupConfig.TILES_PER_PILE; i++) {
                     let tile = tiles[Math.floor(Math.random()*tiles.length)]
-                    let tileCopy = Object.assign({}, tile) 
+                    let tileCopy = clone(tile)
                     tilePile.push(tileCopy)
                 }
                 result[stage] = tilePile
@@ -88,5 +91,10 @@ const GameSetup = {
     }
 
 }
+
+var clone = (function(){ 
+  return function (obj) { Clone.prototype=obj; return new Clone() }
+  function Clone(){}
+}())
 
 module.exports = GameSetup

@@ -14,7 +14,7 @@ const EffectExecution = {
 
     executeImmediateEffect(placement) {
         let tile = placement.getTile()
-        let effect = tile.getImmediateEffect()
+        let effect = tile.getImmediateEffect() 
 
         if (_.isNull(effect)) {
             Logger.info(`No immediate effect for tile ${ tile.name }`)
@@ -59,8 +59,10 @@ const EffectExecution = {
             let tile = existingPlacement.getTile()
             let effects = tile.getConditionalEffects()
             for (let effect of effects) {
-                if (_.contains(TileConfig.CONDITION.NONADJACENT, effect.getCondition().type)) {
-                    effect.executeIf(this, placement, existingPlacement)
+                if(_.isEmpty(effect.data) === false) {
+                    if (_.contains(TileConfig.CONDITION.NONADJACENT, effect.getCondition().type)) {
+                        effect.executeIf(this, placement, existingPlacement)
+                    }                    
                 }
             }
         }

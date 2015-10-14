@@ -5,6 +5,8 @@
 // Created by dpekar on 10/7/15.
 //
 
+const Logger = require('../../log/Logger')
+
 const BaseModel = require('../BaseModel')
 const GameSetup = require('../../mixins/GameSetup')
 const BaseError = require('../error/BaseError')
@@ -42,47 +44,60 @@ class GameState extends BaseModel {
         this.incrementTurnNum()
     }
 
-    buyBasicTile(player, pile) {
-        //throw error if there are no tiles left in basic pile
-        // throw error if player doesn't have enough
-        this.incrementTurnNum()
-    }
+    buyBasicTile(player, coords, pileName) {
+        let tilePiles = this.getTilePiles()
+        let pile = tilePiles[pileName]
 
-    totalCostOfTile(marketPosition) {
-        let market = this.getMarket()
-        let tile = market.getTiles()[marketPosition]
-        let totalCost = tile.cost + market.markupForIndex(marketPosition)
-        return totalCost
+        // check if coords are valid
+        if (_.isEmpty(pile)) {
+            throw new BaseError(`There aren't any ${ pile } tiles left.`)
+        }
+
+        let tile = pile[0]
+        tile.getStage()
+        let cost = tile.getCost()
+
+        // throw error if player doesn't have enough
+        if (player.canAfford(cost) === false) {
+            throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() }.`)
+        }
+
+        // check if coords are valid
+        if (player.getBoard().canPlaceOn(coords) === false) {
+            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
+        }
+
+        player.chargeForTile(cost)
+        player.placeTile(tile, coords, this) // this executes all effects
+
+        this.completeTurn(player)
     }
 
     buyTileFromMarket(player, coords, marketPosition) {
         let market = this.getMarket()
-        const tile = market[marketPosition]
-        const totalCost = this.totalCostOfTile(marketPosition)
+        let marketTiles = market.getTiles() 
+        const tile = marketTiles[marketPosition]
+        const totalCost = tile.getCost() + market.markupForPosition(marketPosition) // HACK
 
-        if (typeOf(tile) === 'undefined') {
+        if (_.isUndefined(tile)) {
             throw new BaseError(`Couldn't find a tile in the market at index ${ marketPosition }.`)
         }
 
         // throw error if player doesn't have enough
         if (player.canAfford(totalCost) === false) {
-            throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.name } at index ${ marketPosition.name }.`)
+            throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() } at index ${ marketPosition }.`)
         }
 
         // check if coords are valid
-        if (player.canPlaceOn(coords) === false) {
-            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.name }.`)
+        if (player.getBoard().canPlaceOn(coords) === false) {
+            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
         }
 
+        market.takeTile(marketPosition)
         player.chargeForTile(totalCost)
         player.placeTile(tile, coords, this) // this executes all effects
 
-        player.takeIncome()
-        player.updatePopulation() 
-
-        market.fillUpSlots(this.getTilePiles())
-
-        this.incrementTurnNum()
+        this.completeTurn(player)
     }
 
     makeInvestment(placement, player) {
@@ -94,6 +109,7 @@ class GameState extends BaseModel {
         // remove tile from market
         // update market
         this.incrementTurnNum()
+        this.completeTurn(player)
     }
 
     opponentsOf(player) {
@@ -101,6 +117,15 @@ class GameState extends BaseModel {
         return  _.filter(allPlayers, (playerX) => {
             return playerX !== player                        
         })
+    }
+
+    completeTurn(player) {
+        player.takeIncome()
+        player.updatePopulation() 
+
+        this.getMarket().fillUpSlots(this.getTilePiles())
+
+        this.incrementTurnNum()
     }
 
     incrementTurnNum() {

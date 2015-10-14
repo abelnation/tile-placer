@@ -7,7 +7,7 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
-// const Logger = require('../../../../shared/log/Logger')
+const Logger = require('../../../../shared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
@@ -19,7 +19,7 @@ describe('GameState', () => {
     const userIds = [1,2,3]
     let gameState
 
-    before( () => {
+    before ( () => {
         let users = userIds.map( id => new User(id) )
         gameState = new GameState(users)
         gameState.setupInitialGameState()
@@ -127,10 +127,62 @@ describe('GameState', () => {
     })
 
 
-    describe('print Gamestate', function () {
-        it('should look as expected', () => {
-            // Logger.info('Printing GameState for manual inspection', gameState)
+    describe('taking turns', function () {
+
+        beforeEach( () => {
+            let users = userIds.map( id => new User(id) )
+            gameState = new GameState(users)
+            gameState.setupInitialGameState()
         })
+
+        describe('.buyBasicTile', () => {
+            it('should place a tile at the right place', () => {
+                let player = gameState.getPlayers()[0]
+                gameState.buyBasicTile(player, [1,1], 'basicMunicipal')
+
+                assert.equal(player.getIncome(), -1)
+                assert.equal(player.getReputation(), 2)
+                assert.equal(player.getPopulation(), 4)
+                assert.equal(player.getMoney(), 10) // 15 - 4 - 1
+            })
+
+           it('should run out of tiles after 4 are taken', () => {
+                let player = gameState.getPlayers()[0]
+                player.set('money', 100)
+                let yCoord = 1
+                for (let num of [1,2,3,4]) {
+                    gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+                    yCoord++
+                }
+                assert.throw(gameState.buyBasicTile)
+                gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+            })
+        })
+
+        describe('.buyTileFromMarket', () => {
+            it('should buy correct tile and place it on player\'s board', () => {
+                let player = gameState.getPlayers()[0]
+                player.set('money', 100)
+                let tileToBuy = gameState.getMarket().getTiles()[0]
+                gameState.buyTileFromMarket(player, [1,0], 0)
+                let newPlacement = _.last(player.getBoard().getPlacements())
+                assert.equal(tileToBuy, newPlacement.getTile())
+
+            })
+
+        })
+
+        describe('.makeInvestment', () => {
+            
+        })
+
+        describe('.placeLake', () => {
+            
+        })
+
+        describe('.completeTurn', () => {
+            
+        })        
     })
 
 })
