@@ -15,7 +15,7 @@ const EffectExecution = {
     executeAllEffects(placement, gameState) {
         this.executeImmediateEffect(placement)
         this.executeConditionalEffects(placement, gameState)
-        this.executeAdjacentTileEffects(placement, gameState)
+        this.executeAdjacentTileEffects(placement)
         this.executeNonAdjacentTileEffects(placement)
         this.executeOtherPlayerTileEffects(placement, gameState)                
     },
@@ -47,13 +47,17 @@ const EffectExecution = {
     executeAdjacentTileEffects(placement) {
         let board = this.getBoard()
         let adjacentPlacements = board.getAdjacentPlacements(placement)
-        
+        let relevantConditionTypes = [TileConfig.CONDITION.ADJACENT, TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER] 
+
+
         for (let adjacentPlacement of adjacentPlacements) {
             let adjacentTile = adjacentPlacement.getTile()
             let adjacentEffects = adjacentTile.getConditionalEffects()
-            for (let adjacentEffect of adjacentEffects) {
-                if (adjacentEffect.getCondition().type === TileConfig.CONDITION.ADJACENT) {
-                    adjacentEffect.executeIf(this, placement, adjacentPlacement)
+            for (let effect of adjacentEffects) {
+                if(_.isEmpty(effect.data) === false) {
+                    if (_.contains(relevantConditionTypes, effect.getCondition().type)) {
+                        effect.executeIf(this, placement, adjacentPlacement)
+                    }
                 }
             }
         }
@@ -62,6 +66,7 @@ const EffectExecution = {
     executeNonAdjacentTileEffects(placement) {
         let board = this.getBoard()
         let existingPlacements = board.getPlacements()
+        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER] 
 
         for (let existingPlacement of existingPlacements) {
             let tile = existingPlacement.getTile()
@@ -77,7 +82,25 @@ const EffectExecution = {
     },
 
     executeOtherPlayerTileEffects(placement, gameState) {
+        let opponents = gameState.opponentsOf(this)
+        let otherPlacements = _.map(opponents, (opponent) => {
+            return opponent.getBoard().getPlacements()
+        })
+        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.OTHER, TileConfig.CONDITION.AFTER] 
 
+        for (let placementSet of otherPlacements) {
+            for (let placement of placementSet) {
+                let tile = placement.getTile()
+                let effects = tile.getConditionalEffects()
+                for (let effect of effects) {
+                    if(_.isEmpty(effect.data) === false) {
+                        if (_.contains(relevantConditionTypes, effect.getCondition().type)) {
+                            effect.executeIf(this, placement, adjacentPlacement)
+                        }
+                    }
+                }                     
+            }
+        }
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 const assert = require('chai').assert
+const Logger = require('../../../../shared/log/Logger')
 
 const Player = require('../../../../shared/models/game/Player')
 const Placement = require('../../../../shared/models/game/Placement')
@@ -14,7 +15,6 @@ const Tile = require('../../../../shared/models/game/Tile')
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
 const StatsConfig = require('../../../../shared/data/Stats-config')
-// const Logger = require('../../../../shared/log/Logger')
 
 describe('Player', () => {
     let user = new User()
@@ -150,6 +150,27 @@ describe('Player', () => {
             let suburbs = Tile.basicTiles()[0]
             suburbs.set('immediateEffect', {})
             assert.equal(player.getPopulation(), 0)            
-        })
+        }) 
     })
+
+    describe('.executeAdjacentTileEffects', () => {
+        it('properly updates player stats when an adjacent effect activates', () =>{
+            let player = new Player(user)
+            const fancy = Tile.findByName('Fancy Restaurant')
+            let placement = new Placement(fancy, [0,0], 1)
+            player.getBoard().addPlacement(placement)
+            player.executeImmediateEffect(placement)
+            assert.equal(player.getIncome(), 3)  // Income boost for fancy rest is 3
+
+            const fastFood = Tile.findByName('Fast Food Restaurant')
+            let ffPlacement = new Placement(fastFood, [0,1], 2)
+            player.getBoard().addPlacement(ffPlacement)
+            Logger.info("PLAYER BOARD IN TEST", player.getBoard())
+            player.executeImmediateEffect(ffPlacement)
+            player.executeAdjacentTileEffects(ffPlacement)
+ 
+            assert.equal(player.getIncome(), 3)  // -1 for fancy rest del          
+        })        
+    })
+
 })

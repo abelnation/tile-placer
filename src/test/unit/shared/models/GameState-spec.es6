@@ -27,7 +27,7 @@ describe('GameState', () => {
     })
 
     it('basic constructor', () => {
-        assert.equal('GameState', gameState.type)        
+        assert.equal('GameState', gameState.type)
     })
 
     describe('players', () => {
@@ -107,7 +107,7 @@ describe('GameState', () => {
                 assert.equal(player.getReputation(), 1)
                 assert.equal(player.getIncome(), 0)
                 assert.equal(player.getPopulation(), 2)
-            }            
+            }
         })
 
     })
@@ -175,9 +175,9 @@ describe('GameState', () => {
                 let park = player.getBoard().getPlacements()[1]
                 gameState.makeInvestment(player, park, 0)
 
-                assert.equal(player.getReputation(), 2)                            
-                assert.equal(player.getIncome(), -1)                         
-                assert.equal(player.getMoney(), 10) // 15 - 5 = 10                           
+                assert.equal(player.getReputation(), 2)
+                assert.equal(player.getIncome(), -1)
+                assert.equal(player.getMoney(), 10) // 15 - 5 = 10
             })
 
             it('should double the effect of invested tile when future tiles are played ', () => {
@@ -191,9 +191,9 @@ describe('GameState', () => {
             it('should mark the placement as invested in', () => {
                 let player = gameState.getPlayers()[0]
                 let park = player.getBoard().getPlacements()[1]
-                assert.isFalse(park.getInvestedIn())
+                assert.isFalse(park.alreadyInvestedIn())
                 gameState.makeInvestment(player, park, 0)
-                assert.isTrue(park.getInvestedIn())
+                assert.isTrue(park.alreadyInvestedIn())
             })
         })
 
@@ -204,12 +204,12 @@ describe('GameState', () => {
 
                 assert.equal(player.getMoney(), 19)
                 assert.lengthOf(gameState.getMarket().getTiles(), MarketConfig.NUM_SLOTS)
-            })            
+            })
         })
 
         describe('.completeTurn', () => {
-            
-        })        
+
+        })
     })
 
 })

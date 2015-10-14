@@ -37,7 +37,7 @@ module.exports = {
           icon: null,
           stage: TileConfig.BASIC,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: -1},
-          conditionalEffects: [ {stat: StatsConfig.STATS.REPUTATION, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL] } } ]
+          conditionalEffects: [ {stat: StatsConfig.STATS.REPUTATION, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERCIAL, TileConfig.CATEGORIES.RESIDENTIAL] } } ]
          },
         {
           name: 'Heavy Factory',
@@ -54,7 +54,7 @@ module.exports = {
         {
           name: 'Business Supply Store',
           cost: 8,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
@@ -63,11 +63,20 @@ module.exports = {
         {
           name: 'Fast Food Restaurant',
           cost: 7,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: TileConfig.ICONS.RESTAURANT,
           stage: TileConfig.STAGES.A,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
           conditionalEffects: [ {stat: StatsConfig.STATS.POPULATION, value: 3, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } } ]
+        },
+        {
+          name: 'Fancy Restaurant',
+          cost: 9,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
+          icon: TileConfig.ICONS.RESTAURANT,
+          stage: TileConfig.STAGES.A,
+          immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 3},
+          conditionalEffects: [ {stat: StatsConfig.STATS.INCOME, value: -1, condition: { type: TileConfig.CONDITION.EVERY, icon: TileConfig.ICONS.RESTAURANT } } ]
         },
         {
           name: 'Mint',
@@ -81,16 +90,16 @@ module.exports = {
         {
           name: 'Parking Lot',
           cost: 12,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
-          conditionalEffects: [ {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.YOUR, categories: [TileConfig.CATEGORIES.MUNICIPAL, TileConfig.CATEGORIES.COMMERICIAL] } } ]
+          conditionalEffects: [ {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.YOUR, categories: [TileConfig.CATEGORIES.MUNICIPAL, TileConfig.CATEGORIES.COMMERCIAL] } } ]
         },
         {
           name: 'Convenience Store',
           cost: 6,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
@@ -99,19 +108,19 @@ module.exports = {
         {
           name: 'Freeway',
           cost: 5,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: null,
           conditionalEffects: [ 
             {stat: StatsConfig.STATS.REPUTATION, value: -1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } },
-            {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.COMMERICIAL] } } 
+            {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.COMMERCIAL] } } 
           ]
         },
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.A,
           immediateEffect: (player) => { player.population = player.population + 6 },
@@ -150,7 +159,7 @@ module.exports = {
         {
           name: 'Convenience Store',
           cost: 6,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.income++ },
@@ -159,7 +168,7 @@ module.exports = {
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.B,
           immediateEffect: (player) => { player.population = player.population + 6 },
@@ -198,7 +207,7 @@ module.exports = {
         {
           name: 'Convenience Store',
           cost: 6,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.income++ },
@@ -207,7 +216,7 @@ module.exports = {
         {
           name: 'Mobile Home Community',
           cost: 4,
-          category: TileConfig.CATEGORIES.COMMERICIAL,
+          category: TileConfig.CATEGORIES.COMMERCIAL,
           icon: null,
           stage: TileConfig.STAGES.C,
           immediateEffect: (player) => { player.population = player.population + 6 },

@@ -40,7 +40,7 @@ class Market extends BaseModel {
         for (let stage in TileConfig.STAGES) {
             let pile = tilePiles[TileConfig.STAGES[stage]]
             if (pile.length > 0) {
-                return pile.shift() 
+                return pile.shift()
             }
         }
     }
@@ -48,7 +48,7 @@ class Market extends BaseModel {
     // Takes the top tile from the earliest stack and returns it
     takeTile(position) {
         let tiles = this.getTiles()
-        let selectedTile = tiles.splice(position,1) 
+        let selectedTile = tiles.splice(position,1)
 
         this.set('tiles', tiles)
         return selectedTile

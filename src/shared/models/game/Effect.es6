@@ -25,6 +25,7 @@ class Effect extends BaseModel {
     executeIf(player, newPlacement, existingPlacement) {
         let condition = this.getCondition()
         let tile = newPlacement.getTile()
+
         if (tile.meetsCondition(condition)) {
             Logger.info(`${tile.getName()} because of ${existingPlacement.getTile().getName()} produces ${this.getValue()} ${this.getStat()}`)
             if(existingPlacement.alreadyInvestedIn() === true) {
@@ -74,7 +75,7 @@ class Effect extends BaseModel {
                 case (TileConfig.CONDITION.OTHER):
                     let opponents = gameState.opponentsOf(player)
                     let otherPlacements = _.map(opponents, (opponent) => {
-                        return opponent.getPlacements()
+                        return opponent.getBoard().getPlacements()
                     })
 
                     for (let placementSet of otherPlacements) {
