@@ -12,3 +12,4 @@ node_modules
 
 # Test Result Files
 test_results
+.DS_Store
