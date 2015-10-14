@@ -50,8 +50,7 @@ class GameState extends BaseModel {
             throw new BaseError(`Player doesn't have enough money to trash that tile due to the the real estate cost.`)
         }
 
-        let tile = Tile.lake()
-        player.placeTile(tile, coords, this) // this executes all effects
+        player.placeTile(Tile.lake(), coords, this) // this executes all effects
         market.takeTile(marketPosition)
 
         this.completeTurn(player)
@@ -116,12 +115,12 @@ class GameState extends BaseModel {
         let tile = placement.getTile()
 
         // throw error if player doesn't have any investments left 
-        if (player.getNumInvestmentsRemaining() === 0) {
+        if (player.hasInvestmentsRemaining() === false) {
             throw new BaseError(`Player doesn't any investments left.`)
         }
 
         // throw error if player doesn't have enough
-        if (placement.getInvestedIn() === true) {
+        if (placement.alreadyInvestedIn() === true) {
             throw new BaseError(`Player already invested in ${ tile.getName() }.`)
         }
 

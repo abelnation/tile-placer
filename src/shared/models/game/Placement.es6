@@ -22,7 +22,7 @@ class Placement extends BaseModel {
     getTile() { return this.get('tile') }
     getXCoord() { return this.get('xCoord') }
     getYCoord() { return this.get('yCoord') }
-    getInvestedIn() { return this.get('investedIn') }
+    alreadyInvestedIn() { return this.get('investedIn') }
 
     getCoords() {
       return [this.get('xCoord'), this.get('yCoord')]

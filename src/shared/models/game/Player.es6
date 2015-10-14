@@ -78,6 +78,10 @@ class Player extends BaseModel {
         return placement
     }
 
+    hasInvestmentsRemaining() {
+        return this.getNumInvestmentsRemaining() > 0
+    }
+
     makeInvestment(placement, gameState) {
         placement.makeInvestment()
         this.executeAllEffects(placement, gameState)
