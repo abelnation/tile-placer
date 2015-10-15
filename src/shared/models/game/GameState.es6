@@ -50,10 +50,11 @@ class GameState extends BaseModel {
             throw new BaseError(`Player doesn't have enough money to trash that tile due to the the real estate cost.`)
         }
 
-        player.placeTile(Tile.lake(), coords, this) // this executes all effects
+        let effectResults = player.placeTile(Tile.lake(), coords, this) // this executes all effects
         market.takeTile(marketPosition)
 
         this.completeTurn(player)
+        return effectResults
     }
 
     buyBasicTile(player, coords, pileName) {
@@ -79,9 +80,11 @@ class GameState extends BaseModel {
         }
 
         player.chargeForTile(cost)
-        player.placeTile(tile, coords, this) // this executes all effects
+        let effectResults = player.placeTile(tile, coords, this) // this executes all effects
 
         this.completeTurn(player)
+
+        return effectResults
     }
 
     buyTileFromMarket(player, coords, marketPosition) {
@@ -106,9 +109,11 @@ class GameState extends BaseModel {
 
         market.takeTile(marketPosition)
         player.chargeForTile(totalCost)
-        player.placeTile(tile, coords, this) // this executes all effects
+        let effectResults = player.placeTile(tile, coords, this) // this executes all effects
 
         this.completeTurn(player)
+
+        return effectResults
     }
 
     makeInvestment(player, placement, marketPosition) {
@@ -132,10 +137,12 @@ class GameState extends BaseModel {
         }
 
         player.chargeForTile(cost)
-        player.makeInvestment(placement, this)
+        let effectResults = player.makeInvestment(placement, this)
 
         this.getMarket().takeTile(marketPosition)
         this.completeTurn(player)
+
+        return effectResults
     }
 
     opponentsOf(player) {

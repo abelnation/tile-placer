@@ -37,8 +37,6 @@ class Tile extends BaseModel {
         if (_.isUndefined(condition.categories) === false) {
             return this.inAnyOfCategories(condition.categories)
         } else if (_.isUndefined(condition.icon) === false) {
-            Logger.info("in icon condition")
-            console.log(this.hasIcon(condition.icon))
             return this.hasIcon(condition.icon)
         }
     }

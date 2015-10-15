@@ -58,12 +58,11 @@ class Player extends BaseModel {
     }
 
     chargeForTile(totalCost) {
-        let money = this.getMoney() 
-        this.set('money', money - totalCost)
+        this.set('money', this.getMoney() - totalCost)
     }
     
     incrementStat(stat, value) {
-        this.set(stat, this.get(stat) + value)            
+        this.set(stat, this.get(stat) + value)
     }
 
     // Create a placement for the tile and execute all of the effects of placing the tile
@@ -74,8 +73,8 @@ class Player extends BaseModel {
         board.addPlacement(placement)
         this.set('board', board)
 
-        this.executeAllEffects(placement, gameState)
-        return placement
+        let result = this.executeAllEffects(placement, gameState)
+        return result
     }
 
     hasInvestmentsRemaining() {
@@ -84,8 +83,8 @@ class Player extends BaseModel {
 
     makeInvestment(placement, gameState) {
         placement.makeInvestment()
-        this.executeAllEffects(placement, gameState)
-        return placement
+        let result = this.executeAllEffects(placement, gameState)
+        return result
     }
 
     // Update a player's money based on their income    

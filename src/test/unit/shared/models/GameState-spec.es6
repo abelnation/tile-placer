@@ -7,7 +7,7 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
-// const Logger = require('../../../../shared/log/Logger')
+const Logger = require('../../../../sh\ared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
@@ -173,7 +173,9 @@ describe('GameState', () => {
             it('should double the effect of invested tile', () => {
                 let player = gameState.getPlayers()[0]
                 let park = player.getBoard().getPlacements()[1]
-                gameState.makeInvestment(player, park, 0)
+                let effectResult = gameState.makeInvestment(player, park, 0)
+
+                Logger.info('Effect result of investment', effectResult)
 
                 assert.equal(player.getReputation(), 2)
                 assert.equal(player.getIncome(), -1)

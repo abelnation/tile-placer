@@ -33,7 +33,7 @@ describe('Effect', () => {
         assert.equal(effect.getCondition().adjacent.length, 3)
     })
 
-    describe('.executeOn', () => {
+    describe('.executeNewTileEffects', () => {
 
         it('increments player stats properly for ADJACENT effects ',  () => {
             let users = [1].map( id =>  new User(id))

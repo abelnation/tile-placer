@@ -39,13 +39,16 @@ describe('Player', () => {
         let player = new Player(user)
 
         it('.placeTile updates board with placement', () => {
-            const tile = Tile.basicTiles()[0]
+            const tile = Tile.basicTiles()[0] // suburbs
             let users = [1,2,3].map( id =>  new User(id))
             let gameState = new GameState(users)
 
-            const placement = player.placeTile(tile, [0, 0], gameState)
+            const result = player.placeTile(tile, [0, 0], gameState)
             const board = player.getBoard()
-            assert.equal(board.getPlacements()[0], placement)
+            assert.equal(board.getPlacements()[0].getTile(), tile)
+
+            Logger.info('turn result', result)
+            assert.lengthOf(result, 1)
         })
 
         it('.chargeForTile reduces players money when buying a tile', () => {
@@ -165,7 +168,6 @@ describe('Player', () => {
             const fastFood = Tile.findByName('Fast Food Restaurant')
             let ffPlacement = new Placement(fastFood, [0,1], 2)
             player.getBoard().addPlacement(ffPlacement)
-            Logger.info("PLAYER BOARD IN TEST", player.getBoard())
             player.executeImmediateEffect(ffPlacement)
             player.executeAdjacentTileEffects(ffPlacement)
  
