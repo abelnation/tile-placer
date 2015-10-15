@@ -153,9 +153,11 @@ describe('GameState', () => {
                 for (let yCoord of [1,2,3,4]) {
                     gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
                 }
-                // assert.throw(gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal'))
+                assert.throw(() => {
+                    gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+                })
             })
-        })
+        }) 
 
         describe('.buyTileFromMarket', () => {
             it('should buy correct tile and place it on player\'s board', () => {
