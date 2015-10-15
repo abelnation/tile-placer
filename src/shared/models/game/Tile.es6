@@ -6,7 +6,7 @@
 //
 
 var _ = require('underscore')
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const Effect = require('./Effect')

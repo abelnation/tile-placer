@@ -85,7 +85,7 @@ const EffectExecution = {
             let effects = tile.getConditionalEffects()
             for (let effect of effects) {
                 if(_.isEmpty(effect.data) === false) {
-                    if (_.contains(TileConfig.CONDITION.NONADJACENT, effect.getCondition().type)) {
+                    if (_.contains(relevantConditionTypes, effect.getCondition().type)) {
                         result.push(effect.executeExistingTileEffects(this, placement, existingPlacement))
                     }                    
                 }

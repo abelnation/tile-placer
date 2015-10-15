@@ -5,8 +5,8 @@
 // Created by dpekar on 10/14/15.
 //
 
-const _ = require('underscore')
-const Logger = require('../../log/Logger')
+// const _ = require('underscore')
+// const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 // const TileConfig = require('../../data/Tile-config')

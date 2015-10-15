@@ -29,11 +29,9 @@ class Board extends BaseModel {
 
         if (!this.coordsOccupied(coords) && startingTilePosition) {
             placements.push(placement) // Special case when placing first tile during setup
-            Logger.info('Placed starting tile')
         }
         else if (this.canPlaceOn(coords)) {
             placements.push(placement)
-            Logger.info('Placed a new tile')
          }
         else {
             Logger.info('Couldn\'t place tile')

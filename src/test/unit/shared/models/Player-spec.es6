@@ -6,7 +6,7 @@
 //
 
 const assert = require('chai').assert
-const Logger = require('../../../../shared/log/Logger')
+// const Logger = require('../../../../shared/log/Logger')
 
 const Player = require('../../../../shared/models/game/Player')
 const Placement = require('../../../../shared/models/game/Placement')
@@ -47,7 +47,6 @@ describe('Player', () => {
             const board = player.getBoard()
             assert.equal(board.getPlacements()[0].getTile(), tile)
 
-            Logger.info('turn result', result)
             assert.lengthOf(result, 1)
         })
 
