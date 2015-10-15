@@ -37,6 +37,12 @@ class BaseModel {
         return this
     }
 
+    setFromObject(object) {
+        _.each(object, (val, key) => {
+            this.set(key, val)
+        })
+    }
+
     toJSON() {
         const result = { type: this.type }
         result.data = objUtils.map(this.data, v => {
