@@ -35,11 +35,15 @@ describe('Market', () => {
         it('.fillUpSlots takes top tile and preserves order of existing tiles', () => {
             let allTiles = Tile.allTiles()
             let market = new Market(allTiles)
-            let previousTiles = Object.assign({}, market.getTiles()) // need to make a copy for check later
+            let initialTileNames = _.map(market.getTiles(), (tile) => {
+              tile.getName()
+            })
 
             market.takeTile(3)
             market.fillUpSlots(allTiles)
-            assert.isFalse(_.contains(previousTiles, market.getTiles()[0]))
+            let newlyDrawnTile = market.getTiles()[0]
+
+            assert.isFalse(_.contains(initialTileNames, newlyDrawnTile.getName()))
         })
     })
 
