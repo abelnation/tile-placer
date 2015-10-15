@@ -11,6 +11,7 @@ var _ = require('underscore')
 const BaseModel = require('../BaseModel')
 const Effect = require('./Effect')
 const TileList = require('../../data/Tile-list')
+const TileList2 = require('../../data/Tile-list2')
 const TileConfig = require('../../data/Tile-config')
 
 class Tile extends BaseModel {
@@ -63,6 +64,19 @@ class Tile extends BaseModel {
             return tile.getName() === name
         })
     }
+
+    static allTiles2() {
+        result = {a: [], b: [], c: [], basic: [], lake: []}
+        for (let theirTile of TileList2) {
+            let number = theirTile.number
+            while (number > 0) {
+                result[theirTile.stage].push(new Tile(theirTile))
+                number--
+            }
+        }
+        return result
+    }
+
 
     static allTiles() {
         let result = {}
