@@ -24,8 +24,8 @@
     // To give you an idea how to override rule options:
     "rules": {
         "semi": [2, "never"],
-        "quotes": [2, "single", "avoid-escape"],
-        "no-unused-vars": [2, {"vars": "all", "args": "none"}],
+        "quotes": [1, "single", "avoid-escape"],
+        "no-unused-vars": [1, {"vars": "all", "args": "none"}],
         "eqeqeq": [2, "smart"],
         "comma-dangle": [0, "always-multiline"],
         "no-underscore-dangle": 1,
