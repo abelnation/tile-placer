@@ -21,15 +21,10 @@ class BaseModel {
 
     initFromJSON(json) {
         _.extend(this, json)
+
         // hydrate any nested models in data
-        _.each(this.data, (val, key) => {
-            if (_.isObject(val) && _.has(val, 'type')) {
-                // TODO: (aallison) BUG for some reason, ModelManager is an empty object
-                //                  after the first require above.  requiring when
-                //                  it's needed works as a workaround.
-                this.data[key] = require('./ModelManager').fromJSON(val)
-            }
-        })
+        BaseModel.convertDataToModels(this.data)
+
         return this
     }
 
@@ -76,6 +71,43 @@ class BaseModel {
             }
         })
         return result
+    }
+
+    static convertDataToModels(data) {
+        const ModelManager = require('./ModelManager')
+        if (_.isArray(data)) {
+
+            console.log('Model-ifying an array')
+
+            _.each(data, (val, index, list) => {
+                if (_.isObject(val) && _.has(val, 'type')) {
+
+                    console.log('Found nested model in array')
+
+                    list[index] = ModelManager.fromJSON(val)
+                } else if (_.isObject(val)) {
+                    // true for arrays *and* objects
+                    BaseModel.convertDataToModels(val)
+                }
+            })
+        } else if (_.isObject(data)) {
+
+            console.log('Model-ifying an object')
+
+            _.each(data, (val, key, list) => {
+                if (_.isObject(val) && _.has(val, 'type')) {
+
+                    console.log('Found nested model in object')
+
+                    list[key] = ModelManager.fromJSON(val)
+                } else if (_.isObject(val)) {
+                    // true for arrays *and* objects
+                    BaseModel.convertDataToModels(val)
+                }
+            })
+        } else {
+            throw new Error('data is not a valid object or array')
+        }
     }
 }
 module.exports = BaseModel

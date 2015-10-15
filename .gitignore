@@ -1,4 +1,9 @@
 
+# Generated source files
+src/client/web/js/vendor/bower
+src/client/web/js/main.js
+src/client/web/js/main.js.map
+
 # Node
 node_modules
 

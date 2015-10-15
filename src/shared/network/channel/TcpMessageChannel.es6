@@ -44,8 +44,7 @@ class TcpMessageChannel extends MessageChannel {
         })
 
         socket.on('error', err => {
-            Logger.debug('socket error')
-            Logger.debug(err.stack)
+            Logger.debug('socket error', err)
         })
 
         socket.on('end', () => {

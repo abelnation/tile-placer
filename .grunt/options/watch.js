@@ -1,21 +1,25 @@
 module.exports = function(grunt) {
     return {
 
-        clientsrc: {
-            files: [
-                '<%= eslint.clientsrc %>'
-            ],
+        webclient: {
+            files: [ '<%= eslint.webclient %>' ],
             tasks: [
                 'lint',
-                // TODO: (aallison) webpack options
+                'webpack',
                 'test',
             ]
         },
 
-        serversrc: {
-            files: [
-                '<%= eslint.serversrc %>'
-            ],
+        cli: {
+            files: [ '<%= eslint.cli %>' ],
+            tasks: [
+                'lint',
+                'test'
+            ]
+        },
+
+        server: {
+            files: [ '<%= eslint.server %>' ],
             tasks: [
                 'lint',
                 'test',
@@ -23,20 +27,17 @@ module.exports = function(grunt) {
         },
 
         shared: {
-            files: [
-                '<%= eslint.shared %>'
-            ],
+            files: [ '<%= eslint.shared %>' ],
             tasks: [
                 'lint',
                 'mustache_render', // generate ModelManager.es6 file
+                'webpack',
                 'test',
             ]
         },
 
         tests: {
-            files: [
-                '<%= eslint.test %>'
-            ],
+            files: [ '<%= eslint.test %>' ],
             tasks: [
                 'lint',
                 'test',

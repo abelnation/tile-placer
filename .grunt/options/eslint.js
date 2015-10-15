@@ -5,18 +5,18 @@ module.exports = function(grunt) {
             configFile: '.eslintrc',
         },
 
-        clientsrc: [
-            '<%= paths.client %>/*.{es6,jsx}',
-            '<%= paths.client %>/**/*.{es6,jsx}',
-            '!<%= paths.src %>/client/js/**'
+        webclient: [
+            '<%= paths.webclient %>/*.{es6,jsx}',
+            '<%= paths.webclient %>/**/*.{es6,jsx}',
+            '!<%= paths.webclient %>/js/**'
         ],
 
-        clisrc: [
-            '<%= paths.src %>/*.{es6,jsx}',
-            '<%= paths.src %>/**/*.{es6,jsx}',
+        cli: [
+            '<%= paths.cli %>/*.{es6,jsx}',
+            '<%= paths.cli %>/**/*.{es6,jsx}',
         ],
 
-        serversrc: [
+        server: [
             '<%= paths.servers %>/*.{es6,jsx}',
             '<%= paths.servers %>/**/*.{es6,jsx}',
         ],

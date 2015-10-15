@@ -1,16 +1,16 @@
 'use strict'
 
 //
-// WebSocketMessageChannel
+// NodeWebSocketMessageChannel
 // Created by aallison on 9/30/15.
 //
 
 const BaseError = require('../../models/error/BaseError')
 const MessageChannel = require('./MessageChannel')
 const ModelManager = require('../../../shared/models/ModelManager')
-const NetworkMessage = require('../../network/channel/NetworkMessage')
+const NetworkMessage = require('../../models/network/channel/NetworkMessage')
 
-class WebSocketMessageChannel extends MessageChannel {
+class NodeWebSocketMessageChannel extends MessageChannel {
     constructor(webSocket) {
         super()
         if (!webSocket) {
@@ -30,7 +30,6 @@ class WebSocketMessageChannel extends MessageChannel {
         const webSocket = this.webSocket
 
         console.log(`client connected: ${ this.remoteId } => ${ this.localId }`)
-        webSocket.send('connected\n')
 
         webSocket.on('open', () => {
             console.log('webSocket.open')
@@ -96,8 +95,8 @@ class WebSocketMessageChannel extends MessageChannel {
         // TODO: (aallison) implement
     }
 
-    static fromWebSocket(webSocket) {
-        return new WebSocketMessageChannel(webSocket)
+    static fromNodeWebSocket(webSocket) {
+        return new NodeWebSocketMessageChannel(webSocket)
     }
 }
-module.exports = WebSocketMessageChannel
+module.exports = NodeWebSocketMessageChannel

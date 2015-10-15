@@ -5,7 +5,7 @@
 // Created by aallison on 9/22/15.
 //
 
-const errors = require('../errors')
+const errors = require('../util/errors')
 const Logger = require('./Logger')
 
 class BrowserLogger extends Logger {

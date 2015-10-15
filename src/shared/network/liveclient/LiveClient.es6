@@ -11,6 +11,8 @@ const bluebird = require('bluebird')
 const BaseError = require('../../models/error/BaseError')
 const MessageChannel = require('../../network/channel/MessageChannel')
 const TcpMessageChannel = require('../../network/channel/TcpMessageChannel')
+const BrowserWebSocketMessageChannel = require('../channel/BrowserWebSocketMessageChannel')
+const NodeWebSocketMessageChannel = require('../channel/NodeWebSocketMessageChannel')
 
 const AckResponse = require('../../models/network/liveclient/AckResponse')
 const LiveClientRequest = require('../../models/network/liveclient/LiveClientRequest')
@@ -92,8 +94,26 @@ class LiveClient extends EventEmitter {
         this.requestAsync = bluebird.promisify(this.request, this)
     }
 
-    static connect(host, port, done) {
+    static connectTCP(host, port, done) {
         TcpMessageChannel.connect(host, port, (err, channel) => {
+            if (err) {
+                return done(err)
+            }
+            done(null, new LiveClient(channel))
+        })
+    }
+
+    static connectBrowserWebSocket(url, done) {
+        BrowserWebSocketMessageChannel.connect(url, (err, channel) => {
+            if (err) {
+                return done(err)
+            }
+            done(null, new LiveClient(channel))
+        })
+    }
+
+    static connectNodeWebSocket(url, done) {
+        NodeWebSocketMessageChannel.connect(url, (err, channel) => {
             if (err) {
                 return done(err)
             }

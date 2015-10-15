@@ -7,7 +7,6 @@
 
 const promisifyAll = require('bluebird').promisifyAll
 
-const Constants = require('../Constants')
 const uuid = require('../util/uuid')
 const detach = require('../util/detach')
 
@@ -20,9 +19,8 @@ const AddGuessCommand = require('../models/game/commands/AddGuessCommand')
 const GetStateCommand = require('../models/game/commands/GetStateCommand')
 
 class GameClient {
-    constructor(host = 'localhost', port = Constants.TCP_SERVER_PORT) {
-        this.host = host
-        this.port = port
+    constructor(liveClient) {
+        this.client = liveClient
 
         this.listeners = {}
 
@@ -30,13 +28,21 @@ class GameClient {
         promisifyAll(this)
     }
 
-    connect(done) {
-        LiveClient.connect(this.host, this.port, (err, liveClient) => {
+    static connectTCP(host, port, done) {
+        LiveClient.connectTCP(host, port, (err, liveClient) => {
             if (err) {
                 return done(err)
             }
-            this.client = liveClient
-            done(null, this)
+            done(null, new GameClient(liveClient))
+        })
+    }
+
+    static connectBrowserWebSocket(url, done) {
+        LiveClient.connectBrowserWebSocket(url, (err, liveClient) => {
+            if (err) {
+                return done(err)
+            }
+            done(null, new GameClient(liveClient))
         })
     }
 
