@@ -18,11 +18,11 @@ module.exports = function(wallaby) {
         ],
         tests: [
             'src/test/unit/**/*-spec.js',
-            'src/test/functional/**/*-spec.js',
+            // 'src/test/functional/**/*-spec.js',
             'src/test/unit/**/*-spec.jsx',
-            'src/test/functional/**/*-spec.jsx',
+            // 'src/test/functional/**/*-spec.jsx',
             'src/test/unit/**/*-spec.es6',
-            'src/test/functional/**/*-spec.es6'
+            // 'src/test/functional/**/*-spec.es6'
         ],
         testFramework: 'mocha',
 
@@ -32,6 +32,10 @@ module.exports = function(wallaby) {
                 // other babel options
                 stage: 0    // https://babeljs.io/docs/usage/experimental/
             })
+        },
+
+        bootstrap: function () {
+            require.extensions['.es6'] = require.extensions['.js'];
         },
 
         env: {
