@@ -16,14 +16,25 @@ const GameSetupConfig = require('../data/GameSetup-config')
 const TileConfig = require('../data/Tile-config')
 
 const GameSetup = {
+
+  setupInitialGameState() {
+      this.set('turnNum', 1)
+      this.setupPlayers()
+      this.setupTilePiles()
+      this.setupStartingTilesForPlayers()
+      this.setupMarket()
+      return this
+  },
+
     // Set up players for the game
     setupPlayers() {
         const users = this.getUsers()
         const players = users.map( user => new Player(user) )
-        this.set('players', players)        
+        this.set('players', players)
 
-        // TOOD: Set starting player
-
+        var player = players[Math.floor(Math.random()*players.length)] // Choose starting player randomly
+        this.set('currentPlayer', player)
+        this.set('startingPlayer', player)
     },
 
     // Setup basic & a, b, c tile piles
@@ -37,9 +48,9 @@ const GameSetup = {
         // Set up starting tiles for players
         let players = this.getPlayers()
         const xCoord = 0
-        
+
         for (let player of players) {
-            let yCoord = 0    
+            let yCoord = 0
             for (let tile of Tile.basicTiles()) {
                 player.placeTile(tile, [xCoord, yCoord], this)
                 yCoord++
@@ -62,16 +73,16 @@ const GameSetup = {
 
         let result = {}
         _.each(allTiles, (tiles, stage) => {
-            // Each of the basic tiles gets its own pile 
+            // Each of the basic tiles gets its own pile
             if(stage === TileConfig.BASIC) {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
                     for (let i = 0; i < GameSetupConfig.BASIC_TILES_PER_PILE; i++) {
                         let tileCopy = clone(tile)
                         result['basic'+tile.getCategory()].push(tileCopy)  // Add a copy of the tile
-                    }                    
+                    }
                 }
-            } 
+            }
 
             // Piles for stage a, b & c should be chosen randomly
             else if (stage !== TileConfig.LAKE ){
@@ -83,13 +94,13 @@ const GameSetup = {
                 }
                 result[stage] = tilePile
             }
-        })        
+        })
         return result
     }
 
 }
 
-var clone = (function(){ 
+var clone = (function(){
   return function (obj) { Clone.prototype=obj; return new Clone() }
   function Clone(){}
 }())

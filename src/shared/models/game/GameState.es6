@@ -22,22 +22,18 @@ class GameState extends BaseModel {
         this.set('users', users)
     }
 
-    setupInitialGameState() { 
-        this.set('turnNum', 1)
-        this.setupPlayers()
-        this.setupTilePiles()
-        this.setupStartingTilesForPlayers()        
-        this.setupMarket()        
-        return this
-    }
-
     getUsers() {return this.get('users')}
     getTurnNum() {return this.get('turnNum')}
     getPlayers() {return this.get('players')}
     getTilePiles() {return this.get('tilePiles')}
     getMarket() {return this.get('market')}
+    getCurrentPlayer() {return this.get('currentPlayer')}
+    getStartingPlayer() {return this.get('startingPlayer')}
 
     placeLake(player, coords, marketPosition) {
+
+        this.validateCurrentPlayer(player)
+
         let market = this.getMarket()
 
         // check if coords are valid
@@ -58,6 +54,9 @@ class GameState extends BaseModel {
     }
 
     buyBasicTile(player, coords, pileName) {
+
+        this.validateCurrentPlayer(player)
+
         let tilePiles = this.getTilePiles()
         let pile = tilePiles[pileName]
 
@@ -88,8 +87,11 @@ class GameState extends BaseModel {
     }
 
     buyTileFromMarket(player, coords, marketPosition) {
+
+        this.validateCurrentPlayer(player)
+
         let market = this.getMarket()
-        let marketTiles = market.getTiles() 
+        let marketTiles = market.getTiles()
         const tile = marketTiles[marketPosition]
         const totalCost = tile.getCost() + market.markupForPosition(marketPosition) // HACK
 
@@ -117,9 +119,12 @@ class GameState extends BaseModel {
     }
 
     makeInvestment(player, placement, marketPosition) {
+
+        this.validateCurrentPlayer(player)
+
         let tile = placement.getTile()
 
-        // throw error if player doesn't have any investments left 
+        // throw error if player doesn't have any investments left
         if (player.hasInvestmentsRemaining() === false) {
             throw new BaseError(`Player doesn't any investments left.`)
         }
@@ -148,22 +153,40 @@ class GameState extends BaseModel {
     opponentsOf(player) {
         let allPlayers = this.getPlayers()
         return  _.filter(allPlayers, (playerX) => {
-            return playerX !== player                        
+            return playerX !== player
         })
     }
 
     completeTurn(player) {
         player.takeIncome()
-        player.updatePopulation() 
+        player.updatePopulation()
 
         this.getMarket().fillUpSlots(this.getTilePiles())
 
         this.incrementTurnNum()
+        this.setNextPlayer()
+    }
+
+    validateCurrentPlayer(player) {
+        // throw error if it isn't turn of player passed in
+        if (this.getCurrentPlayer() !== player) {
+            throw new BaseError(`It's not user ${player.getUser().getUserId()}'s turn.`)
+        }
     }
 
     incrementTurnNum() {
         let turnNum = this.getTurnNum()
         this.set('turnNum', turnNum + 1)
+    }
+
+    setNextPlayer() {
+        let players = this.getPlayers()
+        let currentPlayerIndex = players.indexOf(this.getCurrentPlayer())
+        if (currentPlayerIndex === players.length-1) {
+            this.set('currentPlayer', players[0])
+        } else {
+            this.set('currentPlayer', players[currentPlayerIndex+1])
+        }
     }
 }
 

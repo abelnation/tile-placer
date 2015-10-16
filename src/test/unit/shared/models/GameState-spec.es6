@@ -30,6 +30,7 @@ describe('GameState', () => {
         assert.equal('GameState', gameState.type)
     })
 
+
     describe('players', () => {
         it('has players associated with it', () => {
             let players = gameState.getPlayers()
@@ -110,6 +111,17 @@ describe('GameState', () => {
             }
         })
 
+        it('one of the players is set to starting player', () => {
+            const players = gameState.getPlayers()
+            const startingPlayer = gameState.getStartingPlayer()
+            assert.include(players,startingPlayer)
+        })
+
+        it('the same player is set to current player', () => {
+            const startingPlayer = gameState.getStartingPlayer()
+            const currentPlayer = gameState.getCurrentPlayer()
+            assert.equal(startingPlayer, currentPlayer)
+        })
     })
 
     describe('setting up market:', () => {
@@ -127,7 +139,6 @@ describe('GameState', () => {
         assert.equal(gameState.getTurnNum(), 2)
     })
 
-
     describe('taking turns', function () {
 
         beforeEach( () => {
@@ -138,7 +149,7 @@ describe('GameState', () => {
 
         describe('.buyBasicTile', () => {
             it('should place a tile at the right place', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 gameState.buyBasicTile(player, [1,1], 'basicMunicipal')
 
                 assert.equal(player.getIncome(), -1)
@@ -148,20 +159,20 @@ describe('GameState', () => {
             })
 
            it('should run out of tiles after 4 are taken', () => {
-                let player = gameState.getPlayers()[0]
-                player.set('money', 100)
-                for (let yCoord of [1,2,3,4]) {
+                for (let yCoord of [1,1,1,2]) { // 3 players get coords, [1,1]
+                    let player = gameState.getCurrentPlayer()
+                    player.set('money', 100)
                     gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
                 }
                 assert.throw(() => {
                     gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
                 })
             })
-        }) 
+        })
 
         describe('.buyTileFromMarket', () => {
             it('should buy correct tile and place it on player\'s board', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 player.set('money', 100)
                 let tileToBuy = gameState.getMarket().getTiles()[0]
                 gameState.buyTileFromMarket(player, [1,1], 0)
@@ -173,7 +184,7 @@ describe('GameState', () => {
 
         describe('.makeInvestment', () => {
             it('should double the effect of invested tile', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 let park = player.getBoard().getPlacements()[1]
                 gameState.makeInvestment(player, park, 0)
 
@@ -183,15 +194,16 @@ describe('GameState', () => {
             })
 
             it('should double the effect of invested tile when future tiles are played ', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 let park = player.getBoard().getPlacements()[1]
                 gameState.makeInvestment(player, park, 0)
+                gameState.set('currentPlayer', player)
                 gameState.buyBasicTile(player,[1,1], 'basicResidential')
                 assert.equal(player.getReputation(), 4)
             })
 
             it('should mark the placement as invested in', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 let park = player.getBoard().getPlacements()[1]
                 assert.isFalse(park.alreadyInvestedIn())
                 gameState.makeInvestment(player, park, 0)
@@ -201,7 +213,7 @@ describe('GameState', () => {
 
         describe('.placeLake', () => {
             it('should award player the correct amount of money', () => {
-                let player = gameState.getPlayers()[0]
+                let player = gameState.getCurrentPlayer()
                 gameState.placeLake(player, [1,1], 0)
 
                 assert.equal(player.getMoney(), 19)
@@ -211,6 +223,22 @@ describe('GameState', () => {
 
         describe('.completeTurn', () => {
 
+            it('should assign the next player ', function () {
+                let player = gameState.getStartingPlayer()
+                gameState.buyBasicTile(player, [1,1], 'basicMunicipal') // this runs .completeTurn
+
+                let players = gameState.getPlayers()
+                let currentPlayer =  gameState.getCurrentPlayer()
+                assert.include(players, currentPlayer)
+                assert.notEqual(player, currentPlayer)
+            })
+
+            it('should keep track of turn order', function () {
+                let player = gameState.getStartingPlayer()
+                assert.equal(gameState.getTurnNum(), 1)
+                gameState.buyBasicTile(player, [1,1], 'basicMunicipal') // this runs .completeTurn
+                assert.equal(gameState.getTurnNum(), 2)
+            })
         })
     })
 
