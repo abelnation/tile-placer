@@ -1,0 +1,15 @@
+{
+  "name": "tile-placer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/abelnation/tile-placer",
+  "authors": [
+    "aallison <aallison@yahoo-inc.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "~0.14.0",
+    "bluebird": "~2.10.2",
+    "underscore": "~1.8.3"
+  }
+}
