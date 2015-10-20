@@ -9,17 +9,18 @@ const React = require('react')
 
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
-const Market = require('./Market')
-const Players = require('./Players')
-const button = require('react-bootstrap').Button
 
 /* eslint-disable no-unused-vars */
+const EchoController = require('./EchoController')
+const AddGuessController = require('./AddGuessController')
+const GetStateController = require('./GetStateController')
+const GameStateViewer = require('./GameStateViewer')
 /* eslint-enable no-unused-vars */
 
 module.exports = React.createClass({
-    // getInitialState() {
-    //     return this.props.client
-    // },
+    getInitialState() {
+        return {}
+    },
 
     getDefaultProps() {
         return {}
@@ -28,10 +29,13 @@ module.exports = React.createClass({
     render() {
         return (
             <div>
-                <Market tiles={this.props.client.gameState.getMarket().getTiles()} />
-                <div className="clearfix"></div>
-                <Players players={this.props.client.gameState.getPlayers()} />
-                <div className="clearfix"></div>
+                <h1>GameController</h1>
+                <EchoController client = { this.props.client } />
+                <AddGuessController client = { this.props.client }
+                    onStateChange={this.onStateChange} />
+                <GetStateController client = { this.props.client }
+                    onState={this.onStateChange} />
+                <GameStateViewer gameState={this.state.gameState} />
             </div>
         )
     },
@@ -45,10 +49,13 @@ module.exports = React.createClass({
 
     componentWillMount() {
     },
-
     componentDidMount() {
+        this.props.client.getStateAsync().then(gameState => {
+            this.onStateChange(gameState)
+        }).catch(err => {
+            Logger.error('error fetching gameState', err)
+        })
     },
-
     componentWillReceiveProps(nextProps) {
     },
     shouldComponentUpdate(nextProps, nextState) {

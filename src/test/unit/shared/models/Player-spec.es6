@@ -53,16 +53,25 @@ describe('Player', () => {
         it('.chargeForTile reduces players money when buying a tile', () => {
             let tileCost = 10
             player.chargeForTile(tileCost)
-            assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER-tileCost) 
+            assert.equal(player.getMoney(), GameSetupConfig.STARTING_MONEY_PER_PLAYER-tileCost)
         })
     })
 
     describe('.incrementStat updates whatever stat is passed in', () => {
         let player = new Player(user)
-        player.incrementStat(StatsConfig.STATS.INCOME, 1) 
-        assert.equal(player.getIncome(), 1)        
-        player.incrementStat(StatsConfig.STATS.INCOME, -3) 
-        assert.equal(player.getIncome(), -2)        
+        player.incrementStat(StatsConfig.STATS.INCOME, 1)
+        assert.equal(player.getIncome(), 1)
+        player.incrementStat(StatsConfig.STATS.INCOME, -3)
+        assert.equal(player.getIncome(), -2)
+    })
+
+    describe(".getStats", function () {
+      let player = new Player(user)
+      let stats = player.getStats()
+      assert.equal(stats.population, 0)
+      assert.equal(stats.reputation, 0)
+      assert.equal(stats.money, 15)
+      assert.equal(stats.income, 0)
     })
 
     describe('.canAfford', () => {
@@ -73,7 +82,7 @@ describe('Player', () => {
         })
 
         it('should be true if the cost of the tile is less than or equals players money',  () => {
-            assert.isTrue(player.canAfford(1))    // Starting money is 15        
+            assert.isTrue(player.canAfford(1))    // Starting money is 15
         })
     })
 
@@ -135,7 +144,7 @@ describe('Player', () => {
             assert.equal(player.getPopulation(), 0)
 
         })
-    })    
+    })
 
     describe('.executeImmediateEffect', () => {
         it('should cause desired effect on player\'s stats', () => {
@@ -151,8 +160,8 @@ describe('Player', () => {
             let player = new Player(user)
             let suburbs = Tile.basicTiles()[0]
             suburbs.set('immediateEffect', {})
-            assert.equal(player.getPopulation(), 0)            
-        }) 
+            assert.equal(player.getPopulation(), 0)
+        })
     })
 
     describe('.executeAdjacentTileEffects', () => {
@@ -169,9 +178,9 @@ describe('Player', () => {
             player.getBoard().addPlacement(ffPlacement)
             player.executeImmediateEffect(ffPlacement)
             player.executeAdjacentTileEffects(ffPlacement)
- 
-            assert.equal(player.getIncome(), 3)  // -1 for fancy rest del          
-        })        
+
+            assert.equal(player.getIncome(), 3)  // -1 for fancy rest del
+        })
     })
 
 })

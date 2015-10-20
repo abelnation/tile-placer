@@ -17,7 +17,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        let lastResult
+        let lastResult 
         if (this.state.error) {
             lastResult = <div>Error: { error.message }</div>
         } else if (this.state.lastResult) {

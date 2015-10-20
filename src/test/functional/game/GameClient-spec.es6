@@ -2,7 +2,7 @@
 
 /*eslint-disable no-unused-vars */
 //
-// GameClient-spec
+// GuessGameClient-spec
 // Created by aallison on 10/6/15.
 //
 
@@ -15,15 +15,15 @@ const Constants = require('../../../shared/Constants')
 const Logger = require('../../../shared/log/Logger')
 const SimpleState = require('../../../shared/models/game/SimpleState')
 const LiveClient = require('../../../shared/network/liveclient/LiveClient')
-const GameClient = require('../../../shared/clients/GameClient')
+const GuessGameClient = require('../../../shared/clients/GuessGameClient')
 
 const BaseError = require('../../../shared/models/error/BaseError')
 const BaseCommand = require('../../../shared/models/commands/BaseCommand')
-const EchoCommand = require('../../../shared/models/game/commands/EchoCommand')
-const AddGuessCommand = require('../../../shared/models/game/commands/AddGuessCommand')
-const GetStateCommand = require('../../../shared/models/game/commands/GetStateCommand')
+const EchoCommand = require('../../../shared/models/game/guess-commands/EchoCommand')
+const AddGuessCommand = require('../../../shared/models/game/guess-commands/AddGuessCommand')
+const GetStateCommand = require('../../../shared/models/game/guess-commands/GetStateCommand')
 
-describe('GameClient', () => {
+describe('GuessGameClient', () => {
 
     let gameServer
     let gameState
@@ -60,7 +60,7 @@ describe('GameClient', () => {
             })
 
             // 3. Create new connected client
-            GameClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, gameClient) => {
+            GuessGameClient.connectTCP('localhost', Constants.TCP_SERVER_PORT, (err, gameClient) => {
                 if (err) {
                     return done(err)
                 }

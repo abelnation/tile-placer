@@ -7,7 +7,7 @@
 
 const assert = require('chai').assert
 const _ = require('underscore')
-// const Logger = require('../../../../shared/log/Logger')
+const Logger = require('../../../../shared/log/Logger')
 
 const GameState = require('../../../../shared/models/game/GameState')
 const GameSetupConfig = require('../../../../shared/data/GameSetup-config')
@@ -28,6 +28,7 @@ describe('GameState', () => {
 
     it('basic constructor', () => {
         assert.equal('GameState', gameState.type)
+        Logger.info('state:', gameState)
     })
 
 

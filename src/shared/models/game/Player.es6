@@ -16,7 +16,7 @@ const EffectExecution = require('../../mixins/EffectExecution')
 
 class Player extends BaseModel {
     constructor(user) {
-        super() 
+        super()
         this.set('user', user)
 
         this.set('income', 0)
@@ -60,7 +60,7 @@ class Player extends BaseModel {
     chargeForTile(totalCost) {
         this.set('money', this.getMoney() - totalCost)
     }
-    
+
     incrementStat(stat, value) {
         this.set(stat, this.get(stat) + value)
     }
@@ -87,7 +87,7 @@ class Player extends BaseModel {
         return result
     }
 
-    // Update a player's money based on their income    
+    // Update a player's money based on their income
     // If a player's income is < 0 reduce their income until 0 and remove population if they still owe money
     takeIncome() {
         let newMoney = this.getIncome() + this.getMoney()
@@ -112,7 +112,7 @@ class Player extends BaseModel {
             this.set('population', 0)
         } else {
             this.set('population', newPopulation)
-        }              
+        }
     }
 
     canAfford(totalCost) {
