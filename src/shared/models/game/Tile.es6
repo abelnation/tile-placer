@@ -18,7 +18,7 @@ class Tile extends BaseModel {
     constructor(tileInfo) {
         super()
         this.setFromObject(tileInfo)
-        this.set('immediateEffect', new Effect(tileInfo.immediateEffect))  
+        this.set('immediateEffect', new Effect(tileInfo.immediateEffect))
         this.set('conditionalEffects', _.map(tileInfo.conditionalEffects, (conditionalEffect) =>  {
             return new Effect(conditionalEffect)
         }))
@@ -46,6 +46,15 @@ class Tile extends BaseModel {
         return _.some(categories, (category) => {
             return this.getCategory() === category
         })
+    }
+
+    printImmediateEffect() {
+      let immediateEffect = this.getImmediateEffect()
+      if (immediateEffect.isNull()) {
+        return ''
+      } else {
+        return `+${immediateEffect.getValue()} ${immediateEffect.getStat()}`
+      }
     }
 
     hasIcon(icon) {
@@ -83,18 +92,18 @@ class Tile extends BaseModel {
         _.each(TileList, (tiles, stage) => {
             result[stage] = tiles.map( (tile) => {
                 return new Tile(tile)
-            })        
+            })
         })
         return result
     }
 
     static basicTiles() {
-        const allTiles = Tile.allTiles()        
+        const allTiles = Tile.allTiles()
         return allTiles[TileConfig.BASIC]
     }
 
     static lake() {
-        const allTiles = Tile.allTiles()        
+        const allTiles = Tile.allTiles()
         return allTiles[TileConfig.LAKE][0] // Only one tile in the lake stage
     }
 }

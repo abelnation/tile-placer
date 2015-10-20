@@ -15,12 +15,20 @@ const TileConfig = require('../../data/Tile-config')
 class Effect extends BaseModel {
     constructor(effectInfo) {
         super()
-        this.setFromObject(effectInfo)        
+        this.setFromObject(effectInfo)
     }
 
     getStat() { return this.get('stat') }
     getValue() { return this.get('value') }
     getCondition() { return this.get('condition') }
+
+    isNull() {
+      if (_.isUndefined(this.getStat())) {
+        return true
+      } else {
+        return false
+      }
+    }
 
     executeNewTileEffects(player, placement, gameState) {
         let condition = this.getCondition()
@@ -32,7 +40,7 @@ class Effect extends BaseModel {
 
         if (_.isUndefined(condition)) {
             result.push(new EffectResult(placement, stat, value))
-            player.incrementStat(stat, value)     
+            player.incrementStat(stat, value)
         }
         else {
             let allPlayers = gameState.getPlayers()
@@ -45,7 +53,7 @@ class Effect extends BaseModel {
 
                         if (tile.meetsCondition(condition)) {
                             result.push(new EffectResult(placement, stat, value))
-                            player.incrementStat(stat, value)     
+                            player.incrementStat(stat, value)
                         }
                     }
                     break
@@ -57,10 +65,10 @@ class Effect extends BaseModel {
                     for (let playerPlacements of allPlacements) {
                         for (let existingPlacement of playerPlacements) {
                             let tile = existingPlacement.getTile()
-                            
+
                             if (tile.meetsCondition(condition)) {
                                 result.push(new EffectResult(placement, stat, value))
-                                player.incrementStat(stat, value)     
+                                player.incrementStat(stat, value)
                             }
                         }
                     }
@@ -75,8 +83,8 @@ class Effect extends BaseModel {
                         for (let placement of placementSet) {
                             if (placement.getTile().meetsCondition(condition)) {
                                 result.push(new EffectResult(placement, stat, value))
-                                player.incrementStat(stat, value)     
-                            }                        
+                                player.incrementStat(stat, value)
+                            }
                         }
                     }
                     break
@@ -85,7 +93,7 @@ class Effect extends BaseModel {
                     for (let placement of yourPlacements) {
                         if (placement.getTile().meetsCondition(condition)) {
                             result.push(new EffectResult(placement, stat, value))
-                            player.incrementStat(stat, value)     
+                            player.incrementStat(stat, value)
                         }
                     }
                     break

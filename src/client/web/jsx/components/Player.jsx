@@ -22,10 +22,14 @@ export default class Player extends React.Component {
       BrowserLogger.info('Player', this.props.player)
 
       let player = this.props.player
+
+      let tableStyle = {
+        width: '400px'
+      }
       return (
         <div>
-          <h3>Player {player.getUser().getUserId()}</h3>
-          <table>
+          <h3>{player.getUser().getName()}</h3>
+          <table className='table' style={tableStyle}>
             <tbody>
               {_.map(player.getStats(), this.renderStat)}
             </tbody>

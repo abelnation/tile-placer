@@ -7,17 +7,25 @@
 
 const uuid = require('../util/uuid')
 const BaseModel = require('./BaseModel')
-
+const Chance = require('chance')
 const USER_ID = 'userId'
 
+
+
 class User extends BaseModel {
-    constructor(userId) {
+    constructor(userId, name) {
         super()
         this.setUserId(userId)
+        let chance = new Chance()
+        this.set('name', name || chance.first())
     }
 
     getUserId() {
         return this.get(USER_ID)
+    }
+
+    getName() {
+        return this.get('name')
     }
 
     setUserId(userId) {

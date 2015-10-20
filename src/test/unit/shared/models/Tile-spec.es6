@@ -22,9 +22,9 @@ describe('Tile', () => {
             icon: null,
             stage: 'a',
             immediateEffect: {stat: StatsConfig.STATS.INCOME, value: 1},
-            conditionalEffects: [{stat: StatsConfig.STATS.REPUTATION, value: 1, condition: 
+            conditionalEffects: [{stat: StatsConfig.STATS.REPUTATION, value: 1, condition:
                             { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.COMMERICIAL] }
-            }] 
+            }]
         }
 
         let tile = new Tile(tileInfo)
@@ -39,7 +39,7 @@ describe('Tile', () => {
     })
 
     describe('grabbing tiles for setup:', () => {
-        it('.allTiles returns an object containing tiles for all game stages', () => {        
+        it('.allTiles returns an object containing tiles for all game stages', () => {
             const allTiles = Tile.allTiles()
             const stagesFromTiles = Object.keys(allTiles)
             const stageKeysFromConst = Object.keys(TileConfig.STAGES)
@@ -54,7 +54,7 @@ describe('Tile', () => {
             }
         })
 
-        it('.allTiles returns only tile objects', () => {        
+        it('.allTiles returns only tile objects', () => {
             const allTiles = Tile.allTiles()
             for (let stage in allTiles) {
                 for (let tile of allTiles[stage]) {
@@ -78,11 +78,24 @@ describe('Tile', () => {
 
     })
 
+    describe(".printImmediateEffect", function () {
+        it('prints a tiles effect properly', function () {
+          const suburbs = Tile.findByName('Suburbs')
+
+          assert.equal(suburbs.printImmediateEffect(), '+2 population')
+        })
+
+        it("prints empty string if there's no immediate effect", function () {
+          const mobHome = Tile.findByName('Mobile Home Community')
+          assert.equal(mobHome.printImmediateEffect(), '')
+        });
+    })
+
     describe('executing effects', () => {
 
         describe('.meetsCondition', () => {
             const basicTiles = Tile.basicTiles()
-            let tile = basicTiles[0] // Suburbs 
+            let tile = basicTiles[0] // Suburbs
 
             it('returns true if the condition is met by the tile', () => {
                 let condition = { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL] }
@@ -91,7 +104,7 @@ describe('Tile', () => {
 
             it('returns false if the condition isn\'t met by the tile', () => {
                 let condition = { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.INDUSTRIAL] }
-                assert.isFalse(tile.meetsCondition(condition))                
+                assert.isFalse(tile.meetsCondition(condition))
             })
         })
 
@@ -116,7 +129,7 @@ describe('Tile', () => {
 
         describe('.hasCategory', () => {
             const basicTiles = Tile.basicTiles()
-            let tile = basicTiles[0] // Suburbs 
+            let tile = basicTiles[0] // Suburbs
 
             it('.hasIcon returns false if wrong category', () => {
                 assert.isFalse(tile.inAnyOfCategories([TileConfig.CATEGORIES.COMMERCIAL,  TileConfig.CATEGORIES.MUNICIPLE]))
@@ -131,4 +144,4 @@ describe('Tile', () => {
 
     })
 
-})  
+})

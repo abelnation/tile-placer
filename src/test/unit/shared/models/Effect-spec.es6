@@ -21,8 +21,8 @@ describe('Effect', () => {
 
     it('basic constructor', () => {
         let effectInfo = {
-            stat: StatsConfig.STATS.REPUTATION, 
-            value: 1, 
+            stat: StatsConfig.STATS.REPUTATION,
+            value: 1,
             condition: { adjacent: [TileConfig.CATEGORIES.INDUSTRIAL, TileConfig.CATEGORIES.COMMERICIAL, TileConfig.CATEGORIES.RESIDENTIAL] }
         }
 
@@ -33,18 +33,26 @@ describe('Effect', () => {
         assert.equal(effect.getCondition().adjacent.length, 3)
     })
 
+    describe(".isNull", function () {
+        it('returns true if there isn\t a valid effect', () => {
+          const mobHome = Tile.findByName('Mobile Home Community')
+          const effect = mobHome.getImmediateEffect()
+          assert.isTrue(effect.isNull())
+        })
+    })
+
     describe('.executeNewTileEffects', () => {
 
         it('increments player stats properly for ADJACENT effects ',  () => {
             let users = [1].map( id =>  new User(id))
             let gameState = new GameState(users)
             gameState.setupInitialGameState()
-            
+
             let player = gameState.getPlayers()[0]
             assert.equal(player.getReputation(), 1)
             assert.equal(player.getIncome(), 0)
             assert.equal(player.getPopulation(), 2)
-  
+
         })
 
         it('increments player stats properly for EVERY effects ',  () => {
@@ -63,6 +71,6 @@ describe('Effect', () => {
             assert.equal(player.getPopulation(), 2)
             assert.equal(player.getMoney(), 17)
         })
-      
+
     })
 })

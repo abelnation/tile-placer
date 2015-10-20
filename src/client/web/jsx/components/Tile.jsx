@@ -30,7 +30,11 @@ export default class Tile extends React.Component {
 
     return (
       <div style={tileStyle}>
-        {this.props.tile.getName()}
+        <b>{this.props.tile.getName()}</b>
+        <br />
+        {this.props.tile.printImmediateEffect()}
+        <br />
+        Costs: ${this.props.tile.getCost()}
       </div>
     )
   }
