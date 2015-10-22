@@ -1,9 +1,15 @@
-const alt = require('../../alt')
+const alt = require('../alt')
 
 class TurnActions {
-  updateLocations(locations) {
-    this.dispatch(locations)
+
+  selectTile(tileIndex) {
+    this.dispatch(tileIndex)
   }
+
+  selectSlot(slot) {
+    this.dispatch(slot)
+  }
+
 }
 
 module.exports = alt.createActions(TurnActions)

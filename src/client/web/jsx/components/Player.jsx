@@ -19,8 +19,6 @@ const PlayerBoard = require('./PlayerBoard')
 export default class Player extends React.Component {
 
     render() {
-      BrowserLogger.info('Player', this.props.player)
-
       let player = this.props.player
 
       let tableStyle = {

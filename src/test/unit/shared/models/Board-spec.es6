@@ -17,19 +17,19 @@ describe('Board', () => {
     let tile = Tile.basicTiles()[0]
 
     it('basic constructor', () => {
-        let board = new Board()        
+        let board = new Board()
         assert.equal('Board', board.type)
     })
 
-    it('.addPlacements adds a placement to the board & getPlacements returns placements', () => {        
-        let board = new Board()        
+    it('.addPlacements adds a placement to the board & getPlacements returns placements', () => {
+        let board = new Board()
         let placement = new Placement(tile, [0,0], 1)
         board.addPlacement(placement)
         assert.equal(board.getPlacements()[0], placement)
     })
 
     it('.numPlacements returns count of how many placements are in board', () => {
-        let board = new Board()        
+        let board = new Board()
         let placement = new Placement(tile, [0,0], 1)
         board.addPlacement(placement)
         assert.equal(board.numPlacements(), 1)
@@ -45,16 +45,16 @@ describe('Board', () => {
         })
 
         it('returns false when trying to place tile without any neighbors', () => {
-             assert.isFalse(board.canPlaceOn([3,0]))              
+             assert.isFalse(board.canPlaceOn([3,0]))
         })
 
         it('returns true when placing in an unoccupied space with neighbors', () => {
-            assert.isTrue(board.canPlaceOn([1,1]))              
+            assert.isTrue(board.canPlaceOn([1,1]))
         })
     })
 
     describe('.coordsOccupied', () => {
-        let board = new Board()        
+        let board = new Board()
         let coords = [0,0]
 
         it('returns true if the coordinates already have a placement', () => {
@@ -63,9 +63,27 @@ describe('Board', () => {
 
         it('returns false if the coordinates have placement', () => {
             let placement = new Placement(tile, coords, 1)
-            board.addPlacement(placement)      
+            board.addPlacement(placement)
             assert.isTrue(board.coordsOccupied(coords))
-        })      
+        })
+    })
+
+    describe(".getFullBoard", function () {
+        let board = new Board()
+        let placement = new Placement(tile, [0,0], 1)
+        board.addPlacement(placement)
+
+        it('returns an array of arrays containing palcements & slots', () => {
+          assert.lengthOf(board.getEmptySlots(), 6)
+        })
+
+        it('returns an array of arrays containing palcements & slots', () => {
+          let tile = Tile.basicTiles()[1]
+          let placement = new Placement(tile, [0,1], 1)
+          board.addPlacement(placement)
+          assert.lengthOf(board.getEmptySlots(), 8)
+        })
+
     })
 
     describe('.getAdjacentPlacements', () => {
@@ -75,24 +93,24 @@ describe('Board', () => {
             let placement = new Placement(tile, [0,0], 1)
             board.addPlacement(placement)
             assert.lengthOf(board.getAdjacentPlacements(placement), 0)
-            
+
             let secondPlacement = new Placement(tile, [1,0], 2)
             board.addPlacement(secondPlacement)
             assert.lengthOf(board.getAdjacentPlacements(placement), 1)
             assert.equal(board.getAdjacentPlacements(placement)[0], secondPlacement)
-            
+
             let thirdPlacement = new Placement(tile, [0,1], 3)
             board.addPlacement(thirdPlacement)
             assert.lengthOf(board.getAdjacentPlacements(placement), 2)  // original palcement is neighbors with both new placements
 
-            assert.lengthOf(board.getAdjacentPlacements(secondPlacement), 1) // these two aren't neighbors with each other 
+            assert.lengthOf(board.getAdjacentPlacements(secondPlacement), 1) // these two aren't neighbors with each other
             assert.lengthOf(board.getAdjacentPlacements(thirdPlacement), 1) // these two aren't neighbors with each other
         })
-          
+
     })
 
     describe('.atLeastOneAdjacent', () => {
-        let board = new Board() 
+        let board = new Board()
         let startingPlacement = new Placement(tile, [0,0], 1)
         board.addPlacement(startingPlacement)
 
@@ -121,7 +139,7 @@ describe('Board', () => {
             let expectedNeighbors = [[0,0], [0,1], [1,0], [1,2], [2,0], [2,1]]
 
             const adjacentCoords = Board.adjacentCoords(coords)
-            assert.deepEqual(adjacentCoords, expectedNeighbors)            
+            assert.deepEqual(adjacentCoords, expectedNeighbors)
         })
 
         it('handles the case where column is even', () => {
@@ -129,7 +147,7 @@ describe('Board', () => {
             let expectedNeighbors = [[1,1], [1,2], [2,0], [2,2], [3,1], [3,2]]
 
             const adjacentCoords = Board.adjacentCoords(coords)
-            assert.deepEqual(adjacentCoords, expectedNeighbors)            
+            assert.deepEqual(adjacentCoords, expectedNeighbors)
         })
 
     })

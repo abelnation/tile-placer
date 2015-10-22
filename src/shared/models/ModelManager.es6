@@ -33,6 +33,7 @@ const models = {
     'Placement': require('./game/Placement.es6'),
     'Player': require('./game/Player.es6'),
     'SimpleState': require('./game/SimpleState.es6'),
+    'Slot': require('./game/Slot.es6'),
     'Tile': require('./game/Tile.es6'),
     'NetworkMessage': require('./network/channel/NetworkMessage.es6'),
     'AckResponse': require('./network/liveclient/AckResponse.es6'),

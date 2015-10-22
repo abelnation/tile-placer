@@ -22,6 +22,7 @@ class Tile extends BaseModel {
         this.set('conditionalEffects', _.map(tileInfo.conditionalEffects, (conditionalEffect) =>  {
             return new Effect(conditionalEffect)
         }))
+        this.set('selected', false)
         // TODO: build in validation for all these fields
     }
 
@@ -32,7 +33,10 @@ class Tile extends BaseModel {
     getStage() { return this.get('stage') }
     getImmediateEffect() { return this.get('immediateEffect') }
     getConditionalEffects() { return this.get('conditionalEffects') }
+    isSelected() {return this.get('selected')}
 
+    setSelected() {this.set('selected', true)}
+    setUnselected() {this.set('selected', false)}
 
     meetsCondition(condition) {
         if (_.isUndefined(condition.categories) === false) {
@@ -55,6 +59,10 @@ class Tile extends BaseModel {
       } else {
         return `+${immediateEffect.getValue()} ${immediateEffect.getStat()}`
       }
+    }
+
+    areNoConditionalEffects() {
+      return _.isEmpty(this.getConditionalEffects())
     }
 
     hasIcon(icon) {
@@ -86,6 +94,21 @@ class Tile extends BaseModel {
         return result
     }
 
+    static clone(tile) {
+      let info = {
+        immediateEffect: tile.getImmediateEffect(),
+        conditionalEffects: tile.getConditionalEffects(),
+        name: tile.getName(),
+        cost: tile.getCost(),
+        category: tile.getCategory(),
+        stage: tile.getStage(),
+        icon: tile.getIcon()
+      }
+
+      let clone = new Tile(info)
+      console.log(clone)
+      return clone
+    }
 
     static allTiles() {
         let result = {}

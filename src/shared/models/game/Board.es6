@@ -8,7 +8,7 @@
 const _ = require('underscore')
 
 const BaseModel = require('../BaseModel')
-// const Placement = require('./Placement')
+const Slot = require('./Slot')
 
 const Logger = require('../../log/Logger')
 
@@ -22,9 +22,35 @@ class Board extends BaseModel {
 
     numPlacements() { return this.getPlacements().length }
 
+    getEmptySlots() {
+      let board = []
+      var coordSet = []
+
+      // iterate through placements getting unoccupied adjacent coords
+      let placements = this.getPlacements()
+      for (let placement of placements ) {
+          let adjacentCoords = Board.adjacentCoords(placement.getCoords())
+          for (let coords of adjacentCoords) {
+              let alreadyHaveCoords = _.some(coordSet, (coordInSet) => {
+                return _.isEqual(coordInSet, coords)
+              })
+              if (this.coordsOccupied(coords) === false && alreadyHaveCoords === false) {
+                  coordSet.push(coords)
+              }
+          }
+      }
+
+      let emptySlots = []
+      for (let coord of coordSet) {
+        emptySlots.push(new Slot(coord))
+      }
+
+      return emptySlots
+    }
+
     addPlacement(placement) {
         let coords = placement.getCoords()
-        let placements = this.getPlacements()      
+        let placements = this.getPlacements()
         let startingTilePosition = _.isEqual(coords, [0,0])
 
         if (!this.coordsOccupied(coords) && startingTilePosition) {
@@ -53,8 +79,8 @@ class Board extends BaseModel {
             return _.some(adjacentCoords, (possibleNeighbor) => {
                 return _.isEqual(placement.getCoords(), possibleNeighbor)
             })
-        })        
-    } 
+        })
+    }
 
     coordsOccupied(coords) {
         const placements = this.getPlacements()
@@ -69,12 +95,12 @@ class Board extends BaseModel {
     }
 
     getAdjacentPlacements(newPlacement) {
-        const newPlacementAdjacentCoords = Board.adjacentCoords(newPlacement.getCoords())        
+        const newPlacementAdjacentCoords = Board.adjacentCoords(newPlacement.getCoords())
         let allPlacements = this.getPlacements()
 
         return _.filter(allPlacements, (placement) => {
             let placementCoords = placement.getCoords()
-            return _.some(newPlacementAdjacentCoords, (adjacentCoords) => { 
+            return _.some(newPlacementAdjacentCoords, (adjacentCoords) => {
                 return _.isEqual(adjacentCoords, placementCoords)
             })
         })
@@ -87,13 +113,13 @@ class Board extends BaseModel {
         // Odd and Even columns are slightly different
         if (xCoord % 2 === 0) {         // Even case
             return [
-                [xCoord-1, yCoord],     // Different from odd 
-                [xCoord-1, yCoord+1],   // Different from odd 
-                [xCoord, yCoord-1],     
-                [xCoord, yCoord+1],     
-                [xCoord+1, yCoord],     // Different from odd 
+                [xCoord-1, yCoord],     // Different from odd
+                [xCoord-1, yCoord+1],   // Different from odd
+                [xCoord, yCoord-1],
+                [xCoord, yCoord+1],
+                [xCoord+1, yCoord],     // Different from odd
                 [xCoord+1, yCoord+1]    // Different from odd
-            ]            
+            ]
         } else {                        // Odd case
             return [
                 [xCoord-1, yCoord-1],
@@ -102,7 +128,7 @@ class Board extends BaseModel {
                 [xCoord, yCoord+1],
                 [xCoord+1, yCoord-1],
                 [xCoord+1, yCoord]
-            ]            
+            ]
         }
     }
 }

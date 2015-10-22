@@ -36,6 +36,7 @@ describe('Tile', () => {
         assert.equal(tile.getStage(), 'a')
         assert.equal(tile.getImmediateEffect().type, 'Effect')
         assert.equal(tile.getConditionalEffects().length, 1)
+        assert.isFalse(tile.isSelected())
     })
 
     describe('grabbing tiles for setup:', () => {
@@ -78,6 +79,23 @@ describe('Tile', () => {
 
     })
 
+    describe("selection in UI", function () {
+        it(".setSelected sets the tile to true", function () {
+          let tile = Tile.basicTiles()[0]
+          tile.setSelected()
+          assert.isTrue(tile.isSelected())
+        })
+
+        it(".setUnselected sets the tile to false", function () {
+          let tile = Tile.basicTiles()[0]
+          tile.setSelected()
+          assert.isTrue(tile.isSelected())
+          tile.setUnselected()
+          assert.isFalse(tile.isSelected())
+        })
+
+    })
+
     describe(".printImmediateEffect", function () {
         it('prints a tiles effect properly', function () {
           const suburbs = Tile.findByName('Suburbs')
@@ -86,7 +104,7 @@ describe('Tile', () => {
         })
 
         it("prints empty string if there's no immediate effect", function () {
-          const mobHome = Tile.findByName('Mobile Home Community')
+          const mobHome = Tile.findByName('Waterfront Realty')
           assert.equal(mobHome.printImmediateEffect(), '')
         });
     })
@@ -141,6 +159,14 @@ describe('Tile', () => {
 
         })
 
+        describe('.areNoConditionalEffects', () => {
+          const basicTiles = Tile.basicTiles()
+          let tile = basicTiles[0] // Suburbs
+
+          it('returns true if the tile has no conditional effects', function () {
+            assert.isTrue(tile.areNoConditionalEffects())
+          })
+        })
 
     })
 

@@ -11,15 +11,14 @@ const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 const Market = require('./Market')
 const Players = require('./Players')
-const button = require('react-bootstrap').Button
-
+const GameStore = require('../stores/GameStore') 
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
 module.exports = React.createClass({
-    // getInitialState() {
-    //     return this.props.client
-    // },
+    getInitialState() {
+      return GameStore.getState()
+    },
 
     getDefaultProps() {
         return {}
@@ -28,36 +27,35 @@ module.exports = React.createClass({
     render() {
         return (
             <div>
-                <Market tiles={this.props.client.gameState.getMarket().getTiles()} />
+                <Market tiles={this.state.market.getTiles()} />
                 <div className="clearfix"></div>
-                <Players players={this.props.client.gameState.getPlayers()} />
+                <Players players={this.state.players} />
                 <div className="clearfix"></div>
             </div>
         )
     },
 
-    onStateChange(newGameState) {
-        Logger.trace('GameController.onStateChange')
-        this.setState({
-            gameState: newGameState
-        })
-    },
-
     componentWillMount() {
+      GameStore.listen(this.onChange);
     },
 
-    componentDidMount() {
+    onChange(state) {
+      this.setState(state);
     },
 
-    componentWillReceiveProps(nextProps) {
-    },
-    shouldComponentUpdate(nextProps, nextState) {
-        return true
-    },
-    componentWillUpdate(nextProps, nextState) {
-    },
-    componentDidUpdate(prevProps, prevState) {
-    },
+    // componentDidMount() {
+    // },
+    //
+    // componentWillReceiveProps(nextProps) {
+    // },
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return true
+    // },
+    // componentWillUpdate(nextProps, nextState) {
+    // },
+    // componentDidUpdate(prevProps, prevState) {
+    // },
     componentWillUnmount() {
+      GameStore.unlisten(this.onChange);
     }
 })

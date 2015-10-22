@@ -26,7 +26,7 @@ const EffectExecution = {
 
     executeImmediateEffect(placement) {
         let tile = placement.getTile()
-        let effect = tile.getImmediateEffect() 
+        let effect = tile.getImmediateEffect()
         let result = []
 
         if (_.isNull(effect)) {
@@ -56,7 +56,7 @@ const EffectExecution = {
     executeAdjacentTileEffects(placement) {
         let board = this.getBoard()
         let adjacentPlacements = board.getAdjacentPlacements(placement)
-        let relevantConditionTypes = [TileConfig.CONDITION.ADJACENT, TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER] 
+        let relevantConditionTypes = [TileConfig.CONDITION.ADJACENT, TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER]
         let result = []
 
 
@@ -77,17 +77,21 @@ const EffectExecution = {
     executeNonAdjacentTileEffects(placement) {
         let board = this.getBoard()
         let existingPlacements = board.getPlacements()
-        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER] 
+        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.YOUR, TileConfig.CONDITION.AFTER]
         let result = []
 
         for (let existingPlacement of existingPlacements) {
             let tile = existingPlacement.getTile()
             let effects = tile.getConditionalEffects()
             for (let effect of effects) {
-                if(_.isEmpty(effect.data) === false) {
+                if(_.isUndefined(effect.getCondition())) {
+                  console.log(placement.getTile().getName())
+                  console.log(effect);
+                }
+                if(effect.isNull() === false) {
                     if (_.contains(relevantConditionTypes, effect.getCondition().type)) {
                         result.push(effect.executeExistingTileEffects(this, placement, existingPlacement))
-                    }                    
+                    }
                 }
             }
         }
@@ -96,10 +100,12 @@ const EffectExecution = {
 
     executeOtherPlayerTileEffects(placement, gameState) {
         let opponents = gameState.opponentsOf(this)
+        console.log(opponents)
+        // if (oppo)
         let otherPlacements = _.map(opponents, (opponent) => {
             return opponent.getBoard().getPlacements()
         })
-        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.OTHER, TileConfig.CONDITION.AFTER] 
+        let relevantConditionTypes = [TileConfig.CONDITION.EVERY, TileConfig.CONDITION.OTHER, TileConfig.CONDITION.AFTER]
         let result = []
 
         for (let placementSet of otherPlacements) {
@@ -112,7 +118,7 @@ const EffectExecution = {
                             result.push(effect.executeExistingTileEffects(this, placement, adjacentPlacement))
                         }
                     }
-                }                     
+                }
             }
         }
         return result

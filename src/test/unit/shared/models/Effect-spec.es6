@@ -35,8 +35,8 @@ describe('Effect', () => {
 
     describe(".isNull", function () {
         it('returns true if there isn\t a valid effect', () => {
-          const mobHome = Tile.findByName('Mobile Home Community')
-          const effect = mobHome.getImmediateEffect()
+          const tile = Tile.findByName('Waterfront Realty')
+          const effect = tile.getImmediateEffect()
           assert.isTrue(effect.isNull())
         })
     })

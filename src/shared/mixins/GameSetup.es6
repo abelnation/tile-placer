@@ -89,7 +89,7 @@ const GameSetup = {
                 let tilePile = []
                 for (let i = 0; i < GameSetupConfig.TILES_PER_PILE; i++) {
                     let tile = tiles[Math.floor(Math.random()*tiles.length)]
-                    let tileCopy = clone(tile)
+                    let tileCopy = Tile.clone(tile)
                     tilePile.push(tileCopy)
                 }
                 result[stage] = tilePile

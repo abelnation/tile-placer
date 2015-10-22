@@ -18,7 +18,6 @@ export default class Players extends React.Component {
 
     render() {
       let players = this.props.players
-      BrowserLogger.info('Players', players)
 
       return (
         <div>

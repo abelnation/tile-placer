@@ -10,8 +10,9 @@ const React = require('react')
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 
-
 const Tile = require('./Tile')
+const Slot = require('./Slot')
+const GameStore = require('../stores/GameStore')
 
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
@@ -19,8 +20,6 @@ const Tile = require('./Tile')
 export default class PlayerBoard extends React.Component {
 
     render() {
-      BrowserLogger.info('Board', this.props.board)
-
       let board = this.props.board
       let placements = board.getPlacements()
       let tiles = placements.map(function(placement) {
@@ -30,12 +29,12 @@ export default class PlayerBoard extends React.Component {
       return (
         <div>
           {tiles.map(this.renderTile)}
+          <Slot index={[1,1]} selected={true}></Slot>
         </div>
       )
     }
 
-    renderTile(tile) {
-
+    renderTile(tile, index) {
       return <Tile tile={tile} key={Math.random()}></Tile>
     }
 }
