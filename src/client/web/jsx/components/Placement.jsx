@@ -25,16 +25,16 @@ export default class Placement extends React.Component {
     const xCoord = placement.getXCoord() + 3
     const yCoord = placement.getYCoord()
 
-    const yOffset = (xCoord % 2 === 0) ? 70 : 0
-
+    const tileSize = 140
+    const yOffset = (xCoord % 2 === 0) ? (tileSize/2) : 0
     let tileStyle = {
       border: '1px solid black',
-      width: '140px',
-      height: '140px',
+      width: `${tileSize}px`,
+      height: `${tileSize}px`,
       padding: '8px',
       position: 'absolute',
-      top: `${yCoord * 140- yOffset}px`,
-      left: `${xCoord * 140}px`
+      top: `${yCoord * tileSize- yOffset}px`,
+      left: `${xCoord * tileSize}px`
     }
 
     if(tile.isSelected()) {
@@ -45,6 +45,8 @@ export default class Placement extends React.Component {
         <b>{tile.getName()}</b>
         <br />
         {tile.printImmediateEffect()}
+        <br />
+        {tile.printConditionalEffects()}
         <br />
         Costs: ${tile.getCost()}
         <br />

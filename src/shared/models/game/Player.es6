@@ -34,6 +34,7 @@ class Player extends BaseModel {
     }
 
     getUser() { return this.get('user') }
+    getName() { return this.getUser().getName()  }
 
     getIncome() { return this.get('income') }
     getMoney() { return this.get('money') }

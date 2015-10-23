@@ -13,7 +13,6 @@ class TurnActions {
   buyTile() {
     this.dispatch()
   }
-
 }
 
 module.exports = alt.createActions(TurnActions)

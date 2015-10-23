@@ -38,12 +38,12 @@ class GameState extends BaseModel {
 
         // check if coords are valid
         if (player.getBoard().canPlaceOn(coords) === false) {
-            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
+            return BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
         }
 
         let realEstateCost = market.markupForPosition(marketPosition)
         if (player.getMoney() < realEstateCost) {
-            throw new BaseError(`Player doesn't have enough money to trash that tile due to the the real estate cost.`)
+            return BaseError(`Player doesn't have enough money to trash that tile due to the the real estate cost.`)
         }
 
         let effectResults = player.placeTile(Tile.lake(), coords, this) // this executes all effects
@@ -62,7 +62,7 @@ class GameState extends BaseModel {
 
         // check if coords are valid
         if (_.isEmpty(pile)) {
-            throw new BaseError(`There aren't any ${ pile } tiles left.`)
+            return BaseError(`There aren't any ${ pile } tiles left.`)
         }
 
         let tile = pile.pop()
@@ -70,12 +70,12 @@ class GameState extends BaseModel {
 
         // throw error if player doesn't have enough
         if (player.canAfford(cost) === false) {
-            throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() }.`)
+            return BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() }.`)
         }
 
         // check if coords are valid
         if (player.getBoard().canPlaceOn(coords) === false) {
-            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
+            return BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
         }
 
         player.chargeForTile(cost)
@@ -88,10 +88,6 @@ class GameState extends BaseModel {
 
     buyTileFromMarket(player, coords, marketPosition) {
 
-        Logger.info('player', player)
-        Logger.info('coords', coords)
-        Logger.info('marketPosition', marketPosition)
-
         this.validateCurrentPlayer(player)
 
         let market = this.getMarket()
@@ -100,17 +96,17 @@ class GameState extends BaseModel {
         const totalCost = tile.getCost() + market.markupForPosition(marketPosition) // HACK
 
         if (_.isUndefined(tile)) {
-            throw new BaseError(`Couldn't find a tile in the market at index ${ marketPosition }.`)
+            return new BaseError(`Couldn't find a tile in the market at index ${ marketPosition }.`)
         }
 
         // throw error if player doesn't have enough
         if (player.canAfford(totalCost) === false) {
-            throw new BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() } at index ${ marketPosition }.`)
+            return new BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() } at index ${ marketPosition }.`)
         }
 
         // check if coords are valid
         if (player.getBoard().canPlaceOn(coords) === false) {
-            throw new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
+            return new BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
         }
 
         market.takeTile(marketPosition)
@@ -130,19 +126,19 @@ class GameState extends BaseModel {
 
         // throw error if player doesn't have any investments left
         if (player.hasInvestmentsRemaining() === false) {
-            throw new BaseError(`Player doesn't any investments left.`)
+            return new BaseError(`Player doesn't any investments left.`)
         }
 
         // throw error if player doesn't have enough
         if (placement.alreadyInvestedIn() === true) {
-            throw new BaseError(`Player already invested in ${ tile.getName() }.`)
+            return new BaseError(`Player already invested in ${ tile.getName() }.`)
         }
 
         let cost = tile.getCost()
 
         // throw error if player doesn't have enough
         if (player.canAfford(cost) === false) {
-            throw new BaseError(`Player doesn't have enough money to invest in ${ tile.getName() }.`)
+            return new BaseError(`Player doesn't have enough money to invest in ${ tile.getName() }.`)
         }
 
         player.chargeForTile(cost)
@@ -174,7 +170,7 @@ class GameState extends BaseModel {
     validateCurrentPlayer(player) {
         // throw error if it isn't turn of player passed in
         if (this.getCurrentPlayer() !== player) {
-            throw new BaseError(`It's not user ${player.getUser().getUserId()}'s turn.`)
+            return new BaseError(`It's not user ${player.getUser().getUserId()}'s turn.`)
         }
     }
 

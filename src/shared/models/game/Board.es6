@@ -65,9 +65,20 @@ class Board extends BaseModel {
       })
     }
 
+    clearAll() {
+      this.clearSelectedPlacements()
+      this.clearSelectedSlots()
+    }
+
     clearSelectedSlots() {
       this.getSlots().forEach( (slot) => {
         slot.setUnselected()
+      })
+    }
+
+    clearSelectedPlacements() {
+      this.getPlacements().forEach( (placement) => {
+        placement.getTile().setUnselected()
       })
     }
 

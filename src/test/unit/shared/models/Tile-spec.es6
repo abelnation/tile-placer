@@ -168,6 +168,16 @@ describe('Tile', () => {
           })
         })
 
+        describe('.clone', function () {
+          const commPark = Tile.findByName('Community Park')
+
+          it("create a tile containing the tile stats passed in", function () {
+            let commParkClone = Tile.clone(commPark)
+            assert.equal(commParkClone.getName(), 'Community Park')
+            assert.isFalse(commParkClone.getImmediateEffect().isNull())
+          })
+        })
+
     })
 
 })

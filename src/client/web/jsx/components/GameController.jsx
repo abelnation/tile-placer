@@ -6,12 +6,12 @@
 //
 
 const React = require('react')
-
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
+
 const Market = require('./Market')
 const Players = require('./Players')
-const GameStore = require('../stores/GameStore') 
+const GameStore = require('../stores/GameStore')
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
@@ -27,6 +27,11 @@ module.exports = React.createClass({
     render() {
         return (
             <div>
+                <div className="alert alert-info" role="alert">{this.state.message}</div>
+                {this.state.currentPlayer.getName()}
+                <br />
+                {this.state.gameState.getTurnNum()}
+                <div className="clearfix"></div>
                 <Market tiles={this.state.market.getTiles()} />
                 <div className="clearfix"></div>
                 <Players players={this.state.players} />
@@ -43,18 +48,6 @@ module.exports = React.createClass({
       this.setState(state);
     },
 
-    // componentDidMount() {
-    // },
-    //
-    // componentWillReceiveProps(nextProps) {
-    // },
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return true
-    // },
-    // componentWillUpdate(nextProps, nextState) {
-    // },
-    // componentDidUpdate(prevProps, prevState) {
-    // },
     componentWillUnmount() {
       GameStore.unlisten(this.onChange);
     }

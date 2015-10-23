@@ -20,10 +20,12 @@ export default class Tile extends React.Component {
   render() {
 
     let tile = this.props.tile
+    const tileSize = 140
+
     let tileStyle = {
       border: '1px solid black',
-      width: '140px',
-      height: '140px',
+      width: `${tileSize}px`,
+      height: `${tileSize}px`,
       float: 'left',
       padding: '8px',
       margin: '8px'
@@ -32,11 +34,14 @@ export default class Tile extends React.Component {
     if(tile.isSelected()) {
       tileStyle = _.extend(tileStyle, { background: 'gray'})
     }
+
     return (
       <div style={tileStyle}>
         <b>{tile.getName()}</b>
         <br />
         {tile.printImmediateEffect()}
+        <br />
+        {tile.printConditionalEffects()}
         <br />
         Costs: ${tile.getCost()}
       </div>

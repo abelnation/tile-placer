@@ -78,7 +78,7 @@ const GameSetup = {
                 for (let tile of tiles) {
                     result['basic'+tile.getCategory()] = []
                     for (let i = 0; i < GameSetupConfig.BASIC_TILES_PER_PILE; i++) {
-                        let tileCopy = clone(tile)
+                        let tileCopy = Tile.clone(tile)
                         result['basic'+tile.getCategory()].push(tileCopy)  // Add a copy of the tile
                     }
                 }

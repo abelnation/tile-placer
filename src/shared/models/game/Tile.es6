@@ -52,10 +52,35 @@ class Tile extends BaseModel {
 
     printImmediateEffect() {
       let immediateEffect = this.getImmediateEffect()
+
       if (immediateEffect.isNull()) {
         return ''
       } else {
         return `+${immediateEffect.getValue()} ${immediateEffect.getStat()}`
+      }
+    }
+
+    printConditionalEffect(effect) {
+      let condition = effect.getCondition()
+      if(_.isObject(condition)) {
+        if (_.isArray(condition.categories)) {
+          return `+${effect.getValue()} ${effect.getStat()} per ${condition.type} per ${condition.categories.toString()}`
+        } else {
+          return `+${effect.getValue()} ${effect.getStat()} per ${condition.type} per ${condition.icon}`
+        }
+      }
+    }
+
+    printConditionalEffects() {
+      let conditionalEffects = this.getConditionalEffects()
+      if (_.isEmpty(conditionalEffects)) {
+        return ''
+      } else {
+        let output = []
+        conditionalEffects.forEach((effect) => {
+          output.push(this.printConditionalEffect(effect))
+        })
+        return output.toString()
       }
     }
 
@@ -94,8 +119,10 @@ class Tile extends BaseModel {
 
     static clone(tile) {
       let info = {
-        immediateEffect: tile.getImmediateEffect(),
-        conditionalEffects: tile.getConditionalEffects(),
+        immediateEffect: tile.getImmediateEffect().data,
+        conditionalEffects: tile.getConditionalEffects().map( (effect) => {
+          return effect.data
+        }),
         name: tile.getName(),
         cost: tile.getCost(),
         category: tile.getCategory(),
