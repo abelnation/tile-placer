@@ -23,7 +23,7 @@ export default class Player extends React.Component {
       const player = this.props.player
 
       return (
-        <div className='row'>
+        <div>
           <h3>{player.getUser().getName()}</h3>
           <PlayerStats stats={player.getStats()} />
           <PlayerBoard board={player.getBoard()} />
