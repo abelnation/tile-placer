@@ -22,7 +22,9 @@ class Board extends BaseModel {
 
     numPlacements() { return this.getPlacements().length }
 
-    getEmptySlots() {
+    getSlots() { return this.get('slots') }
+
+    setSlots() {
       let board = []
       var coordSet = []
 
@@ -45,7 +47,23 @@ class Board extends BaseModel {
         emptySlots.push(new Slot(coord))
       }
 
-      return emptySlots
+      this.set('slots', emptySlots)
+    }
+
+    getSlotByCoords(coords) {
+      const slots = this.getSlots()
+
+      console.log('slots: '+ slots)
+
+      return _.find(slots, (slot) => {
+        return _.isEqual(slot.getCoords(), coords)
+      })
+    }
+
+    clearSelectedSlots() {
+      this.getSlots().forEach( (slot) => {
+        slot.setUnselected()
+      })
     }
 
     addPlacement(placement) {
@@ -63,6 +81,7 @@ class Board extends BaseModel {
             Logger.info('Couldn\'t place tile')
         }
         this.set('placements', placements)
+        this.setSlots()
 
         return true
     }

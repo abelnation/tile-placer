@@ -20,8 +20,8 @@ export default class Market extends React.Component {
   constructor(props) {
     super(props);
 
-    this.setSelected = this.setSelected.bind(this);
-    this.renderTile = this.renderTile.bind(this);
+    this.setSelected = this.setSelected.bind(this)
+    this.renderTile = this.renderTile.bind(this)
   }
   render() {
     return (

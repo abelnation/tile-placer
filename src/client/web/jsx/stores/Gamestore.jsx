@@ -19,24 +19,19 @@ class GameStore {
   }
 
   handleSelectTile({index: index}) {
-    this.clearSelectedFromMarket()
+    this.market.clearSelectedTiles()
     this.marketTiles[index].setSelected()
   }
 
-  handleSelectSlot(slotIndex) {
-    // this.marketTiles[index].setSelected()
-  }
+  handleSelectSlot({coords: coords}) {
+    let board = this.currentPlayer.getBoard()
+    board.clearSelectedSlots()
 
-// Helpers
+    console.log("coords:" +coords)
 
-  clearSelectedFromMarket() {
-    this.marketTiles.forEach( (tile) => {
-      tile.setUnselected()
-    })
-  }
-
-  slotIsSelected(slotIndex) {
-    return this.selectedSlot === slotIndex
+    let slot = board.getSlotByCoords(coords)
+    console.log(slot)
+    slot.setSelected()
   }
 }
 

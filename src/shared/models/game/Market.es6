@@ -45,6 +45,12 @@ class Market extends BaseModel {
         }
     }
 
+    clearSelectedTiles() {
+      this.getTiles().forEach( (tile) => {
+        tile.setUnselected()
+      })
+    }
+
     // Takes the top tile from the earliest stack and returns it
     takeTile(position) {
         let tiles = this.getTiles()

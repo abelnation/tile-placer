@@ -13,5 +13,6 @@ module.exports = {
 
   isSelected() {return this.get('selected')},
   setSelected() {this.set('selected', true)},
-  setUnselected() {this.set('selected', false)}
+  setUnselected() {this.set('selected', false)},
+
 }

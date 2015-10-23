@@ -68,22 +68,26 @@ describe('Board', () => {
         })
     })
 
-    describe(".getFullBoard", function () {
+    describe('empty slots on a players board', function () {
         let board = new Board()
         let placement = new Placement(tile, [0,0], 1)
         board.addPlacement(placement)
 
-        it('returns an array of arrays containing palcements & slots', () => {
-          assert.lengthOf(board.getEmptySlots(), 3)
+        it('.getSlots returns an array of arrays containing palcements & slots', () => {
+          assert.lengthOf(board.getSlots(), 3)
         })
 
-        it('returns an array of arrays containing palcements & slots', () => {
+        it('.getSlot() returns the slot at the coordinates passed in', function () {
+          let slot = board.getSlotByCoords([-1, 1])
+          assert.equal(slot.type, 'Slot')
+        })
+
+        it('.getSlots returns an array of arrays containing palcements & slots', () => {
           let tile = Tile.basicTiles()[1]
           let placement = new Placement(tile, [0,1], 1)
           board.addPlacement(placement)
-          assert.lengthOf(board.getEmptySlots(), 5)
+          assert.lengthOf(board.getSlots(), 5)
         })
-
     })
 
     describe('.getAdjacentPlacements', () => {
