@@ -14,7 +14,8 @@ class GameStore {
 
     this.bindListeners({
       handleSelectTile: TurnActions.SELECT_TILE,
-      handleSelectSlot: TurnActions.SELECT_SLOT
+      handleSelectSlot: TurnActions.SELECT_SLOT,
+      handleBuyTile: TurnActions.BUY_TILE
     })
   }
 
@@ -27,11 +28,15 @@ class GameStore {
     let board = this.currentPlayer.getBoard()
     board.clearSelectedSlots()
 
-    console.log("coords:" +coords)
-
     let slot = board.getSlotByCoords(coords)
-    console.log(slot)
     slot.setSelected()
+  }
+
+  handleBuyTile() {
+    const player = this.players[0]
+    const coords = player.getBoard().getSelectedSlot().getCoords()
+    const marketPosition = this.market.getSelectedIndex()
+    this.gameState.buyTileFromMarket(player, coords, marketPosition)
   }
 }
 

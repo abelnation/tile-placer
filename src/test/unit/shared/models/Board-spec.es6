@@ -77,7 +77,7 @@ describe('Board', () => {
           assert.lengthOf(board.getSlots(), 3)
         })
 
-        it('.getSlot() returns the slot at the coordinates passed in', function () {
+        it('.getSlotByCoords returns the slot at the coordinates passed in', function () {
           let slot = board.getSlotByCoords([-1, 1])
           assert.equal(slot.type, 'Slot')
         })
@@ -88,7 +88,13 @@ describe('Board', () => {
           board.addPlacement(placement)
           assert.lengthOf(board.getSlots(), 5)
         })
+
+        it('.getSelectedSlot finds the slot which has been selected by the player', function () {
+
+        });
     })
+
+
 
     describe('.getAdjacentPlacements', () => {
 

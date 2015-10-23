@@ -53,10 +53,15 @@ class Board extends BaseModel {
     getSlotByCoords(coords) {
       const slots = this.getSlots()
 
-      console.log('slots: '+ slots)
-
       return _.find(slots, (slot) => {
         return _.isEqual(slot.getCoords(), coords)
+      })
+    }
+
+    getSelectedSlot() {
+      const slots = this.getSlots()
+      return _.find(slots, (slot) => {
+        return slot.isSelected()
       })
     }
 

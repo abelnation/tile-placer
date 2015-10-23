@@ -10,6 +10,10 @@ class TurnActions {
     this.dispatch(slot)
   }
 
+  buyTile() {
+    this.dispatch()
+  }
+
 }
 
 module.exports = alt.createActions(TurnActions)

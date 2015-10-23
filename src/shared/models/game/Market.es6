@@ -51,6 +51,17 @@ class Market extends BaseModel {
       })
     }
 
+    getSelectedIndex() {
+      let selectedTile = this.getSelectedTile()
+      return this.getTiles().indexOf(selectedTile)
+    }
+
+    getSelectedTile() {
+      return _.find(this.getTiles(), (tile) => {
+        return tile.isSelected()
+      })
+    }
+
     // Takes the top tile from the earliest stack and returns it
     takeTile(position) {
         let tiles = this.getTiles()

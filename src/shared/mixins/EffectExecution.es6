@@ -84,10 +84,6 @@ const EffectExecution = {
             let tile = existingPlacement.getTile()
             let effects = tile.getConditionalEffects()
             for (let effect of effects) {
-                if(_.isUndefined(effect.getCondition())) {
-                  console.log(placement.getTile().getName())
-                  console.log(effect);
-                }
                 if(effect.isNull() === false) {
                     if (_.contains(relevantConditionTypes, effect.getCondition().type)) {
                         result.push(effect.executeExistingTileEffects(this, placement, existingPlacement))
@@ -100,7 +96,6 @@ const EffectExecution = {
 
     executeOtherPlayerTileEffects(placement, gameState) {
         let opponents = gameState.opponentsOf(this)
-        console.log(opponents)
         // if (oppo)
         let otherPlacements = _.map(opponents, (opponent) => {
             return opponent.getBoard().getPlacements()

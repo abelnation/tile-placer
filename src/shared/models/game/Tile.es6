@@ -104,7 +104,6 @@ class Tile extends BaseModel {
       }
 
       let clone = new Tile(info)
-      console.log(clone)
       return clone
     }
 

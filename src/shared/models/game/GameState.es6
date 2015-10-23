@@ -5,7 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 
-// const Logger = require('../../log/Logger')
+const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const GameSetup = require('../../mixins/GameSetup')
@@ -87,6 +87,10 @@ class GameState extends BaseModel {
     }
 
     buyTileFromMarket(player, coords, marketPosition) {
+
+        Logger.info('player', player)
+        Logger.info('coords', coords)
+        Logger.info('marketPosition', marketPosition)
 
         this.validateCurrentPlayer(player)
 
