@@ -14,19 +14,27 @@ const _ = require('underscore')
 /* eslint-enable no-unused-vars */
 
 
-export default class Tile extends React.Component {
+export default class Placement extends React.Component {
 
 
   render() {
 
-    let tile = this.props.tile
+    const placement = this.props.placement
+    const tile = placement.getTile()
+
+    const xCoord = placement.getXCoord() + 3
+    const yCoord = placement.getYCoord()
+
+    const yOffset = (xCoord % 2 === 0) ? 70 : 0
+
     let tileStyle = {
       border: '1px solid black',
       width: '140px',
       height: '140px',
-      float: 'left',
       padding: '8px',
-      margin: '8px'
+      position: 'absolute',
+      top: `${yCoord * 140- yOffset}px`,
+      left: `${xCoord * 140}px`
     }
 
     if(tile.isSelected()) {
@@ -39,6 +47,8 @@ export default class Tile extends React.Component {
         {tile.printImmediateEffect()}
         <br />
         Costs: ${tile.getCost()}
+        <br />
+          <span className='pull-right'>{this.props.placement.coordsString()}</span>
       </div>
     )
   }

@@ -10,7 +10,7 @@ const React = require('react')
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 
-const Tile = require('./Tile')
+const Placement = require('./Placement')
 const Slot = require('./Slot')
 const GameStore = require('../stores/GameStore')
 
@@ -20,21 +20,25 @@ const GameStore = require('../stores/GameStore')
 export default class PlayerBoard extends React.Component {
 
     render() {
-      let board = this.props.board
-      let placements = board.getPlacements()
-      let tiles = placements.map(function(placement) {
-        return placement.getTile()
-      })
+      const board = this.props.board
+      const placements = board.getPlacements()
+      const slots = board.getEmptySlots()
+
+      let divStyle = {position: 'absolute'}
 
       return (
-        <div>
-          {tiles.map(this.renderTile)}
-          <Slot index={[1,1]} selected={true}></Slot>
+        <div style={divStyle}>
+          {placements.map(this.renderPlacement)}
+          {slots.map(this.renderSlot)}
         </div>
       )
     }
 
-    renderTile(tile, index) {
-      return <Tile tile={tile} key={Math.random()}></Tile>
+    renderPlacement(placement, index) {
+      return <Placement placement={placement} key={`${placement.getTile().getName()}_${placement.getCoords()}`} />
+    }
+
+    renderSlot(slot, index) {
+      return <Slot slot={slot} key={`${slot.getCoords()}`} />
     }
 }

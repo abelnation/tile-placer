@@ -17,21 +17,31 @@ export default class Slot extends React.Component {
 
     render() {
 
+      const slot = this.props.slot
+
+      const xCoord = slot.getXCoord() + 3
+      const yCoord = slot.getYCoord()
+
+      const yOffset = (xCoord % 2 === 0) ? 70 : 0
+
       let slotStyle = {
         border: '1px solid black',
-        backgroundcolor: '#EAEAEA',
         width: '140px',
         height: '140px',
-        float: 'left',
         padding: '8px',
-        margin: '8px'
+        position: 'absolute',
+        top: `${yCoord * 140 - yOffset}px`,
+        left: `${xCoord * 140}px`
       }
 
-      if(this.props.selected) {
-        tileStyle = _.extend(tileStyle, { background: 'gray'})
+      if(slot.isSelected()) {
+        slotStyle = _.extend(slotStyle, { background: 'gray'})
       }
+
       return (
-        <div style={slotStyle} />
+        <div style={slotStyle} >
+            <span className='pull-right'>{slot.coordsString()}</span>
+        </div>
       )
     }
 }

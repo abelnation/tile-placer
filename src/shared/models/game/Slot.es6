@@ -4,8 +4,11 @@
 // Player
 // Created by dpekar on 10/8/15.
 //
+const _ = require('underscore')
 
 const BaseModel = require('../BaseModel')
+const Selectable = require('../../mixins/Selectable')
+const Coordinated = require('../../mixins/Coordinated')
 
 class Slot extends BaseModel {
     constructor(coordinates) {
@@ -14,17 +17,8 @@ class Slot extends BaseModel {
         this.set('yCoord', coordinates[1])
         this.set('selected', false)
     }
-
-    getXCoord() { return this.get('xCoord') }
-    getYCoord() { return this.get('yCoord') }
-    isSelected() {return this.get('selected')}
-
-    setSelected() {this.set('selected', true)}
-    setUnselected() {this.set('selected', false)}
-
-    getCoords() {
-      return [this.get('xCoord'), this.get('yCoord')]
-    }
 }
+_.extend(Slot.prototype, Selectable)
+_.extend(Slot.prototype, Coordinated)
 
 module.exports = Slot

@@ -74,14 +74,14 @@ describe('Board', () => {
         board.addPlacement(placement)
 
         it('returns an array of arrays containing palcements & slots', () => {
-          assert.lengthOf(board.getEmptySlots(), 6)
+          assert.lengthOf(board.getEmptySlots(), 3)
         })
 
         it('returns an array of arrays containing palcements & slots', () => {
           let tile = Tile.basicTiles()[1]
           let placement = new Placement(tile, [0,1], 1)
           board.addPlacement(placement)
-          assert.lengthOf(board.getEmptySlots(), 8)
+          assert.lengthOf(board.getEmptySlots(), 5)
         })
 
     })

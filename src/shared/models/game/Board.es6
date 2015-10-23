@@ -34,7 +34,7 @@ class Board extends BaseModel {
               let alreadyHaveCoords = _.some(coordSet, (coordInSet) => {
                 return _.isEqual(coordInSet, coords)
               })
-              if (this.coordsOccupied(coords) === false && alreadyHaveCoords === false) {
+              if (this.coordsOccupied(coords) === false && alreadyHaveCoords === false && coords[1] > 0) {
                   coordSet.push(coords)
               }
           }

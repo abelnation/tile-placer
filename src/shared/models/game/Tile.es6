@@ -9,6 +9,8 @@ var _ = require('underscore')
 // const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
+const Selectable = require('../../mixins/Selectable')
+
 const Effect = require('./Effect')
 const TileList = require('../../data/Tile-list')
 const TileList2 = require('../../data/Tile-list2')
@@ -33,10 +35,6 @@ class Tile extends BaseModel {
     getStage() { return this.get('stage') }
     getImmediateEffect() { return this.get('immediateEffect') }
     getConditionalEffects() { return this.get('conditionalEffects') }
-    isSelected() {return this.get('selected')}
-
-    setSelected() {this.set('selected', true)}
-    setUnselected() {this.set('selected', false)}
 
     meetsCondition(condition) {
         if (_.isUndefined(condition.categories) === false) {
@@ -130,5 +128,6 @@ class Tile extends BaseModel {
         return allTiles[TileConfig.LAKE][0] // Only one tile in the lake stage
     }
 }
+_.extend(Tile.prototype, Selectable)
 
 module.exports = Tile

@@ -4,8 +4,10 @@
 // Player
 // Created by dpekar on 10/8/15.
 //
+const _ = require('underscore')
 
 const BaseModel = require('../BaseModel')
+const Coordinated = require('../../mixins/Coordinated')
 
 class Placement extends BaseModel {
     constructor(tile, coordinates, turnNum) {
@@ -20,17 +22,13 @@ class Placement extends BaseModel {
     }
 
     getTile() { return this.get('tile') }
-    getXCoord() { return this.get('xCoord') }
-    getYCoord() { return this.get('yCoord') }
     alreadyInvestedIn() { return this.get('investedIn') }
-
-    getCoords() {
-      return [this.get('xCoord'), this.get('yCoord')]
-    }
 
     makeInvestment() {
         this.set('investedIn', true)
     }
 }
+
+_.extend(Placement.prototype, Coordinated)
 
 module.exports = Placement

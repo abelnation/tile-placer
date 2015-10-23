@@ -32,7 +32,7 @@ export default class Player extends React.Component {
               {_.map(player.getStats(), this.renderStat)}
             </tbody>
           </table>
-
+          <div className="clearfix"></div>
           <PlayerBoard board={player.getBoard()} />
         </div>
       )

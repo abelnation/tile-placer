@@ -5,8 +5,6 @@ const GameClient = require('../../../../shared/clients/GameClient')
 class GameStore {
   constructor() {
 
-    this.selectedSlot = null
-
     this.gameClient = new GameClient()
     this.gameState = this.gameClient.gameState
     this.market = this.gameState.getMarket()
@@ -26,10 +24,7 @@ class GameStore {
   }
 
   handleSelectSlot(slotIndex) {
-    // if (this.slotIsSelected(slotIndex)) {
-    //   this.selectedSlot = null
-    // } else
-    // this.selectedSlot = slotIndex
+    // this.marketTiles[index].setSelected()
   }
 
 // Helpers
