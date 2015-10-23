@@ -1,7 +1,7 @@
 'use strict'
 
 //
-// GameClient
+// Player
 // Created by dpekar on 10/19/15.
 //
 
@@ -9,38 +9,34 @@ const React = require('react')
 
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
+const _ = require('underscore')
 
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
-module.exports = React.createClass({
-    getInitialState() {
-    },
-
-    getDefaultProps() {
-        return {}
-    },
+export default class PlayerStats extends React.Component {
 
     render() {
-    },
+      const stats = this.props.stats
 
-    onStateChange(newGameState) {
-    },
-
-    componentWillMount() {
-    },
-    componentDidMount() {
-    },
-
-    componentWillReceiveProps(nextProps) {
-    },
-    shouldComponentUpdate(nextProps, nextState) {
-        return true
-    },
-    componentWillUpdate(nextProps, nextState) {
-    },
-    componentDidUpdate(prevProps, prevState) {
-    },
-    componentWillUnmount() {
+      const tableStyle = {
+        width: '400px'
+      }
+      return (
+        <table className='table' style={tableStyle}>
+          <tbody>
+            {_.map(stats, this.renderStat)}
+          </tbody>
+        </table>
+      )
     }
-})
+
+    renderStat(value, stat) {
+      return (
+        <tr key={stat}>
+          <td>{stat}</td>
+          <td>{value}</td>
+        </tr>
+      );
+    }
+}

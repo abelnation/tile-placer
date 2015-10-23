@@ -12,6 +12,7 @@ const Logger = BrowserLogger
 const _ = require('underscore')
 
 const PlayerBoard = require('./PlayerBoard')
+const PlayerStats = require('./PlayerStats')
 
 /* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
@@ -19,31 +20,14 @@ const PlayerBoard = require('./PlayerBoard')
 export default class Player extends React.Component {
 
     render() {
-      let player = this.props.player
+      const player = this.props.player
 
-      let tableStyle = {
-        width: '400px'
-      }
       return (
-        <div>
+        <div className='row'>
           <h3>{player.getUser().getName()}</h3>
-          <table className='table' style={tableStyle}>
-            <tbody>
-              {_.map(player.getStats(), this.renderStat)}
-            </tbody>
-          </table>
-          <div className="clearfix"></div>
+          <PlayerStats stats={player.getStats()} />
           <PlayerBoard board={player.getBoard()} />
         </div>
       )
-    }
-
-    renderStat(value, stat) {
-      return (
-        <tr key={stat}>
-          <td>{stat}</td>
-          <td>{value}</td>
-        </tr>
-      );
     }
 }
