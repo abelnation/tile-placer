@@ -11,8 +11,8 @@ const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 
 const GameStore = require('../stores/GameStore')
-const Market = require('./Market')
-const Players = require('./Players')
+const Market = require('./Market/Market')
+const Players = require('./Player/Players')
 /* eslint-enable no-unused-vars */
 
 

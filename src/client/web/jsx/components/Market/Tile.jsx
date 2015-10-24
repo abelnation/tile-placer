@@ -8,12 +8,10 @@
 const React = require('react')
 
 /* eslint-disable no-unused-vars */
-const BrowserLogger = require('../../../../shared/log/BrowserLogger')
-const Logger = BrowserLogger
 const _ = require('underscore')
 /* eslint-enable no-unused-vars */
 
-const MarketConfig = require('../../../../shared/data/Market-config')
+const MarketConfig = require('../../../../../shared/data/Market-config')
 
 
 export default class Tile extends React.Component {

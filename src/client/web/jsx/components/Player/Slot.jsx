@@ -8,7 +8,7 @@
 /* eslint-disable no-unused-vars */
 const React = require('react')
 
-const BrowserLogger = require('../../../../shared/log/BrowserLogger')
+const BrowserLogger = require('../../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 /* eslint-enable no-unused-vars */
 

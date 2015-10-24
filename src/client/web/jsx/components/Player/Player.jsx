@@ -9,8 +9,6 @@
 /* eslint-disable no-unused-vars */
 const React = require('react')
 
-const BrowserLogger = require('../../../../shared/log/BrowserLogger')
-const Logger = BrowserLogger
 const _ = require('underscore')
 
 const PlayerBoard = require('./PlayerBoard')

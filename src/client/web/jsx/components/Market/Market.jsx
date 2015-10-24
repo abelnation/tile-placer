@@ -8,12 +8,10 @@
 /* eslint-disable no-unused-vars */
 const React = require('react')
 const _ = require('underscore')
-const BrowserLogger = require('../../../../shared/log/BrowserLogger')
-const Logger = BrowserLogger
 const Tile = require('./Tile')
 /* eslint-enable no-unused-vars */
 
-const TurnActions = require('../actions/TurnActions')
+const TurnActions = require('../../actions/TurnActions')
 
 export default class Market extends React.Component {
   constructor(props) {
