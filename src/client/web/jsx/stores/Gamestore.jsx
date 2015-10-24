@@ -19,7 +19,7 @@ class GameStore {
       handleSelectSlot: TurnActions.SELECT_SLOT,
       handleBuyTile: TurnActions.BUY_TILE
     })
-  }
+  } 
 
   handleSelectTile({index: index}) {
     this.market.clearSelectedTiles()

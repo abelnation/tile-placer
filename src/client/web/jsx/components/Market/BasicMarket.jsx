@@ -42,7 +42,6 @@ export default class BasicMarket extends React.Component {
     )
   }
   setSelected(index) {
-    BrowserLogger.info('setSelected', index)
     TurnActions.selectTile({index})
   }
 }

@@ -54,7 +54,6 @@ export default class RealEstateMarket extends React.Component {
   }
 
   setSelected(index) {
-    BrowserLogger.info('setSelected', index)
     TurnActions.selectTile({index})
   }
 }
