@@ -28,7 +28,6 @@ export default class Market extends React.Component {
   render() {
     return (
       <div>
-        <button type="button" className="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
         <div onClick={this.buyTile} type="button" className="btn btn-primary pull-right">Buy Tile</div>
         <h2>Real Estate Market</h2>
           {_.map(this.props.tiles, this.renderTile)}

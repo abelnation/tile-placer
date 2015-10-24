@@ -27,7 +27,15 @@ export default class Player extends React.Component {
       return (
         <div>
           <div className='clearfix' />
-          <h3>{player.getUser().getName()}</h3>
+          <div className='row'>
+              <div className='col-md-2'>
+                  <h2>{player.getUser().getName()}</h2>
+              </div>
+              <div className='col-md-8' style={{paddingTop: '20px'}}>
+                  <h4>{this.props.message}</h4>
+              </div>
+          </div>
+          <hr></hr>
           <PlayerStats stats={player.getStats()} />
           <PlayerBoard board={player.getBoard()} />
         </div>

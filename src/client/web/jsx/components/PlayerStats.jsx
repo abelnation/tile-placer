@@ -18,25 +18,19 @@ export default class PlayerStats extends React.Component {
 
     render() {
       const stats = this.props.stats
-
-      const tableStyle = {
-        width: '400px'
-      }
+      
       return (
-        <table className='table' style={tableStyle}>
-          <tbody>
+        <div className='row'>
             {_.map(stats, this.renderStat)}
-          </tbody>
-        </table>
+        </div>
       )
     }
 
     renderStat(value, stat) {
       return (
-        <tr key={stat}>
-          <td>{stat}</td>
-          <td>{value}</td>
-        </tr>
+        <div className='col-md-2' key={stat}>
+          <h3>{stat}: {value}</h3>
+        </div>
       )
     }
 }

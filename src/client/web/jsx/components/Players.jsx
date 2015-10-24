@@ -14,22 +14,28 @@ const Player = require('./Player')
 /* eslint-enable no-unused-vars */
 
 export default class Players extends React.Component {
+    constructor(props) {
+      super(props)
+
+      this.renderPlayer = this.renderPlayer.bind(this)
+    }
 
     render() {
-      let players = this.props.players
+      const players = this.props.players
 
       return (
         <div>
-          <h2>Players</h2>
           {players.map(this.renderPlayer)}
         </div>
       )
     }
 
     renderPlayer(player) {
+      const message = this.props.message
+
       return (
         <div key={player.getUser().getUserId()}>
-          <Player key={player.getUser().getUserId()} player={player} />
+          <Player key={player.getUser().getUserId()} player={player} message={message}/>
           <div className="clearfix"></div>
         </div>
       )
