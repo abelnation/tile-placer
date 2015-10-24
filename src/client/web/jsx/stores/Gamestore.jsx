@@ -12,7 +12,6 @@ class GameStore {
     this.market = this.gameState.getMarket()
     this.marketTiles = this.market.getTiles()
     this.players = this.gameState.getPlayers()
-    this.currentPlayer = this.gameState.getCurrentPlayer()
     this.message = 'Select a tile, an empty space and then click `Buy Tile`'
 
     this.bindListeners({
@@ -28,7 +27,7 @@ class GameStore {
   }
 
   handleSelectSlot({coords: coords}) {
-    let board = this.currentPlayer.getBoard()
+    let board = this.gameState.getCurrentPlayer().getBoard()
     board.clearSelectedSlots()
 
     let slot = board.getSlotByCoords(coords)

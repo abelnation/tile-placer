@@ -113,8 +113,7 @@ module.exports = {
           stage: TileConfig.STAGES.A,
           immediateEffect: null,
           conditionalEffects: [
-            {stat: StatsConfig.STATS.REPUTATION, value: -1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } },
-            {stat: StatsConfig.STATS.INCOME, value: 1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.COMMERCIAL] } }
+            {stat: StatsConfig.STATS.REPUTATION, value: -1, condition: { type: TileConfig.CONDITION.ADJACENT, categories: [TileConfig.CATEGORIES.RESIDENTIAL] } }
           ]
         },
         {

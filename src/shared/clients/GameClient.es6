@@ -20,9 +20,9 @@ class GameClient {
         this.listeners = {}
 
         this.user = new User(uuid.getRandomUuid())
-        const opponent = new User(uuid.getRandomUuid())
+        // const opponent = new User(uuid.getRandomUuid())
 
-        const gameState = new GameState([this.user, opponent])
+        const gameState = new GameState([this.user])
         gameState.setupInitialGameState()
 
         this.gameState = gameState

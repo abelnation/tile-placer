@@ -21,6 +21,8 @@ export default class Market extends React.Component {
   constructor(props) {
     super(props)
 
+    // this.buyTile = this.buyTile.bind(this)
+
     this.setSelected = this.setSelected.bind(this)
     this.renderTile = this.renderTile.bind(this)
   }
@@ -28,12 +30,12 @@ export default class Market extends React.Component {
   render() {
     return (
       <div>
+        <div onClick={this.buyTile} type="button" className="btn btn-primary pull-right">Buy Tile</div>
         <h2>Real Estate Market</h2>
-          {_.map(MarketConfig.SLOT_COSTS, this.renderCost)}
-          <div className="clearfix"></div>
           {_.map(this.props.tiles, this.renderTile)}
           <div className="clearfix"></div>
-          return <div onClick={this.buyTile} type="button" className="btn btn-primary">Buy Tile</div>
+          {_.map(MarketConfig.SLOT_COSTS, this.renderCost)}
+          <div className="clearfix"></div>
       </div>
     )
   }
@@ -52,9 +54,9 @@ export default class Market extends React.Component {
     TurnActions.buyTile()
   }
 
-  renderCost(cost) {
-    const style = {margin: '0px 70px'}
-    return <span style={style} className='pull-left'>${cost}</span>
+  renderCost(cost, index) {
+    const style = {margin: '0px 70px', fontweight: 'bold'}
+    return <span style={style} key={index} className='pull-left'>+${cost}</span>
   }
 
   setSelected(index) {

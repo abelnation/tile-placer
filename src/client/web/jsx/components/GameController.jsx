@@ -26,13 +26,14 @@ module.exports = React.createClass({
     },
 
     render() {
+      const containerStyle={paddingTop: '80px'}
         return (
-            <div>
-                <div className="alert alert-info" role="alert">{this.state.message}</div>
+            <div className='container' style={containerStyle}> 
                 <div className="clearfix"></div>
                 <Market tiles={this.state.market.getTiles()} />
                 <div className="clearfix"></div>
                 <Players players={this.state.players} />
+                <div className="alert alert-info" role="alert">{this.state.message}</div>
                 <div className="clearfix"></div>
             </div>
         )

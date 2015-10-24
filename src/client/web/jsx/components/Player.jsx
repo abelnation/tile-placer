@@ -30,7 +30,6 @@ export default class Player extends React.Component {
           <h3>{player.getUser().getName()}</h3>
           <PlayerStats stats={player.getStats()} />
           <PlayerBoard board={player.getBoard()} />
-          <PlayerControls player={player} />
         </div>
       )
     }
