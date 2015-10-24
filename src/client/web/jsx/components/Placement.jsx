@@ -48,8 +48,6 @@ export default class Placement extends React.Component {
         {tile.printConditionalEffects()}
         <br />
         Costs: ${tile.getCost()}
-        <br />
-          <span className='pull-right'>{this.props.placement.coordsString()}</span>
       </div>
     )
   }

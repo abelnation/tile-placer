@@ -24,22 +24,22 @@ export default class Slot extends React.Component {
       const yOffset = (xCoord % 2 === 0) ? 70 : 0
 
       let slotStyle = {
-        border: '1px solid black',
+        border: '1px solid gray',
         width: '140px',
         height: '140px',
         padding: '8px',
         position: 'absolute',
         top: `${yCoord * 140 - yOffset}px`,
-        left: `${xCoord * 140}px`
+        left: `${xCoord * 140}px`,
+        background: '#E6E6E6'
       }
 
       if(slot.isSelected()) {
-        slotStyle = _.extend(slotStyle, { background: 'gray'})
+        slotStyle = _.extend(slotStyle, { background: '#C3C3C3'})
       }
 
       return (
         <div style={slotStyle} >
-            <span className='pull-right'>{slot.coordsString()}</span>
         </div>
       )
     }

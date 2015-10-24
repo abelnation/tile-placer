@@ -13,8 +13,6 @@ const Logger = BrowserLogger
 const Tile = require('./Tile')
 /* eslint-enable no-unused-vars */
 
-const MarketConfig = require('../../../../shared/data/Market-config')
-
 const TurnActions = require('../actions/TurnActions')
 
 export default class Market extends React.Component {
@@ -30,11 +28,10 @@ export default class Market extends React.Component {
   render() {
     return (
       <div>
+        <button type="button" className="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
         <div onClick={this.buyTile} type="button" className="btn btn-primary pull-right">Buy Tile</div>
         <h2>Real Estate Market</h2>
           {_.map(this.props.tiles, this.renderTile)}
-          <div className="clearfix"></div>
-          {_.map(MarketConfig.SLOT_COSTS, this.renderCost)}
           <div className="clearfix"></div>
       </div>
     )
@@ -44,7 +41,7 @@ export default class Market extends React.Component {
     return (
       <div key={`${tile.getName()}_${index}`}>
           <div onClick={this.setSelected.bind(this,index)}>
-            <Tile tile={tile} />
+            <Tile tile={tile} index={index}/>
           </div>
       </div>
     )

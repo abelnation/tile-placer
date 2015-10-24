@@ -53,7 +53,11 @@ class Market extends BaseModel {
 
     getSelectedIndex() {
       let selectedTile = this.getSelectedTile()
-      return this.getTiles().indexOf(selectedTile)
+      if (_.isEmpty(selectedTile)) {
+        return -1
+      } else {
+        return this.getTiles().indexOf(selectedTile)
+      }
     }
 
     getSelectedTile() {

@@ -1,5 +1,5 @@
 var alt = require('../alt.js')
-// var _ = require('underscore')
+var _ = require('underscore')
 
 var TurnActions = require('../actions/TurnActions')
 const GameClient = require('../../../../shared/clients/GameClient')
@@ -35,15 +35,26 @@ class GameStore {
   }
 
   handleBuyTile() {
-    console.log('starting buy')
-    const player = this.currentPlayer
-    const coords = player.getBoard().getSelectedSlot().getCoords()
+    const player = this.gameState.getCurrentPlayer()
+    const board = player.getBoard()
+
+    const selectedSlot = board.getSelectedSlot()
+    if(_.isUndefined(selectedSlot)) {
+      this.message = 'You need to select a slot on your board!'
+      return
+    }
+    const slotCoords = selectedSlot.getCoords()
+
     const marketPosition = this.market.getSelectedIndex()
-    let result = this.gameState.buyTileFromMarket(player, coords, marketPosition)
+    if (marketPosition < 0) {
+      this.message = 'You need to select a tile from the market!'
+      return
+    }
+
+    let result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
     if (result.type === 'BaseError') {
       this.message = result.getMessage()
     } else {
-      console.log('Buy Successful')
       this.message = 'Good Buy!'
       this.market.clearSelectedTiles()
       board.clearAll()

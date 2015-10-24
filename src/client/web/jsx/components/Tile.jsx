@@ -13,6 +13,8 @@ const Logger = BrowserLogger
 const _ = require('underscore')
 /* eslint-enable no-unused-vars */
 
+const MarketConfig = require('../../../../shared/data/Market-config')
+
 
 export default class Tile extends React.Component {
 
@@ -32,7 +34,7 @@ export default class Tile extends React.Component {
     }
 
     if(tile.isSelected()) {
-      tileStyle = _.extend(tileStyle, { background: 'gray'})
+      tileStyle = _.extend(tileStyle, { background: '#C3C3C3'})
     }
 
     return (
@@ -43,7 +45,7 @@ export default class Tile extends React.Component {
         <br />
         {tile.printConditionalEffects()}
         <br />
-        Costs: ${tile.getCost()}
+        Costs: ${tile.getCost()} + ${MarketConfig.SLOT_COSTS[this.props.index]}
       </div>
     )
   }
