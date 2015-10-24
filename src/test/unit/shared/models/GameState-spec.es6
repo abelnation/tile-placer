@@ -57,9 +57,13 @@ describe('GameState', () => {
     describe('setting up tile piles:', () => {
 
         it('piles have tiles representing each category', () => {
+            const basicRes = `basic${TileConfig.CATEGORIES.RESIDENTIAL}`
+            const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
+            const basicInd = `basic${TileConfig.CATEGORIES.INDUSTRIAL}`
+
             const tilePiles = gameState.getTilePiles()
             const piles = Object.keys(tilePiles)
-            assert.deepEqual(piles, ['basicResidential', 'basicMunicipal',  'basicIndustrial', 'a',  'b',  'c'])
+            assert.deepEqual(piles, [basicRes, basicMun, basicInd, 'a',  'b',  'c'])
         })
 
         it('piles have 4 of each tile for basic piles', () => {
@@ -125,6 +129,14 @@ describe('GameState', () => {
         })
     })
 
+    describe('.getBasicMarketTiles', function () {
+        it('returns sets of basic tiles & lakes', function () {
+          let basicTiles = gameState.getBasicMarketTiles()
+          assert.lengthOf(basicTiles, 4)
+          assert.equal(basicTiles[3][0].getName(), 'Lake')
+        })
+    })
+
     describe('setting up market:', () => {
         const TILES_IN_MARKET = 7
 
@@ -151,7 +163,8 @@ describe('GameState', () => {
         describe('.buyBasicTile', () => {
             it('should place a tile at the right place', () => {
                 let player = gameState.getCurrentPlayer()
-                gameState.buyBasicTile(player, [1,1], 'basicMunicipal')
+                const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
+                gameState.buyBasicTile(player, [1,1], basicMun)
 
                 assert.equal(player.getIncome(), -1)
                 assert.equal(player.getReputation(), 2)
@@ -160,13 +173,15 @@ describe('GameState', () => {
             })
 
            it('should run out of tiles after 4 are taken', () => {
+                const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
+ 
                 for (let yCoord of [1,1,1,2]) { // 3 players get coords, [1,1]
                     let player = gameState.getCurrentPlayer()
                     player.set('money', 100)
-                    gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+                    gameState.buyBasicTile(player, [1, yCoord], basicMun)
                 }
                 assert.throw(() => {
-                    gameState.buyBasicTile(player, [1, yCoord], 'basicMunicipal')
+                    gameState.buyBasicTile(player, [1, yCoord], basicMun)
                 })
             })
         })
@@ -199,7 +214,9 @@ describe('GameState', () => {
                 let park = player.getBoard().getPlacements()[1]
                 gameState.makeInvestment(player, park, 0)
                 gameState.set('currentPlayer', player)
-                gameState.buyBasicTile(player,[1,1], 'basicResidential')
+
+                const basicRes = `basic${TileConfig.CATEGORIES.RESIDENTIAL}`
+                gameState.buyBasicTile(player,[1,1], basicRes)
                 assert.equal(player.getReputation(), 4)
             })
 
@@ -226,7 +243,8 @@ describe('GameState', () => {
 
             it('should assign the next player ', function () {
                 let player = gameState.getStartingPlayer()
-                gameState.buyBasicTile(player, [1,1], 'basicMunicipal') // this runs .completeTurn
+                const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
+                gameState.buyBasicTile(player, [1,1], basicMun) // this runs .completeTurn
 
                 let players = gameState.getPlayers()
                 let currentPlayer =  gameState.getCurrentPlayer()
@@ -237,7 +255,8 @@ describe('GameState', () => {
             it('should keep track of turn order', function () {
                 let player = gameState.getStartingPlayer()
                 assert.equal(gameState.getTurnNum(), 1)
-                gameState.buyBasicTile(player, [1,1], 'basicMunicipal') // this runs .completeTurn
+                const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
+                gameState.buyBasicTile(player, [1,1], basicMun) // this runs .completeTurn
                 assert.equal(gameState.getTurnNum(), 2)
             })
         })

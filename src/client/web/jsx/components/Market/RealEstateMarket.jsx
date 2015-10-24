@@ -13,7 +13,7 @@ const Tile = require('./Tile')
 
 const TurnActions = require('../../actions/TurnActions')
 
-export default class Market extends React.Component {
+export default class RealEstateMarket extends React.Component {
   constructor(props) {
     super(props)
 

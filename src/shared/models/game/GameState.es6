@@ -13,6 +13,7 @@ const BaseError = require('../error/BaseError')
 // const Player = require('./Player')
 // const Market = require('./Market')
 const Tile = require ('./Tile')
+const TileConfig = require('../../data/Tile-config')
 const _ = require('underscore')
 
 class GameState extends BaseModel {
@@ -172,6 +173,21 @@ class GameState extends BaseModel {
         if (this.getCurrentPlayer() !== player) {
             return new BaseError(`It's not user ${player.getUser().getUserId()}'s turn.`)
         }
+    }
+
+    getBasicMarketTiles() {
+      let tilePiles = this.getTilePiles()
+
+      let basicPiles = _.pick(tilePiles,
+        `basic${TileConfig.CATEGORIES.RESIDENTIAL}`,
+        `basic${TileConfig.CATEGORIES.MUNICIPAL}`,
+        `basic${TileConfig.CATEGORIES.INDUSTRIAL}`
+      )
+
+      let basicTiles = _.values(basicPiles)
+      basicTiles.push([Tile.newLake()])
+
+      return basicTiles
     }
 
     incrementTurnNum() {

@@ -11,7 +11,7 @@ const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 
 const GameStore = require('../stores/GameStore')
-const Market = require('./Market/Market')
+const Markets = require('./Market/Markets')
 const Players = require('./Player/Players')
 /* eslint-enable no-unused-vars */
 
@@ -30,7 +30,7 @@ module.exports = React.createClass({
         return (
             <div className='container' style={containerStyle}>
                 <div className="clearfix"></div>
-                <Market tiles={this.state.market.getTiles()} />
+                <Markets realEstateTiles={this.state.market.getTiles()} basicTiles={this.state.gameState.getBasicMarketTiles()} />
                 <div className="clearfix"></div>
                 <Players players={this.state.players} message={this.state.message}/>
                 <div className="clearfix"></div>
