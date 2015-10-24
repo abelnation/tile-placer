@@ -65,7 +65,7 @@ describe('Player', () => {
         assert.equal(player.getIncome(), -2)
     })
 
-    describe(".getStats", function () {
+    describe('.getStats', function () {
       let player = new Player(user)
       let stats = player.getStats()
       assert.equal(stats.population, 0)

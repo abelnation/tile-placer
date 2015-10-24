@@ -91,7 +91,7 @@ describe('Board', () => {
 
         it('.getSelectedSlot finds the slot which has been selected by the player', function () {
 
-        });
+        })
     })
 
 

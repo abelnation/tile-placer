@@ -5,9 +5,10 @@
 // Created by dpekar on 10/13/15.
 //
 
+/* eslint-disable no-unused-vars */
 const Logger = require('../log/Logger')
-
 const _ = require('underscore')
+/* eslint-enable no-unused-vars */
 
 module.exports = {
 

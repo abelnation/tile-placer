@@ -5,15 +5,16 @@
 // Created by aallison on 10/10/15.
 //
 
+/* eslint-disable no-unused-vars */
 const React = require('react')
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 
+const GameStore = require('../stores/GameStore')
 const Market = require('./Market')
 const Players = require('./Players')
-const GameStore = require('../stores/GameStore')
-/* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
+
 
 module.exports = React.createClass({
     getInitialState() {
@@ -28,9 +29,6 @@ module.exports = React.createClass({
         return (
             <div>
                 <div className="alert alert-info" role="alert">{this.state.message}</div>
-                {this.state.currentPlayer.getName()}
-                <br />
-                {this.state.gameState.getTurnNum()}
                 <div className="clearfix"></div>
                 <Market tiles={this.state.market.getTiles()} />
                 <div className="clearfix"></div>
@@ -41,14 +39,14 @@ module.exports = React.createClass({
     },
 
     componentWillMount() {
-      GameStore.listen(this.onChange);
+      GameStore.listen(this.onChange)
     },
 
     onChange(state) {
-      this.setState(state);
+      this.setState(state)
     },
 
     componentWillUnmount() {
-      GameStore.unlisten(this.onChange);
+      GameStore.unlisten(this.onChange)
     }
 })

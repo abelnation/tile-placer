@@ -5,6 +5,7 @@
 // Created by dpekar on 10/19/15.
 //
 
+/* eslint-disable no-unused-vars */
 const React = require('react')
 
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
@@ -14,8 +15,6 @@ const Placement = require('./Placement')
 const Slot = require('./Slot')
 const GameStore = require('../stores/GameStore')
 const TurnActions = require('../actions/TurnActions')
-
-/* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
 export default class PlayerBoard extends React.Component {
@@ -54,4 +53,3 @@ export default class PlayerBoard extends React.Component {
       TurnActions.selectSlot({coords})
     }
 }
- 

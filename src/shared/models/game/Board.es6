@@ -25,7 +25,6 @@ class Board extends BaseModel {
     getSlots() { return this.get('slots') }
 
     setSlots() {
-      let board = []
       var coordSet = []
 
       // iterate through placements getting unoccupied adjacent coords

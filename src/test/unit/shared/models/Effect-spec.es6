@@ -33,7 +33,7 @@ describe('Effect', () => {
         assert.equal(effect.getCondition().adjacent.length, 3)
     })
 
-    describe(".isNull", function () {
+    describe('.isNull', function () {
         it('returns true if there isn\t a valid effect', () => {
           const tile = Tile.findByName('Waterfront Realty')
           const effect = tile.getImmediateEffect()

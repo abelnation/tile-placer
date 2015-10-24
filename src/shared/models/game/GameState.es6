@@ -5,7 +5,7 @@
 // Created by dpekar on 10/7/15.
 //
 
-const Logger = require('../../log/Logger')
+// const Logger = require('../../log/Logger')
 
 const BaseModel = require('../BaseModel')
 const GameSetup = require('../../mixins/GameSetup')

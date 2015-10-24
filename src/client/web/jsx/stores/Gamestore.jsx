@@ -1,5 +1,5 @@
 var alt = require('../alt.js')
-var _ = require('underscore')
+// var _ = require('underscore')
 
 var TurnActions = require('../actions/TurnActions')
 const GameClient = require('../../../../shared/clients/GameClient')
@@ -37,8 +37,7 @@ class GameStore {
 
   handleBuyTile() {
     console.log('starting buy')
-    let board = this.currentPlayer.getBoard()
-    const player = this.players[0]
+    const player = this.currentPlayer
     const coords = player.getBoard().getSelectedSlot().getCoords()
     const marketPosition = this.market.getSelectedIndex()
     let result = this.gameState.buyTileFromMarket(player, coords, marketPosition)

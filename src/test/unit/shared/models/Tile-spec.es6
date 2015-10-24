@@ -79,14 +79,14 @@ describe('Tile', () => {
 
     })
 
-    describe("selection in UI", function () {
-        it(".setSelected sets the tile to true", function () {
+    describe('selection in UI', function () {
+        it('.setSelected sets the tile to true', function () {
           let tile = Tile.basicTiles()[0]
           tile.setSelected()
           assert.isTrue(tile.isSelected())
         })
 
-        it(".setUnselected sets the tile to false", function () {
+        it('.setUnselected sets the tile to false', function () {
           let tile = Tile.basicTiles()[0]
           tile.setSelected()
           assert.isTrue(tile.isSelected())
@@ -96,17 +96,17 @@ describe('Tile', () => {
 
     })
 
-    describe(".printImmediateEffect", function () {
+    describe('.printImmediateEffect', function () {
         it('prints a tiles effect properly', function () {
           const suburbs = Tile.findByName('Suburbs')
 
           assert.equal(suburbs.printImmediateEffect(), '+2 population')
         })
 
-        it("prints empty string if there's no immediate effect", function () {
+        it('prints empty string if there\'s no immediate effect', function () {
           const mobHome = Tile.findByName('Waterfront Realty')
           assert.equal(mobHome.printImmediateEffect(), '')
-        });
+        })
     })
 
     describe('executing effects', () => {
@@ -142,7 +142,6 @@ describe('Tile', () => {
             it('.hasIcon returns true if the tile has an different icon associated with it', () => {
                 assert.isFalse(tile.hasIcon(TileConfig.ICONS.RESTAURANT))
             })
-
         })
 
         describe('.hasCategory', () => {
@@ -171,7 +170,7 @@ describe('Tile', () => {
         describe('.clone', function () {
           const commPark = Tile.findByName('Community Park')
 
-          it("create a tile containing the tile stats passed in", function () {
+          it('create a tile containing the tile stats passed in', function () {
             let commParkClone = Tile.clone(commPark)
             assert.equal(commParkClone.getName(), 'Community Park')
             assert.isFalse(commParkClone.getImmediateEffect().isNull())

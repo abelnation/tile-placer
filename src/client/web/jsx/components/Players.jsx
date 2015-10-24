@@ -5,13 +5,12 @@
 // Created by dpekar on 10/19/15.
 //
 
+/* eslint-disable no-unused-vars */
 const React = require('react')
 
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 const Player = require('./Player')
-
-/* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
 export default class Players extends React.Component {
@@ -29,7 +28,10 @@ export default class Players extends React.Component {
 
     renderPlayer(player) {
       return (
+        <div key={player.getUser().getUserId()}>
           <Player key={player.getUser().getUserId()} player={player} />
-      );
+          <div className="clearfix"></div>
+        </div>
+      )
     }
 }

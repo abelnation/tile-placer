@@ -16,7 +16,7 @@ const User = require('../models/User')
 
 const EchoCommand = require('../models/game/guess-commands/EchoCommand')
 const AddGuessCommand = require('../models/game/guess-commands/AddGuessCommand')
-const GetStateCommand = require('../models/game/guess-commands/GetStateCommand')
+// const GetStateCommand = require('../models/game/guess-commands/GetStateCommand')
 
 class GuessGameClient {
     constructor(liveClient) {

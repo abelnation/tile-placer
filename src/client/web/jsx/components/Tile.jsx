@@ -7,10 +7,10 @@
 
 const React = require('react')
 
+/* eslint-disable no-unused-vars */
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 const _ = require('underscore')
-/* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
 

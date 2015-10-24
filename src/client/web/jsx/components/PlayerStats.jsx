@@ -5,13 +5,13 @@
 // Created by dpekar on 10/19/15.
 //
 
+/* eslint-disable no-unused-vars */
 const React = require('react')
 
 const BrowserLogger = require('../../../../shared/log/BrowserLogger')
 const Logger = BrowserLogger
 const _ = require('underscore')
 
-/* eslint-disable no-unused-vars */
 /* eslint-enable no-unused-vars */
 
 export default class PlayerStats extends React.Component {
@@ -37,6 +37,6 @@ export default class PlayerStats extends React.Component {
           <td>{stat}</td>
           <td>{value}</td>
         </tr>
-      );
+      )
     }
 }
