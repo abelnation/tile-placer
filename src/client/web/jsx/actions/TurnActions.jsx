@@ -10,6 +10,10 @@ class TurnActions {
     this.dispatch(slot)
   }
 
+  selectBasicTile(tileIndex) {
+    this.dispatch(tileIndex)
+  }
+
   buyTile() {
     this.dispatch()
   }

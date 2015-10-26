@@ -9,6 +9,7 @@ class GameStore {
 
     this.gameClient = new GameClient()
     this.gameState = this.gameClient.gameState
+    this.basicMarketTiles = this.gameState.getBasicMarketTiles()
     this.market = this.gameState.getMarket()
     this.marketTiles = this.market.getTiles()
     this.players = this.gameState.getPlayers()
@@ -17,9 +18,18 @@ class GameStore {
     this.bindListeners({
       handleSelectTile: TurnActions.SELECT_TILE,
       handleSelectSlot: TurnActions.SELECT_SLOT,
+      handleSelectBasicTile: TurnActions.SELECT_BASIC_TILE,
       handleBuyTile: TurnActions.BUY_TILE
     })
-  } 
+  }
+
+  handleSelectBasicTile({index: index}) {
+    this.basicMarketTiles.forEach( (tilePile) => {
+      tilePile[0].setUnselected()
+    }) // Basic Market is an array of tile arrays (unlike real estate market)
+    let tile = this.basicMarketTiles[index][0]
+    tile.setSelected()
+  }
 
   handleSelectTile({index: index}) {
     this.market.clearSelectedTiles()

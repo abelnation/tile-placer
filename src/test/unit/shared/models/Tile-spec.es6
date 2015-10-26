@@ -94,6 +94,13 @@ describe('Tile', () => {
           assert.isFalse(tile.isSelected())
         })
 
+        it('.setSelected works for lake', function () {
+          let tile = Tile.lake()
+          let lakeClone = Tile.clone(tile)
+          assert.isFalse(lakeClone.isSelected())
+          lakeClone.setSelected()
+          assert.isTrue(lakeClone.isSelected())
+        })
     })
 
     describe('.printImmediateEffect', function () {

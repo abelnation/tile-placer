@@ -185,7 +185,7 @@ class GameState extends BaseModel {
       )
 
       let basicTiles = _.values(basicPiles)
-      basicTiles.push([Tile.newLake()])
+      basicTiles.push(tilePiles[TileConfig.LAKE])
 
       return basicTiles
     }

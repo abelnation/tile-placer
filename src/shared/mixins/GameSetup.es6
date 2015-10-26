@@ -95,6 +95,10 @@ const GameSetup = {
                 result[stage] = tilePile
             }
         })
+
+        // Add lake
+        result[TileConfig.LAKE] = [Tile.lake()]
+
         return result
     }
 

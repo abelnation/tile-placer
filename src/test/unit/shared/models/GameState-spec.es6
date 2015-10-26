@@ -63,7 +63,7 @@ describe('GameState', () => {
 
             const tilePiles = gameState.getTilePiles()
             const piles = Object.keys(tilePiles)
-            assert.deepEqual(piles, [basicRes, basicMun, basicInd, 'a',  'b',  'c'])
+            assert.deepEqual(piles, [basicRes, basicMun, basicInd, 'a',  'b',  'c', TileConfig.LAKE])
         })
 
         it('piles have 4 of each tile for basic piles', () => {
