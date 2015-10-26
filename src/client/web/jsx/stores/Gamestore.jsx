@@ -79,7 +79,6 @@ class GameStore {
     }
 
     let tilePile = _.find(this.basicMarketTiles, tilePile => {
-      console.log(tilePile[0])
       return tilePile[0].isSelected()
     })
 
@@ -89,10 +88,9 @@ class GameStore {
     if (basicTile) {
       if (basicTile.getName() === 'Lake') {
         result = this.gameState.placeLake(player, slotCoords, marketPosition)
-        basicTile.setUnselected()
       } else {
+        result = this.gameState.buyBasicTile(player, slotCoords, `basic${basicTile.getCategory()}`, marketPosition)
 
-        result = this.gameState.buyBasicTile(player, slotCoords, `basic${basicTile.getCategory()}`)
       }
     } else {
       result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
@@ -103,6 +101,7 @@ class GameStore {
     } else {
       this.message = 'Good Buy!'
       this.market.clearSelectedTiles()
+      basicTile.setUnselected()
       board.clearAll()
     }
   }

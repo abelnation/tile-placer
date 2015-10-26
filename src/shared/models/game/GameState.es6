@@ -54,7 +54,7 @@ class GameState extends BaseModel {
         return effectResults
     }
 
-    buyBasicTile(player, coords, pileName) {
+    buyBasicTile(player, coords, pileName, marketPosition) {
 
         this.validateCurrentPlayer(player)
 
@@ -81,6 +81,8 @@ class GameState extends BaseModel {
 
         player.chargeForTile(cost)
         let effectResults = player.placeTile(tile, coords, this) // this executes all effects
+
+        this.getMarket().takeTile(marketPosition)
 
         this.completeTurn(player)
 
