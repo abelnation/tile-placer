@@ -17,6 +17,8 @@ const PlayerControls = require('./PlayerControls')
 
 /* eslint-enable no-unused-vars */
 
+const TurnActions = require('../../actions/TurnActions')
+
 export default class Player extends React.Component {
 
     render() {
@@ -32,11 +34,19 @@ export default class Player extends React.Component {
               <div className='col-md-8' style={{paddingTop: '20px'}}>
                   <h4>{this.props.message}</h4>
               </div>
+              <div className='col-md-2' style={{paddingTop: '20px'}}>
+                <div onClick={this.buyTile} type="button" className="btn">Buy Tile</div>
+              </div>
           </div>
           <hr></hr>
           <PlayerStats stats={player.getStats()} />
           <PlayerBoard board={player.getBoard()} />
         </div>
       )
+    }
+
+
+    buyTile() {
+      TurnActions.buyTile()
     }
 }

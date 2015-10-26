@@ -26,7 +26,6 @@ export default class RealEstateMarket extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={this.buyTile} type="button" className="btn btn-primary pull-right">Buy Tile</div>
         <h2>Real Estate Market</h2>
           {_.map(this.props.tiles, this.renderTile)}
           <div className="clearfix"></div>
@@ -42,10 +41,6 @@ export default class RealEstateMarket extends React.Component {
           </div>
       </div>
     )
-  }
-
-  buyTile() {
-    TurnActions.buyTile()
   }
 
   renderCost(cost, index) {
