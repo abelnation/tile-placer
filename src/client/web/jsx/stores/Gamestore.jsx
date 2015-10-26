@@ -24,24 +24,41 @@ class GameStore {
   }
 
   handleSelectBasicTile({index: index}) {
-    this.basicMarketTiles.forEach( (tilePile) => {
-      tilePile[0].setUnselected()
-    }) // Basic Market is an array of tile arrays (unlike real estate market)
     let tile = this.basicMarketTiles[index][0]
-    tile.setSelected()
+
+    if (tile.isSelected()) {
+      tile.setUnselected()
+    } else { // Basic Market is an array of tile arrays (unlike real estate market)
+      this.basicMarketTiles.forEach( tilePile => {
+        tilePile[0].setUnselected()
+      })
+      tile.setSelected()
+    }
   }
 
   handleSelectTile({index: index}) {
-    this.market.clearSelectedTiles()
-    this.marketTiles[index].setSelected()
+    let tile = this.marketTiles[index]
+
+    if (tile.isSelected()) {
+      tile.setUnselected()
+    } else {
+      this.market.clearSelectedTiles()
+      tile.setSelected()
+    }
   }
 
   handleSelectSlot({coords: coords}) {
     let board = this.gameState.getCurrentPlayer().getBoard()
-    board.clearSelectedSlots()
-
     let slot = board.getSlotByCoords(coords)
-    slot.setSelected()
+
+    if (slot.isSelected()) {
+      slot.setUnselected()
+    } else {
+      board.clearSelectedSlots()
+
+      slot.setSelected()
+    }
+
   }
 
   handleBuyTile() {
