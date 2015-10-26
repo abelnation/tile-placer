@@ -35,7 +35,7 @@ export default class Player extends React.Component {
                   <h4>{this.props.message}</h4>
               </div>
               <div className='col-md-2' style={{paddingTop: '20px'}}>
-                <div onClick={this.buyTile} type="button" className="btn">Buy Tile</div>
+                <div onClick={this.buyTile} type="button" className="btn btn-default">Buy Tile</div>
               </div>
           </div>
           <hr></hr>

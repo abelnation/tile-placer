@@ -78,7 +78,26 @@ class GameStore {
       return
     }
 
-    let result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
+    let tilePile = _.find(this.basicMarketTiles, tilePile => {
+      console.log(tilePile[0])
+      return tilePile[0].isSelected()
+    })
+
+    let basicTile = tilePile[0]
+
+    let result
+    if (basicTile) {
+      if (basicTile.getName() === 'Lake') {
+        result = this.gameState.placeLake(player, slotCoords, marketPosition)
+        basicTile.setUnselected()
+      } else {
+
+        result = this.gameState.buyBasicTile(player, slotCoords, `basic${basicTile.getCategory()}`)
+      }
+    } else {
+      result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
+    }
+
     if (result.type === 'BaseError') {
       this.message = result.getMessage()
     } else {
