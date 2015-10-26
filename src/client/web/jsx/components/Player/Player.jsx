@@ -38,8 +38,8 @@ export default class Player extends React.Component {
                 <div onClick={this.buyTile} type="button" className="btn btn-default">Buy Tile</div>
               </div>
           </div>
-          <hr></hr>
           <PlayerStats stats={player.getStats()} />
+          <hr />
           <PlayerBoard board={player.getBoard()} />
         </div>
       )

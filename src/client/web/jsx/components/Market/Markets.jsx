@@ -29,6 +29,7 @@ export default class Markets extends React.Component {
         <BasicMarket tiles={this.props.basicTiles}/>
         <div className='clearfix'></div>
         <RealEstateMarket tiles={this.props.realEstateTiles}/>
+        <hr />
       </div>
     )
   }
