@@ -55,6 +55,7 @@ class GameState extends BaseModel {
     }
 
     buyBasicTile(player, coords, pileName, marketPosition) {
+        let market = this.getMarket()
 
         this.validateCurrentPlayer(player)
 
@@ -70,7 +71,10 @@ class GameState extends BaseModel {
         let cost = tile.getCost()
 
         // throw error if player doesn't have enough
-        if (player.canAfford(cost) === false) {
+        let realEstateCost = market.markupForPosition(marketPosition)
+        let totalCost = realEstateCost + cost
+
+        if (player.canAfford(totalCost) === false) {
             return BaseError(`Player doesn't have enough money to buy that the ${ tile.getName() }.`)
         }
 
@@ -79,10 +83,10 @@ class GameState extends BaseModel {
             return BaseError(`${ coords } is not a valid position on player's board to place ${ tile.getName() }.`)
         }
 
-        player.chargeForTile(cost)
+        player.chargeForTile(totalCost)
         let effectResults = player.placeTile(tile, coords, this) // this executes all effects
 
-        this.getMarket().takeTile(marketPosition)
+        market.takeTile(marketPosition)
 
         this.completeTurn(player)
 

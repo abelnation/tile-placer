@@ -153,6 +153,7 @@ describe('GameState', () => {
     })
 
     describe('taking turns', function () {
+        const marketPosition = 6
 
         beforeEach( () => {
             let users = userIds.map( id => new User(id) )
@@ -164,7 +165,7 @@ describe('GameState', () => {
             it('should place a tile at the right place', () => {
                 let player = gameState.getCurrentPlayer()
                 const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
-                gameState.buyBasicTile(player, [1,1], basicMun)
+                gameState.buyBasicTile(player, [1,1], basicMun, marketPosition)
 
                 assert.equal(player.getIncome(), -1)
                 assert.equal(player.getReputation(), 2)
@@ -174,14 +175,14 @@ describe('GameState', () => {
 
            it('should run out of tiles after 4 are taken', () => {
                 const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
- 
+
                 for (let yCoord of [1,1,1,2]) { // 3 players get coords, [1,1]
                     let player = gameState.getCurrentPlayer()
                     player.set('money', 100)
-                    gameState.buyBasicTile(player, [1, yCoord], basicMun)
+                    gameState.buyBasicTile(player, [1, yCoord], basicMun, marketPosition)
                 }
                 assert.throw(() => {
-                    gameState.buyBasicTile(player, [1, yCoord], basicMun)
+                    gameState.buyBasicTile(player, [1, yCoord], basicMun, marketPosition)
                 })
             })
         })
@@ -216,7 +217,7 @@ describe('GameState', () => {
                 gameState.set('currentPlayer', player)
 
                 const basicRes = `basic${TileConfig.CATEGORIES.RESIDENTIAL}`
-                gameState.buyBasicTile(player,[1,1], basicRes)
+                gameState.buyBasicTile(player,[1,1], basicRes, 6)
                 assert.equal(player.getReputation(), 4)
             })
 
@@ -244,7 +245,7 @@ describe('GameState', () => {
             it('should assign the next player ', function () {
                 let player = gameState.getStartingPlayer()
                 const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
-                gameState.buyBasicTile(player, [1,1], basicMun) // this runs .completeTurn
+                gameState.buyBasicTile(player, [1,1], basicMun, marketPosition) // this runs .completeTurn
 
                 let players = gameState.getPlayers()
                 let currentPlayer =  gameState.getCurrentPlayer()
@@ -256,7 +257,7 @@ describe('GameState', () => {
                 let player = gameState.getStartingPlayer()
                 assert.equal(gameState.getTurnNum(), 1)
                 const basicMun = `basic${TileConfig.CATEGORIES.MUNICIPAL}`
-                gameState.buyBasicTile(player, [1,1], basicMun) // this runs .completeTurn
+                gameState.buyBasicTile(player, [1,1], basicMun,marketPosition) // this runs .completeTurn
                 assert.equal(gameState.getTurnNum(), 2)
             })
         })
