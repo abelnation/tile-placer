@@ -21,6 +21,11 @@ class TurnActions {
   buyTile() {
     this.dispatch()
   }
+
+  investIn(coords) {
+    this.dispatch(coords)
+  }
+
 }
 
 module.exports = alt.createActions(TurnActions)

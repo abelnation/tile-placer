@@ -72,6 +72,13 @@ class Board extends BaseModel {
       })
     }
 
+    getSelectedPlacement() {
+      const placements = this.getPlacements()
+      return _.find(placements, placement => {
+        return placement.getTile().isSelected()
+      })
+    }
+
     clearAll() {
       this.clearSelectedPlacements()
       this.clearSelectedSlots()

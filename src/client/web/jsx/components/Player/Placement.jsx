@@ -48,6 +48,8 @@ export default class Placement extends React.Component {
         {tile.printConditionalEffects()}
         <br />
         Costs: ${tile.getCost()}
+        <br />
+        {placement.alreadyInvestedIn() ? 'Invested' : ''}
       </div>
     )
   }

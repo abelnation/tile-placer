@@ -20,7 +20,8 @@ class GameStore {
       handleSelectSlot: TurnActions.SELECT_SLOT,
       handleSelectBasicTile: TurnActions.SELECT_BASIC_TILE,
       handleSelectPlacement: TurnActions.SELECT_PLACEMENT,
-      handleBuyTile: TurnActions.BUY_TILE
+      handleBuyTile: TurnActions.BUY_TILE,
+      handleInvestIn: TurnActions.INVEST_IN
     })
   }
 
@@ -42,7 +43,6 @@ class GameStore {
     if (tile.isSelected()) {
       tile.setUnselected()
     } else {
-      this.clearPlacements()
       this.market.clearSelectedTiles()
       tile.setSelected()
     }
@@ -113,6 +113,27 @@ class GameStore {
       this.message = 'Good Buy!'
       this.clearAllSelected()
     }
+  }
+
+  handleInvestIn() {
+    const player = this.gameState.getCurrentPlayer()
+    const board = this.gameState.getCurrentPlayer().getBoard()
+
+    const placement = board.getSelectedPlacement()
+    if(_.isUndefined(placement)) {
+      this.message = 'You need to select a placement on your board!'
+      return
+    }
+    const coords = placement.getCoords()
+
+    const marketPosition = this.market.getSelectedIndex()
+    if (marketPosition < 0) {
+      this.message = 'You need to select a tile from the market!'
+      return
+    }
+
+    let tile = placement.getTile()
+    this.gameState.makeInvestment(player, placement, marketPosition)
   }
 
   clearAllSelected() {

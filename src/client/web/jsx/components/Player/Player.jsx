@@ -35,7 +35,7 @@ export default class Player extends React.Component {
                   <h5>{this.props.message}</h5>
               </div>
               <div className='col-md-2' style={{paddingTop: '20px'}}>
-                <div onClick={this.buyTile} type="button" className="btn btn-default">Buy Tile</div>
+                <PlayerControls />
               </div>
           </div>
           <PlayerStats stats={player.getStats()} />
@@ -45,8 +45,4 @@ export default class Player extends React.Component {
       )
     }
 
-
-    buyTile() {
-      TurnActions.buyTile()
-    }
 }
