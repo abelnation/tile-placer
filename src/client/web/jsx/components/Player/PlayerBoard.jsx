@@ -18,17 +18,22 @@ const TurnActions = require('../../actions/TurnActions')
 /* eslint-enable no-unused-vars */
 
 export default class PlayerBoard extends React.Component {
+    constructor(props) {
+      super(props)
+
+      this.renderPlacement = this.renderPlacement.bind(this)
+      this.renderSlot = this.renderSlot.bind(this)
+      this.setPlacementSelected = this.setPlacementSelected.bind(this)
+      this.setSlotSelected = this.setSlotSelected.bind(this)
+    }
+
 
     render() {
       const board = this.props.board
       const placements = board.getPlacements()
       const slots = board.getSlots()
 
-      this.setSelected = this.setSelected.bind(this)
-      this.renderSlot = this.renderSlot.bind(this)
-
       let divStyle = {position: 'absolute'}
-
 
       return (
         <div style={divStyle}>
@@ -39,17 +44,25 @@ export default class PlayerBoard extends React.Component {
     }
 
     renderPlacement(placement, index) {
-      return <Placement placement={placement} key={`${placement.getTile().getName()}_${placement.getCoords()}`} />
+      return <div onClick={this.setPlacementSelected.bind(this, placement.getCoords())}
+                  key={`${placement.getTile().getName()}_${placement.getCoords()}`}>
+                  <Placement placement={placement}  />
+            </div>
     }
 
     renderSlot(slot, index) {
-      return <div onClick={this.setSelected.bind(this, slot.getCoords())} key={`${slot.getCoords()}`}>
+      return <div onClick={this.setSlotSelected.bind(this, slot.getCoords())} key={`${slot.getCoords()}`}>
                 <Slot slot={slot} />
             </div>
     }
 
-    setSelected(coords) {
-      BrowserLogger.info('setSelected', coords)
+    setSlotSelected(coords) {
+      BrowserLogger.info('selectSlot', coords)
       TurnActions.selectSlot({coords})
+    }
+
+    setPlacementSelected(coords) {
+      BrowserLogger.info('selectPlacement', coords)
+      TurnActions.selectPlacement({coords})
     }
 }

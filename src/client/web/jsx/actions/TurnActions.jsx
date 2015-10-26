@@ -6,8 +6,12 @@ class TurnActions {
     this.dispatch(tileIndex)
   }
 
-  selectSlot(slot) {
-    this.dispatch(slot)
+  selectSlot(coords) {
+    this.dispatch(coords)
+  }
+
+  selectPlacement(coords) {
+    this.dispatch(coords)
   }
 
   selectBasicTile(tileIndex) {

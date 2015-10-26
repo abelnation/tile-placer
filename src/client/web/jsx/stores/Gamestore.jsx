@@ -19,6 +19,7 @@ class GameStore {
       handleSelectTile: TurnActions.SELECT_TILE,
       handleSelectSlot: TurnActions.SELECT_SLOT,
       handleSelectBasicTile: TurnActions.SELECT_BASIC_TILE,
+      handleSelectPlacement: TurnActions.SELECT_PLACEMENT,
       handleBuyTile: TurnActions.BUY_TILE
     })
   }
@@ -29,6 +30,7 @@ class GameStore {
     if (tile.isSelected()) {
       tile.setUnselected()
     } else { // Basic Market is an array of tile arrays (unlike real estate market)
+      this.clearPlacements()
       this.clearBasicTiles()
       tile.setSelected()
     }
@@ -40,23 +42,36 @@ class GameStore {
     if (tile.isSelected()) {
       tile.setUnselected()
     } else {
+      this.clearPlacements()
       this.market.clearSelectedTiles()
       tile.setSelected()
     }
   }
 
   handleSelectSlot({coords: coords}) {
-    let board = this.gameState.getCurrentPlayer().getBoard()
+    const board = this.gameState.getCurrentPlayer().getBoard()
     let slot = board.getSlotByCoords(coords)
 
     if (slot.isSelected()) {
       slot.setUnselected()
     } else {
+      this.clearPlacements()
       board.clearSelectedSlots()
-
       slot.setSelected()
     }
+  }
 
+  handleSelectPlacement({coords: coords}) {
+    const board = this.gameState.getCurrentPlayer().getBoard()
+    const placement = board.getPlacementByCoords(coords)
+    let tile = placement.getTile()
+
+    if (tile.isSelected()) {
+      tile.setUnselected()
+    } else {
+      this.clearAllSelected()
+      tile.setSelected()
+    }
   }
 
   handleBuyTile() {
@@ -96,10 +111,23 @@ class GameStore {
       this.message = result.getMessage()
     } else {
       this.message = 'Good Buy!'
-      this.market.clearSelectedTiles()
-      this.clearBasicTiles()
-      board.clearAll()
+      this.clearAllSelected()
     }
+  }
+
+  clearAllSelected() {
+    const board = this.gameState.getCurrentPlayer().getBoard()
+    this.market.clearSelectedTiles()
+    this.clearBasicTiles()
+    board.clearAll()
+  }
+
+  clearPlacements() {
+    const board = this.gameState.getCurrentPlayer().getBoard()
+    console.log('clearing placements')
+    board.getPlacements().forEach( placement => {
+      placement.getTile().setUnselected()
+    })
   }
 
   clearBasicTiles() {
