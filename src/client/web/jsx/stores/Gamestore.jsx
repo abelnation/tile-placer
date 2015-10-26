@@ -29,9 +29,7 @@ class GameStore {
     if (tile.isSelected()) {
       tile.setUnselected()
     } else { // Basic Market is an array of tile arrays (unlike real estate market)
-      this.basicMarketTiles.forEach( tilePile => {
-        tilePile[0].setUnselected()
-      })
+      this.clearBasicTiles()
       tile.setSelected()
     }
   }
@@ -82,18 +80,16 @@ class GameStore {
       return tilePile[0].isSelected()
     })
 
-    let basicTile = tilePile[0]
-
     let result
-    if (basicTile) {
+    if (_.isUndefined(tilePile)) { // There is no basic tile selceted, do real estate buy
+      result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
+    } else { // There is a basic tile selected, do lake or basic buy
+      let basicTile = tilePile[0]
       if (basicTile.getName() === 'Lake') {
         result = this.gameState.placeLake(player, slotCoords, marketPosition)
       } else {
         result = this.gameState.buyBasicTile(player, slotCoords, `basic${basicTile.getCategory()}`, marketPosition)
-
       }
-    } else {
-      result = this.gameState.buyTileFromMarket(player, slotCoords, marketPosition)
     }
 
     if (result.type === 'BaseError') {
@@ -101,9 +97,15 @@ class GameStore {
     } else {
       this.message = 'Good Buy!'
       this.market.clearSelectedTiles()
-      basicTile.setUnselected()
+      this.clearBasicTiles()
       board.clearAll()
     }
+  }
+
+  clearBasicTiles() {
+    this.basicMarketTiles.forEach( tilePile => {
+      tilePile[0].setUnselected()
+    })
   }
 }
 
