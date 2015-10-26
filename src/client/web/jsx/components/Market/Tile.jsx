@@ -43,7 +43,8 @@ export default class Tile extends React.Component {
         <br />
         {tile.printConditionalEffects()}
         <br />
-        Costs: ${tile.getCost()} + ${MarketConfig.SLOT_COSTS[this.props.index]}
+        Costs: ${tile.getCost()}
+        { this.props.basic ? ' ' : ` + $${MarketConfig.SLOT_COSTS[this.props.index]}` }
       </div>
     )
   }

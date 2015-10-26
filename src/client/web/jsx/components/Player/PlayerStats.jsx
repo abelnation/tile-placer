@@ -29,7 +29,7 @@ export default class PlayerStats extends React.Component {
     renderStat(value, stat) {
       return (
         <div className='col-md-2' key={stat}>
-          <h3>{stat}: {value}</h3>
+          <h4>{stat}: {value}</h4>
         </div>
       )
     }

@@ -26,7 +26,7 @@ export default class RealEstateMarket extends React.Component {
   render() {
     return (
       <div>
-        <h2>Real Estate Market</h2>
+        <h3>Real Estate Market</h3>
           {_.map(this.props.tiles, this.renderTile)}
           <div className="clearfix"></div>
       </div>

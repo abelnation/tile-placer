@@ -29,10 +29,10 @@ export default class Player extends React.Component {
           <div className='clearfix' />
           <div className='row'>
               <div className='col-md-2'>
-                  <h2>{player.getUser().getName()}</h2>
+                  <h3>{player.getUser().getName()}</h3>
               </div>
               <div className='col-md-8' style={{paddingTop: '20px'}}>
-                  <h4>{this.props.message}</h4>
+                  <h5>{this.props.message}</h5>
               </div>
               <div className='col-md-2' style={{paddingTop: '20px'}}>
                 <div onClick={this.buyTile} type="button" className="btn btn-default">Buy Tile</div>

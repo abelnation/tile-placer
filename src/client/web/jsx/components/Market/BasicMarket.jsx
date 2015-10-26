@@ -26,7 +26,7 @@ export default class BasicMarket extends React.Component {
     console.log('topTiles', topTiles)
     return (
       <div>
-        <h2>Basic Market</h2>
+        <h3>Basic Market</h3>
           {_.map(topTiles, this.renderTile)}
       </div>
     )
@@ -36,7 +36,7 @@ export default class BasicMarket extends React.Component {
     return (
       <div key={`${tile.getName()}_${index}`}>
           <div onClick={this.setSelected.bind(this,index)}>
-            <Tile tile={tile} index={index}/>
+            <Tile tile={tile} index={index} basic={true}/>
           </div>
       </div>
     )
